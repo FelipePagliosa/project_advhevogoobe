@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
             finish()
         }
+        carregarHome()
         val toolbar: Toolbar = findViewById(toolbar)
         setSupportActionBar(toolbar)
 
@@ -103,6 +104,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+    fun carregarHome(){
+        val transaction=manager.beginTransaction()
+        val fragment=HomeFragment()
+        transaction.replace(R.id.nav_host_fragment,fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }
 //        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
