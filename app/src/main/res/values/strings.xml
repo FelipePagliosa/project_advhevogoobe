@@ -17,5 +17,17 @@
     <string name="menu_testey">Teste</string>
     <string name="menu_logout">Logout</string>
     <string name="action_logout">Logout</string>
+    <string name="choice">Você é um advogado ou um escritório?</string>
+    <string name="lawyer">Advogado</string>
+    <string name="office">Escritório</string>
+    <string name="next">Próximo</string>
+    <string name="name">Nome</string>
+    <string name="surname">Sobreome</string>
+    <string name="ssn">CPF</string>
+    <string name="oab_code">Código da OAB</string>
+    <string name="phone">Telefone</string>
+    <string name="business_id">CNPJ</string>
+    <string name="birthdate">Data de nascimento</string>
+
 
 </resources>
