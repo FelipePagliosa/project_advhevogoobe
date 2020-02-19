@@ -49,15 +49,16 @@ class LoginRegisterActivity : AppCompatActivity() {
                 Log.d(TAG,"onActivityResult"+user!!.email)
                 if(user.metadata!!.creationTimestamp==user.metadata!!.lastSignInTimestamp){
                     Toast.makeText(this,"Bem vindo, novo usuário!!", Toast.LENGTH_LONG).show()
-                    intent = Intent(this, FirstTimeUserActivity::class.java)
+                    intent=Intent(this,FirstTimeUserActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
                 else{
                     Toast.makeText(this,"Bem vindo de volta!!", Toast.LENGTH_LONG).show()
+                    intent=Intent(this,MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
-                intent=Intent(this,MainActivity::class.java)
-                startActivity(intent)
-                finish()
             }
             else {
                 //login falhou

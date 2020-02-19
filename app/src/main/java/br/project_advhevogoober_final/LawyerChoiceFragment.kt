@@ -30,6 +30,7 @@ class LawyerChoiceFragment:Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG,"onCreateView")
+        container?.removeAllViews()// fix milagroso
         val view: View = inflater!!.inflate(R.layout.fragment_lawyer_choice, container,false)
         return view
     }
@@ -45,6 +46,7 @@ class LawyerChoiceFragment:Fragment() {
                lawyer_birthdate.text.toString() != ""
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun createLawyerProfile(): LawyerProfile {
 
         //Cria um objeto do tipo LawyerProfile com os elementos do fragment
