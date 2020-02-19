@@ -27,4 +27,6 @@ class TesteFragment:Fragment() {
         val view: View =inflater!!.inflate(R.layout.fragment_teste,container,false)
         return view
     }
+
+
 }
