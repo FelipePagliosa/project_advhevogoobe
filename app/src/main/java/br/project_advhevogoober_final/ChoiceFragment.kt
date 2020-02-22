@@ -42,16 +42,16 @@ class ChoiceFragment() :Fragment(), Parcelable {
 
         view.lawyer_choice_button.setOnClickListener{
             val transaction=fragmentManager!!.beginTransaction()
-            val fragment=LawyerChoiceFragment()
-            transaction.replace(R.id.choice,fragment)
+            val lawyerFragment=LawyerChoiceFragment()
+            transaction.replace(R.id.choice, lawyerFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }
 
         view.office_choice_button.setOnClickListener{
             val transaction=fragmentManager!!.beginTransaction()
-            val fragment=OfficeChoiceFragment()
-            transaction.replace(R.id.choice,fragment)
+            val officeFragment=OfficeChoiceFragment()
+            transaction.replace(R.id.choice, officeFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }

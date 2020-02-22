@@ -32,7 +32,7 @@ class OfficeChoiceFragment:Fragment() {
     ): View? {
         Log.d(TAG, "onCreateView")
         container?.removeAllViews()// fix milagroso
-        val view: View = inflater!!.inflate(R.layout.fragment_lawyer_choice, container, false)
+        val view: View = inflater!!.inflate(R.layout.fragment_office_choice, container, false)
         view.btnSalvar.setOnClickListener {
             if (view.office_name.text.toString() != "" &&
                 view.office_phone.text.toString() != "" &&
