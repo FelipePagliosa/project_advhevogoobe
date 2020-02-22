@@ -39,6 +39,7 @@ class ChoiceFragment() :Fragment(), Parcelable {
         Log.d(TAG,"onCreateView")
         container?.removeAllViews()
         val view: View = inflater.inflate(R.layout.fragment_choice, container,false)
+
         view.lawyer_choice_button.setOnClickListener{
             val transaction=fragmentManager!!.beginTransaction()
             val fragment=LawyerChoiceFragment()
@@ -46,6 +47,15 @@ class ChoiceFragment() :Fragment(), Parcelable {
             transaction.addToBackStack(null)
             transaction.commit()
         }
+
+        view.office_choice_button.setOnClickListener{
+            val transaction=fragmentManager!!.beginTransaction()
+            val fragment=OfficeChoiceFragment()
+            transaction.replace(R.id.choice,fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
         return view
     }
 
