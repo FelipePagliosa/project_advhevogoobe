@@ -5,17 +5,22 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".ChoiceFragment">
 
     <EditText
         android:id="@+id/office_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:background="@drawable/edtext_bg"
         android:ems="10"
         android:hint="@string/name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/office_phone"
+        android:paddingLeft="10dp"
+        android:textColorHint="@color/colorBackground"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,33 +28,45 @@
         android:id="@+id/office_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edtext_bg"
         android:ems="10"
         android:hint="@string/phone"
         android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/office_business_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:paddingLeft="10dp"
+        android:textColorHint="@color/colorBackground"
+        app:layout_constraintEnd_toEndOf="@+id/office_name"
+        app:layout_constraintStart_toStartOf="@+id/office_name"
         app:layout_constraintTop_toBottomOf="@+id/office_name" />
 
     <EditText
         android:id="@+id/office_business_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edtext_bg"
         android:ems="10"
         android:hint="@string/business_id"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:paddingLeft="10dp"
+        android:textColorHint="@color/colorBackground"
+        app:layout_constraintEnd_toEndOf="@+id/office_phone"
+        app:layout_constraintStart_toStartOf="@+id/office_phone"
         app:layout_constraintTop_toBottomOf="@+id/office_phone" />
 
     <Button
         android:id="@+id/btnSalvar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/button_inv_btn"
         android:text="Salvar"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/office_business_id" />
+        app:layout_constraintEnd_toEndOf="@+id/office_business_id"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/office_business_id"
+        app:layout_constraintTop_toBottomOf="@+id/office_business_id"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
