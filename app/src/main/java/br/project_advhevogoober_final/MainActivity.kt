@@ -88,6 +88,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
+            R.id.nav_config -> {
+                val transaction=manager.beginTransaction()
+                val fragment=ConfigFragment()
+                transaction.replace(R.id.nav_host_fragment, fragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)

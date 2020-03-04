@@ -28,6 +28,18 @@
     <string name="phone">Telefone</string>
     <string name="business_id">CNPJ</string>
     <string name="birthdate">Data de nascimento</string>
+    <string name="config">Configurações</string>
+    <string name="jurisdiction1">Vara 1</string>
+    <string name="jurisdiction2">Vara 2</string>
+    <string name="jurisdiction3">Vara 3</string>
+    <string name="jurisdiction4">Vara 4</string>
+    <string name="jurisdiction5">Vara 5</string>
+    <string name="jurisdiction6">Vara 6</string>
+    <string name="mapsRangeDesc">Alcance do mapa</string>
+    <string name="jurisdictionDesc">Ordenar ofertas por vara</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
