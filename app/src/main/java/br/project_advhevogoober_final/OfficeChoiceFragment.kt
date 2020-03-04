@@ -9,7 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import br.project_advhevogoober_final.Model.LawyerProfile
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.fragment_lawyer_choice.view.*
 import kotlinx.android.synthetic.main.fragment_office_choice.view.*
+import kotlinx.android.synthetic.main.fragment_office_choice.view.btnSalvar
 
 class OfficeChoiceFragment:Fragment() {
 
@@ -38,6 +43,14 @@ class OfficeChoiceFragment:Fragment() {
                 view.office_phone.text.toString() != "" &&
                 view.office_business_id.text.toString() != ""
             ) {
+                var office= LawyerProfile(view.office_name.text.toString(),view.office_phone.text.toString(),view.office_business_id.text.toString())
+                val db= FirebaseFirestore.getInstance()
+                val uid= FirebaseAuth.getInstance().currentUser!!.uid
+                db.collection("offices").document(uid).set(office).addOnSuccessListener {
+                    Toast.makeText(activity,"Funcionou",Toast.LENGTH_LONG).show()
+                }.addOnFailureListener{
+                    Toast.makeText(activity,it.toString(),Toast.LENGTH_LONG).show()
+                }
                 var intent = Intent(activity, MainActivity::class.java)
                 startActivity(intent)
             } else {

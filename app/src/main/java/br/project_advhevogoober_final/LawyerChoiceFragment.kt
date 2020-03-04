@@ -55,9 +55,6 @@ class LawyerChoiceFragment:Fragment() {
 
                 var dateFormat=SimpleDateFormat("dd/MM/yyyy")
                 var date=dateFormat.parse(lawyer_birthdate.text.toString())
-                date.minutes=0
-                date.hours=0
-                date.seconds=0
 
                 var lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date)
                 val db= FirebaseFirestore.getInstance()
@@ -77,16 +74,4 @@ class LawyerChoiceFragment:Fragment() {
     }
 }
 
-//    fun createLawyerProfile(): LawyerProfile {
-//
-//        //Cria um objeto do tipo LawyerProfile com os elementos do fragment
-//        return LawyerProfile(
-//            lawyer_name.text.toString(),
-//            lawyer_surname.text.toString(),
-//            lawyer_phone.text.toString().toInt(),
-//            lawyer_ssn.text.toString().toInt(),
-//            lawyer_oab_code.text.toString().toInt(),
-//            LocalDate.parse(lawyer_birthdate.text.toString(), DateTimeFormatter.ISO_DATE)
-//        )
-//    }
 
