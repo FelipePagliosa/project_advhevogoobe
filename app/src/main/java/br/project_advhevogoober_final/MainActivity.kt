@@ -15,15 +15,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import br.project_advhevogoober_final.Model.OfficeProfile
 import br.project_advhevogoober_final.R.id.toolbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val manager=supportFragmentManager
-
+    val db= FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,7 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar: Toolbar = findViewById(toolbar)
         setSupportActionBar(toolbar)
 
-
+//        val uid=FirebaseAuth.getInstance().currentUser!!.uid
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -49,6 +52,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+//        var office:OfficeProfile?
+//        db.collection("offices").document(uid).get().addOnSuccessListener {
+//            office=it.toObject(OfficeProfile::class.java)
+//            Toast.makeText(this, office?.name,Toast.LENGTH_LONG).show()
+//        }
 
         navView.setNavigationItemSelectedListener(this)
     }
