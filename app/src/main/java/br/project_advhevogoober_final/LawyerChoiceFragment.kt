@@ -59,7 +59,7 @@ class LawyerChoiceFragment:Fragment() {
                 var dateFormat=SimpleDateFormat("dd/MM/yyyy")
                 var date=dateFormat.parse(lawyer_birthdate.text.toString())
 
-                var lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date)
+                var lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),null,view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date)
                 val db= FirebaseFirestore.getInstance()
                 val uid=FirebaseAuth.getInstance().currentUser!!.uid
                 db.collection("lawyers").document(uid).set(lawyer).addOnSuccessListener {

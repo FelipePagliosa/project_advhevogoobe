@@ -95,6 +95,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
+            R.id.nav_profile->{
+                if(tipoPerfil()==true){
+                    val transaction=manager.beginTransaction()
+                    val fragment=LawyerProfileFragment()
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+                else if(tipoPerfil()==false){
+                    val transaction=manager.beginTransaction()
+                    val fragment=OfficeProfileFragment()
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+            }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -126,6 +142,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         transaction.replace(R.id.nav_host_fragment,fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+    fun tipoPerfil():Boolean?{
+        var tipo:Boolean?=null
+        db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+            tipo=true
+        }.addOnFailureListener{
+            Toast.makeText(this,"Não é um lawyer",Toast.LENGTH_LONG).show()
+        }
+        db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+            tipo=false
+        }
+        return tipo
     }
 }
 //        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
