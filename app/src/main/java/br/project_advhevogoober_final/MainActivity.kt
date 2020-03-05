@@ -25,8 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    val manager=supportFragmentManager
-    val db= FirebaseFirestore.getInstance()
+    val manager = supportFragmentManager
+    val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,7 +48,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -75,25 +79,44 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                val transaction=manager.beginTransaction()
-                val fragment=HomeFragment()
-                transaction.replace(R.id.nav_host_fragment,fragment)
+                val transaction = manager.beginTransaction()
+                val fragment = HomeFragment()
+                transaction.replace(R.id.nav_host_fragment, fragment)
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
             R.id.nav_teste -> {
-                val transaction=manager.beginTransaction()
-                val fragment=TesteFragment()
-                transaction.replace(R.id.nav_host_fragment,fragment)
+                val transaction = manager.beginTransaction()
+                val fragment = TesteFragment()
+                transaction.replace(R.id.nav_host_fragment, fragment)
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
             R.id.nav_config -> {
-                val transaction=manager.beginTransaction()
-                val fragment=ConfigFragment()
+                val transaction = manager.beginTransaction()
+                val fragment = ConfigFragment()
                 transaction.replace(R.id.nav_host_fragment, fragment)
                 transaction.addToBackStack(null)
                 transaction.commit()
+            }
+            R.id.nav_profile -> {
+                db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+                    val transaction = manager.beginTransaction()
+                    val fragment = LawyerProfileFragment()
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }.addOnFailureListener{
+                    db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+                        val transaction = manager.beginTransaction()
+                        val fragment = OfficeProfileFragment()
+                        transaction.replace(R.id.nav_host_fragment, fragment)
+                        transaction.addToBackStack(null)
+                        transaction.commit()
+                    }.addOnFailureListener{
+                        Toast.makeText(this,"Erro ao carregar perfil",Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -111,8 +134,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.action_logout -> {
                 FirebaseAuth.getInstance().signOut()
-                if(FirebaseAuth.getInstance().currentUser==null){
-                    intent= Intent(this,LoginRegisterActivity::class.java)
+                if (FirebaseAuth.getInstance().currentUser == null) {
+                    intent = Intent(this, LoginRegisterActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -120,14 +143,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         return super.onOptionsItemSelected(item)
     }
-    fun carregarHome(){
-        val transaction=manager.beginTransaction()
-        val fragment=HomeFragment()
-        transaction.replace(R.id.nav_host_fragment,fragment)
+
+    fun carregarHome() {
+        val transaction = manager.beginTransaction()
+        val fragment = HomeFragment()
+        transaction.replace(R.id.nav_host_fragment, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
 }
+//    fun tipoPerfil():Boolean?{
+//        var tipo:Boolean?=null
+//        db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+//            tipo=true
+//            return@addOnSuccessListener
+//        }.addOnFailureListener{
+//            Toast.makeText(this,"Não é um lawyer",Toast.LENGTH_LONG).show()
+//        }
+//        db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+//            tipo=false
+//            return@addOnSuccessListener
+//        }
+//
+//        return tipo
+//    }
 //        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
 //        val navView: NavigationView = findViewById(R.id.nav_view)
 //        val navController = findNavController(R.id.nav_host_fragment)

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import br.project_advhevogoober_final.Model.LawyerProfile
+import br.project_advhevogoober_final.Model.OfficeProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_lawyer_choice.view.*
@@ -43,7 +44,7 @@ class OfficeChoiceFragment:Fragment() {
                 view.office_phone.text.toString() != "" &&
                 view.office_business_id.text.toString() != ""
             ) {
-                var office= LawyerProfile(view.office_name.text.toString(),view.office_phone.text.toString(),view.office_business_id.text.toString())
+                var office= OfficeProfile(view.office_name.text.toString(),view.office_phone.text.toString(),view.office_business_id.text.toString())
                 val db= FirebaseFirestore.getInstance()
                 val uid= FirebaseAuth.getInstance().currentUser!!.uid
                 db.collection("offices").document(uid).set(office).addOnSuccessListener {
