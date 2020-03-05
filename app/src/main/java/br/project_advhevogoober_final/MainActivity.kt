@@ -106,13 +106,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     transaction.replace(R.id.nav_host_fragment, fragment)
                     transaction.addToBackStack(null)
                     transaction.commit()
-                }
-                db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
-                    val transaction = manager.beginTransaction()
-                    val fragment = OfficeProfileFragment()
-                    transaction.replace(R.id.nav_host_fragment, fragment)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
+                }.addOnFailureListener{
+                    db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+                        val transaction = manager.beginTransaction()
+                        val fragment = OfficeProfileFragment()
+                        transaction.replace(R.id.nav_host_fragment, fragment)
+                        transaction.addToBackStack(null)
+                        transaction.commit()
+                    }.addOnFailureListener{
+                        Toast.makeText(this,"Erro ao carregar perfil",Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }
