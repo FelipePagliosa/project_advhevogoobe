@@ -1,9 +1,11 @@
 package br.project_advhevogoober_final
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Debug
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,14 +20,12 @@ import kotlinx.android.synthetic.main.fragment_lawyer_choice.*
 import kotlinx.android.synthetic.main.fragment_lawyer_choice.view.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.temporal.TemporalQueries.localDate
-import java.util.*
 
 
 class LawyerChoiceFragment:Fragment() {
 
     val TAG = "LawyerChoiceFragment"
+    val PICK_IMAGE=1
 
     override fun onAttach(context: Context) {
         Log.d(TAG, "onAttach")
@@ -73,6 +73,21 @@ class LawyerChoiceFragment:Fragment() {
                 Toast.makeText(activity, "Preencha todos os campos corretamente!!", Toast.LENGTH_LONG).show()
             }
         }
+        view.btnSelect.setOnClickListener{
+            val getIntent = Intent(Intent.ACTION_GET_CONTENT)
+            getIntent.type = "image/*"
+
+            val pickIntent = Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+            pickIntent.type = "image/*"
+
+            val chooserIntent = Intent.createChooser(getIntent, "Select Image")
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
+
+            startActivityForResult(chooserIntent, PICK_IMAGE)
+        }
         return view
     }
 
@@ -86,6 +101,24 @@ class LawyerChoiceFragment:Fragment() {
             false
         }
     }
+
+
+//    fun Filechooser(view:View){
+//        val intent = Intent()
+//        intent.type = "image/*"
+//        intent.action = Intent.ACTION_GET_CONTENT
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
+//    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==1 && resultCode== Activity.RESULT_OK && data!=null && data.data!=null){
+            Toast.makeText(activity,"xope",Toast.LENGTH_LONG).show()
+            val imageBitmap = data.extras!!.get(Intent.EXTRA_INITIAL_INTENTS) as Bitmap
+            view!!.imageView2.setImageBitmap(imageBitmap)
+        }
+    }
+
 }
 
 
