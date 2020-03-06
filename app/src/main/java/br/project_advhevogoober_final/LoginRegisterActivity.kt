@@ -96,10 +96,22 @@ class LoginRegisterActivity : AppCompatActivity() {
         when (requestCode) {
             LOCATION_REQUEST_CODE -> {
                 // If request is cancelled, the result arrays are empty.
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    btnLogReg.isEnabled = true
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED)) {
+
+                    var showRationale: Boolean = shouldShowRequestPermissionRationale(permissions[0]);
+                    if (!showRationale) {
+                        setSnackbar()
+                    } else if (Manifest.permission.ACCESS_COARSE_LOCATION.equals(permissions[0]) || Manifest.permission.ACCESS_FINE_LOCATION.equals(permissions[0])) {
+                        ActivityCompat.requestPermissions(this,
+                            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+                            LOCATION_REQUEST_CODE)
+                        // user did NOT check "never ask again"
+                        // this is a good place to explain the user
+                        // why you need the permission and ask if he wants
+                        // to accept it (the rationale)
+                    }
                 } else {
-                    checkLocationPermission()
+                    btnLogReg.isEnabled = true
                 }
                 return
             }
