@@ -37,6 +37,7 @@
     <string name="jurisdiction6">Vara 6</string>
     <string name="mapsRangeDesc">Alcance do mapa</string>
     <string name="jurisdictionDesc">Ordenar ofertas por vara</string>
+    <string name="snackbar_explanation">Nosso aplicativo depende da permissão de localização para funcionar. Se não quiser aceitar por aqui, entre nas configurações do Android e aceite manualmente as permissões.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
