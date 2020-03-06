@@ -1,10 +1,8 @@
 package br.project_advhevogoober_final
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +12,8 @@ import androidx.fragment.app.Fragment
 import br.project_advhevogoober_final.Model.LawyerProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.fragment_lawyer_choice.*
 import kotlinx.android.synthetic.main.fragment_lawyer_profile.*
+import java.time.ZoneId
 
 
 class LawyerProfileFragment:Fragment() {
@@ -42,15 +40,16 @@ class LawyerProfileFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
         progressBarTest.visibility=View.VISIBLE
         val db=FirebaseFirestore.getInstance()
-        val user=FirebaseAuth.getInstance().currentUser!!.uid
-        db.collection("lawyers").document(user).get().addOnSuccessListener {
+        val user=FirebaseAuth.getInstance().currentUser
+        db.collection("lawyers").document(user!!.uid).get().addOnSuccessListener {
             var lawyerProfile=it.toObject(LawyerProfile::class.java)
+            val dateFormat = DateFormat.getDateFormat(context)
             txtVwDNome.text=lawyerProfile!!.name
             txtVwDSobrenome.text=lawyerProfile!!.surname
-            txtVwDEmail.text=null
+            txtVwDEmail.text=user.email
             txtVwDCPF.text=lawyerProfile!!.ssn
             txtVwDOAB.text=lawyerProfile!!.oab_code
-            txtVwDDataN.text=lawyerProfile!!.birthdate.toString()
+            txtVwDDataN.text=dateFormat.format(lawyerProfile.birthdate)
             progressBarTest.visibility=View.INVISIBLE
         }.addOnFailureListener{
             Toast.makeText(activity,it.message.toString(),Toast.LENGTH_LONG).show()
