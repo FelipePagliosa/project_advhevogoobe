@@ -1,9 +1,11 @@
 package br.project_advhevogoober_final
 
-import android.app.Activity
+import android.R.attr
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -25,7 +27,7 @@ import java.text.SimpleDateFormat
 class LawyerChoiceFragment:Fragment() {
 
     val TAG = "LawyerChoiceFragment"
-    val PICK_IMAGE=1
+    var imageUri: Uri? = null
 
     override fun onAttach(context: Context) {
         Log.d(TAG, "onAttach")
@@ -74,19 +76,16 @@ class LawyerChoiceFragment:Fragment() {
             }
         }
         view.btnSelect.setOnClickListener{
-            val getIntent = Intent(Intent.ACTION_GET_CONTENT)
-            getIntent.type = "image/*"
 
-            val pickIntent = Intent(
-                Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            )
-            pickIntent.type = "image/*"
+            val gallery = Intent()
+            gallery.type = "image/*"
+            gallery.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(gallery, "Sellect Picture"), 0)
 
-            val chooserIntent = Intent.createChooser(getIntent, "Select Image")
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
-
-            startActivityForResult(chooserIntent, PICK_IMAGE)
+        }
+        view.btnTake.setOnClickListener{
+            val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(takePicture, 1)
         }
         return view
     }
@@ -112,13 +111,30 @@ class LawyerChoiceFragment:Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==1 && resultCode== Activity.RESULT_OK && data!=null && data.data!=null){
-            Toast.makeText(activity,"xope",Toast.LENGTH_LONG).show()
-            val imageBitmap = data.extras!!.get(Intent.EXTRA_INITIAL_INTENTS) as Bitmap
-            view!!.imageView2.setImageBitmap(imageBitmap)
+        if (resultCode == RESULT_OK && data != null) {
+            when (requestCode) {
+                0 -> if (resultCode === RESULT_OK) {
+                    val imageUri: Uri? = data.data
+                    val bitmap =
+                        MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
+                    view!!.imageView2.setImageBitmap(bitmap)
+                }
+                1 -> if (resultCode === RESULT_OK) {
+                    val photo = data.extras!!.get("data") as Bitmap
+                    view!!.imageView2.setImageBitmap(photo)
+                }
+            }
         }
     }
-
 }
+//        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null){
+//            try {
+//                val imageUri: Uri? = data.data
+//                val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
+//                view!!.imageView2.setImageBitmap(bitmap)
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            }
+//        }
 
 
