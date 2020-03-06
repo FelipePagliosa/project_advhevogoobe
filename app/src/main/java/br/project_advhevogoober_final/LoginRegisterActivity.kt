@@ -58,16 +58,11 @@ class LoginRegisterActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_COARSE_LOCATION)
             != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+            Log.i("ronaldo", "ronaldinho");
             // Permission is not granted
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) && ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                var snackbar = Snackbar.make(loginLayout, R.string.snackbar_explanation, Snackbar.LENGTH_INDEFINITE)
-                snackbar.setAction("OK", { snackbar.dismiss()}).show()
-                var txtView: TextView = snackbar.view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-                txtView.maxLines = 5
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION) && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                setSnackbar()
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
@@ -83,6 +78,15 @@ class LoginRegisterActivity : AppCompatActivity() {
         }
     }
 
+    fun setSnackbar() {
+        var snackbar = Snackbar.make(loginLayout, R.string.snackbar_explanation, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction("OK", {
+            snackbar.dismiss()
+        }).show()
+        var txtView: TextView = snackbar.view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+        txtView.maxLines = 5
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -91,7 +95,13 @@ class LoginRegisterActivity : AppCompatActivity() {
 
         when (requestCode) {
             LOCATION_REQUEST_CODE -> {
-
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    btnLogReg.isEnabled = true
+                } else {
+                    checkLocationPermission()
+                }
+                return
             }
         }
 
@@ -129,14 +139,6 @@ class LoginRegisterActivity : AppCompatActivity() {
                     else{
                         Log.e(TAG,"OnActivityResult: ",response.error)
                     }
-                }
-            }
-            LOCATION_REQUEST_CODE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    btnLogReg.isEnabled = true
-                }
-                else {
-
                 }
             }
         }
