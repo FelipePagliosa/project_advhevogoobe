@@ -18,8 +18,10 @@ import br.project_advhevogoober_final.BuildConfig.DEBUG
 import br.project_advhevogoober_final.Model.LawyerProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_lawyer_choice.*
 import kotlinx.android.synthetic.main.fragment_lawyer_choice.view.*
+import java.io.ByteArrayOutputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
@@ -27,7 +29,11 @@ import java.text.SimpleDateFormat
 class LawyerChoiceFragment:Fragment() {
 
     val TAG = "LawyerChoiceFragment"
-    var imageUri: Uri? = null
+    var storageReference= FirebaseStorage.getInstance().reference
+    private val db= FirebaseFirestore.getInstance()
+    private val uid=FirebaseAuth.getInstance().currentUser!!.uid
+    lateinit var lawyer:LawyerProfile
+    private var profileImage:ByteArray?=null
 
     override fun onAttach(context: Context) {
         Log.d(TAG, "onAttach")
@@ -53,26 +59,25 @@ class LawyerChoiceFragment:Fragment() {
                 view.lawyer_phone.text.toString() != "" &&
                 view.lawyer_ssn.text.toString() != "" &&
                 view.lawyer_oab_code.text.toString() != "" &&
-                view.lawyer_birthdate.text.toString() != "" && legalDoB()==true
-            ) {
-//                var testol=LocalDate.parse(lawyer_birthdate.text.toString())
-//                val dato: Date = java.sql.Date.valueOf(testol.toString())
+                view.lawyer_birthdate.text.toString() != "" && legalDoB()==true && profileImage!=null) {
 
                 var dateFormat=SimpleDateFormat("dd/MM/yyyy")
                 var date=dateFormat.parse(lawyer_birthdate.text.toString())
 
-                var lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),null,view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date)
-                val db= FirebaseFirestore.getInstance()
-                val uid=FirebaseAuth.getInstance().currentUser!!.uid
+                lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),null,view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date)
                 db.collection("lawyers").document(uid).set(lawyer).addOnSuccessListener {
                     Toast.makeText(activity,"Funcionou",Toast.LENGTH_LONG).show()
                 }.addOnFailureListener{
                     Toast.makeText(activity,it.toString(),Toast.LENGTH_LONG).show()
                 }
-                var intent = Intent(activity, MainActivity::class.java)
-                startActivity(intent)
+                var tarefa=storageReference.child("profileImages/"+uid).putBytes(profileImage!!)
+                tarefa.addOnSuccessListener {
+                    Toast.makeText(activity,"Imagem salva!",Toast.LENGTH_LONG).show()
+                    var intent = Intent(activity, MainActivity::class.java)
+                    startActivity(intent)
+                }
             } else {
-                Toast.makeText(activity, "Preencha todos os campos corretamente!!", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "Preencha todos os campos corretamente e selecione/tire uma foto!!", Toast.LENGTH_LONG).show()
             }
         }
         view.btnSelect.setOnClickListener{
@@ -101,40 +106,35 @@ class LawyerChoiceFragment:Fragment() {
         }
     }
 
-
-//    fun Filechooser(view:View){
-//        val intent = Intent()
-//        intent.type = "image/*"
-//        intent.action = Intent.ACTION_GET_CONTENT
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
-//    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && data != null) {
-            when (requestCode) {
+        if (resultCode == RESULT_OK) {
+            when (requestCode ) {
                 0 -> if (resultCode === RESULT_OK) {
-                    val imageUri: Uri? = data.data
-                    val bitmap =
-                        MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
-                    view!!.imageView2.setImageBitmap(bitmap)
+                    val imageUri: Uri? = data?.data
+//                    val bitmap =
+//                        MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
+//                    view!!.imageView2.setImageBitmap(bitmap)
+                    var bytearray=this.activity!!.contentResolver.openInputStream(imageUri!!)?.buffered().use { it?.readBytes() }
+                    profileImage = bytearray
+//                    var tarefa=storageReference.child("profileImages/"+uid).putBytes(bytearray!!)
+//                    tarefa.addOnSuccessListener {
+//                        Toast.makeText(activity,"Imagem salva!",Toast.LENGTH_LONG).show()
+//                    }
                 }
                 1 -> if (resultCode === RESULT_OK) {
-                    val photo = data.extras!!.get("data") as Bitmap
-                    view!!.imageView2.setImageBitmap(photo)
+
+                    val photo = data?.extras!!.get("data") as Bitmap
+                    val stream = ByteArrayOutputStream()
+                    photo.compress(Bitmap.CompressFormat.PNG, 90, stream)
+                    val image= stream.toByteArray()
+                    profileImage = image
+//                    view!!.imageView2.setImageBitmap(photo)
                 }
             }
         }
     }
 }
-//        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null){
-//            try {
-//                val imageUri: Uri? = data.data
-//                val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
-//                view!!.imageView2.setImageBitmap(bitmap)
-//            } catch (e: IOException) {
-//                e.printStackTrace()
-//            }
-//        }
+
 
 

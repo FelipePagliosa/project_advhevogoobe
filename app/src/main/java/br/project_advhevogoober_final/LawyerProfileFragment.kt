@@ -46,6 +46,7 @@ class LawyerProfileFragment:Fragment() {
             val dateFormat = DateFormat.getDateFormat(context)
             txtVwDNome.text=lawyerProfile!!.name
             txtVwDSobrenome.text=lawyerProfile!!.surname
+            txtVwDTelefone.text=lawyerProfile!!.phone
             txtVwDEmail.text=user.email
             txtVwDCPF.text=lawyerProfile!!.ssn
             txtVwDOAB.text=lawyerProfile!!.oab_code
