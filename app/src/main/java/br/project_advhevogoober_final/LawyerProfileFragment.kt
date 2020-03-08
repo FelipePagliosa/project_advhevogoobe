@@ -1,6 +1,7 @@
 package br.project_advhevogoober_final
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import br.project_advhevogoober_final.Model.LawyerProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_lawyer_profile.*
 
 
@@ -19,6 +21,7 @@ class LawyerProfileFragment:Fragment() {
     val TAG ="LawyerProfileFragment"
     private val db= FirebaseFirestore.getInstance()
     private val user=FirebaseAuth.getInstance().currentUser!!
+    var storageReference= FirebaseStorage.getInstance().reference
 
     override fun onAttach(context: Context) {
         Log.d(TAG,"onAttach")
@@ -33,7 +36,6 @@ class LawyerProfileFragment:Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG,"onCreateView")
         val view: View =inflater!!.inflate(R.layout.fragment_lawyer_profile, container,false)
-
         return view
     }
 
@@ -41,19 +43,37 @@ class LawyerProfileFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
         progressBarTest.visibility=View.VISIBLE
         db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
-            var lawyerProfile=it.toObject(LawyerProfile::class.java)
-            val dateFormat = DateFormat.getDateFormat(context)
-            txtVwDNome.text=lawyerProfile!!.name
-            txtVwDSobrenome.text=lawyerProfile!!.surname
-            txtVwDTelefone.text=lawyerProfile!!.phone
-            txtVwDEmail.text=user.email
-            txtVwDCPF.text=lawyerProfile!!.ssn
-            txtVwDOAB.text=lawyerProfile!!.oab_code
-            txtVwDDataN.text=dateFormat.format(lawyerProfile.birthdate)
-            progressBarTest.visibility=View.INVISIBLE
+            if (it.exists()){
+                var lawyerProfile=it.toObject(LawyerProfile::class.java)
+                val dateFormat = DateFormat.getDateFormat(context)
+                txtVwDNome.text=lawyerProfile!!.name
+                txtVwDSobrenome.text=lawyerProfile!!.surname
+                txtVwDTelefone.text=lawyerProfile!!.phone
+                txtVwDEmail.text=user.email
+                txtVwDCPF.text=lawyerProfile!!.ssn
+                txtVwDOAB.text=lawyerProfile!!.oab_code
+                txtVwDDataN.text=dateFormat.format(lawyerProfile.birthdate)
+            }
+            else{
+                Toast.makeText(activity,"Erro ao carregar seus dados",Toast.LENGTH_LONG).show()
+            }
         }.addOnFailureListener{
             Toast.makeText(activity,it.message.toString(),Toast.LENGTH_LONG).show()
-            progressBarTest.visibility=View.INVISIBLE
+        }
+        var tarefa=storageReference.child("profileImages/"+user.uid).getBytes(1024*1024)
+        tarefa.addOnSuccessListener {
+            if (it!=null){
+                Toast.makeText(activity,"Completou com sucesso",Toast.LENGTH_LONG).show()
+                progressBarTest.visibility= View.GONE
+                var imagem= BitmapFactory.decodeByteArray(it,0,it.size)
+                imgVwPhotoLawyer.setImageBitmap(imagem)
+            }
+            else{
+                Toast.makeText(activity,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity,it.message,Toast.LENGTH_LONG).show()
+            progressBarTest.visibility= View.GONE
         }
     }
 }

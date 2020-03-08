@@ -18,15 +18,18 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import br.project_advhevogoober_final.Model.LawyerProfile
 import br.project_advhevogoober_final.Model.OfficeProfile
 import br.project_advhevogoober_final.R.id.toolbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val manager = supportFragmentManager
     val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -101,21 +104,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_profile -> {
                 db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
-                    val transaction = manager.beginTransaction()
-                    val fragment = LawyerProfileFragment()
-                    transaction.replace(R.id.nav_host_fragment, fragment)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
+                    if (it.exists()) {
+                        val transaction = manager.beginTransaction()
+                        val fragment = LawyerProfileFragment()
+                        transaction.replace(R.id.nav_host_fragment, fragment)
+                        transaction.addToBackStack(null)
+                        transaction.commit()
+                    }
                 }.addOnFailureListener{
-                    db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+                    Toast.makeText(this,"Erro ao carregar perfil",Toast.LENGTH_LONG).show()
+                }
+                db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+                    if (it.exists()){
                         val transaction = manager.beginTransaction()
                         val fragment = OfficeProfileFragment()
                         transaction.replace(R.id.nav_host_fragment, fragment)
                         transaction.addToBackStack(null)
                         transaction.commit()
-                    }.addOnFailureListener{
-                        Toast.makeText(this,"Erro ao carregar perfil",Toast.LENGTH_LONG).show()
                     }
+                }.addOnFailureListener{
+                    Toast.makeText(this,"Erro ao carregar perfil",Toast.LENGTH_LONG).show()
                 }
             }
         }
