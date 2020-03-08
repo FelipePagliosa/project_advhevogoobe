@@ -1,6 +1,5 @@
 package br.project_advhevogoober_final
 
-import android.R.attr
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
@@ -31,7 +30,7 @@ class LawyerChoiceFragment:Fragment() {
     val TAG = "LawyerChoiceFragment"
     var storageReference= FirebaseStorage.getInstance().reference
     private val db= FirebaseFirestore.getInstance()
-    private val uid=FirebaseAuth.getInstance().currentUser!!.uid
+    private val user=FirebaseAuth.getInstance().currentUser!!
     lateinit var lawyer:LawyerProfile
     private var profileImage:ByteArray?=null
 
@@ -53,7 +52,7 @@ class LawyerChoiceFragment:Fragment() {
         Log.d(TAG, "onCreateView")
         container?.removeAllViews()// fix milagroso
         val view: View = inflater!!.inflate(R.layout.fragment_lawyer_choice, container, false)
-        view.btnSalvar.setOnClickListener {
+        view.btnSaveLawyer.setOnClickListener {
             if (view.lawyer_name.text.toString() != "" &&
                 view.lawyer_surname.text.toString() != "" &&
                 view.lawyer_phone.text.toString() != "" &&
@@ -64,13 +63,13 @@ class LawyerChoiceFragment:Fragment() {
                 var dateFormat=SimpleDateFormat("dd/MM/yyyy")
                 var date=dateFormat.parse(lawyer_birthdate.text.toString())
 
-                lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),null,view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date)
-                db.collection("lawyers").document(uid).set(lawyer).addOnSuccessListener {
+                lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date)
+                db.collection("lawyers").document(user.uid).set(lawyer).addOnSuccessListener {
                     Toast.makeText(activity,"Funcionou",Toast.LENGTH_LONG).show()
                 }.addOnFailureListener{
                     Toast.makeText(activity,it.toString(),Toast.LENGTH_LONG).show()
                 }
-                var tarefa=storageReference.child("profileImages/"+uid).putBytes(profileImage!!)
+                var tarefa=storageReference.child("profileImages/"+user.uid).putBytes(profileImage!!)
                 tarefa.addOnSuccessListener {
                     Toast.makeText(activity,"Imagem salva!",Toast.LENGTH_LONG).show()
                     var intent = Intent(activity, MainActivity::class.java)
@@ -80,7 +79,7 @@ class LawyerChoiceFragment:Fragment() {
                 Toast.makeText(activity, "Preencha todos os campos corretamente e selecione/tire uma foto!!", Toast.LENGTH_LONG).show()
             }
         }
-        view.btnSelect.setOnClickListener{
+        view.btnSelectPhotoLawyer.setOnClickListener{
 
             val gallery = Intent()
             gallery.type = "image/*"
@@ -88,7 +87,7 @@ class LawyerChoiceFragment:Fragment() {
             startActivityForResult(Intent.createChooser(gallery, "Sellect Picture"), 0)
 
         }
-        view.btnTake.setOnClickListener{
+        view.btnTakePhotoLawyer.setOnClickListener{
             val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(takePicture, 1)
         }

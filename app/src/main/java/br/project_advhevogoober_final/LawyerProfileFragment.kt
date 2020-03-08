@@ -13,11 +13,12 @@ import br.project_advhevogoober_final.Model.LawyerProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_lawyer_profile.*
-import java.time.ZoneId
 
 
 class LawyerProfileFragment:Fragment() {
     val TAG ="LawyerProfileFragment"
+    private val db= FirebaseFirestore.getInstance()
+    private val user=FirebaseAuth.getInstance().currentUser!!
 
     override fun onAttach(context: Context) {
         Log.d(TAG,"onAttach")
@@ -39,9 +40,7 @@ class LawyerProfileFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBarTest.visibility=View.VISIBLE
-        val db=FirebaseFirestore.getInstance()
-        val user=FirebaseAuth.getInstance().currentUser
-        db.collection("lawyers").document(user!!.uid).get().addOnSuccessListener {
+        db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
             var lawyerProfile=it.toObject(LawyerProfile::class.java)
             val dateFormat = DateFormat.getDateFormat(context)
             txtVwDNome.text=lawyerProfile!!.name
