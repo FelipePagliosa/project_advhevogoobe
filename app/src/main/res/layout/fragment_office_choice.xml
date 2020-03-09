@@ -68,25 +68,12 @@
 
     <Button
         android:id="@+id/btnSavePhotoOffice"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:text="selecionar foto"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveLawyer"
-        app:layout_constraintEnd_toStartOf="@+id/btnTakePhotoOffice"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/btnSaveOffice"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/office_business_id" />
 
-    <Button
-        android:id="@+id/btnTakePhotoOffice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="tirar foto"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveLawyer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnSavePhotoOffice"
-        app:layout_constraintTop_toBottomOf="@+id/office_business_id" />
 </androidx.constraintlayout.widget.ConstraintLayout>

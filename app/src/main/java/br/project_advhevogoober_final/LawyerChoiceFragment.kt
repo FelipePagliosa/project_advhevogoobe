@@ -1,5 +1,6 @@
 package br.project_advhevogoober_final
 
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
@@ -58,7 +59,8 @@ class LawyerChoiceFragment:Fragment() {
                 view.lawyer_phone.text.toString() != "" &&
                 view.lawyer_ssn.text.toString() != "" &&
                 view.lawyer_oab_code.text.toString() != "" &&
-                view.lawyer_birthdate.text.toString() != "" && legalDoB()==true && profileImage!=null) {
+                view.lawyer_birthdate.text.toString() != "" && legalDoB() && profileImage!=null
+            ) {
 
                 var dateFormat=SimpleDateFormat("dd/MM/yyyy")
                 var date=dateFormat.parse(lawyer_birthdate.text.toString())
@@ -81,15 +83,14 @@ class LawyerChoiceFragment:Fragment() {
         }
         view.btnSelectPhotoLawyer.setOnClickListener{
 
-            val gallery = Intent()
-            gallery.type = "image/*"
-            gallery.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(gallery, "Sellect Picture"), 0)
-
-        }
-        view.btnTakePhotoLawyer.setOnClickListener{
-            val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(takePicture, 1)
+            val pickIntent = Intent()
+            pickIntent.type = "image/*"
+            pickIntent.action = Intent.ACTION_GET_CONTENT
+            val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            val pickTitle = "Take or select a photo"
+            val chooserIntent = Intent.createChooser(pickIntent, pickTitle)
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePhotoIntent))
+            startActivityForResult(chooserIntent, 0)
         }
         return view
     }
@@ -107,28 +108,29 @@ class LawyerChoiceFragment:Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             when (requestCode ) {
-                0 -> if (resultCode === RESULT_OK) {
-                    val imageUri: Uri? = data?.data
-//                    val bitmap =
-//                        MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
-//                    view!!.imageView2.setImageBitmap(bitmap)
-                    var bytearray=this.activity!!.contentResolver.openInputStream(imageUri!!)?.buffered().use { it?.readBytes() }
-                    profileImage = bytearray
-//                    var tarefa=storageReference.child("profileImages/"+uid).putBytes(bytearray!!)
-//                    tarefa.addOnSuccessListener {
-//                        Toast.makeText(activity,"Imagem salva!",Toast.LENGTH_LONG).show()
-//                    }
-                }
-                1 -> if (resultCode === RESULT_OK) {
-
-                    val photo = data?.extras!!.get("data") as Bitmap
-                    val stream = ByteArrayOutputStream()
-                    photo.compress(Bitmap.CompressFormat.PNG, 90, stream)
-                    val image= stream.toByteArray()
-                    profileImage = image
-//                    view!!.imageView2.setImageBitmap(photo)
+                0 -> if (resultCode === Activity.RESULT_OK) {
+                    when {
+                        data?.data!=null -> {
+                            val imageUri: Uri? = data.data
+                            var bytearray=this.activity!!.contentResolver.openInputStream(imageUri!!)?.buffered().use { it?.readBytes() }
+                            profileImage = bytearray
+//                            val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
+//                            view!!.imageView2.setImageBitmap(bitmap)
+                        }
+                        data?.extras!!.get("data")!=null -> {
+                            val photo = data?.extras!!.get("data") as Bitmap
+                            val stream = ByteArrayOutputStream()
+                            photo.compress(Bitmap.CompressFormat.PNG, 90, stream)
+                            val image= stream.toByteArray()
+                            profileImage = image
+                            //view!!.imageView2.setImageBitmap(photo)
+                        }
+                        else -> {
+                            Toast.makeText(activity,"Erro",Toast.LENGTH_LONG).show()
+                        }
+                    }
                 }
             }
         }

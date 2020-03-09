@@ -15,6 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_lawyer_profile.*
+import kotlinx.android.synthetic.main.fragment_lawyer_profile.view.*
+import android.widget.ProgressBar
 
 
 class LawyerProfileFragment:Fragment() {
@@ -36,12 +38,22 @@ class LawyerProfileFragment:Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG,"onCreateView")
         val view: View =inflater!!.inflate(R.layout.fragment_lawyer_profile, container,false)
+        view.btnUpdatePhoto.setOnClickListener{
+        }
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBarTest.visibility=View.VISIBLE
+        for (x in 0 until layoutLawyerProfile.childCount ){
+            var daodao:View=layoutLawyerProfile.getChildAt(x)
+
+            if (daodao !is ProgressBar){
+                daodao.visibility=View.INVISIBLE
+            }
+        }
+
         db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
             if (it.exists()){
                 var lawyerProfile=it.toObject(LawyerProfile::class.java)
@@ -65,6 +77,13 @@ class LawyerProfileFragment:Fragment() {
             if (it!=null){
                 Toast.makeText(activity,"Completou com sucesso",Toast.LENGTH_LONG).show()
                 progressBarTest.visibility= View.GONE
+                for (x in 0 until layoutLawyerProfile.childCount ){
+                    var daodao:View=layoutLawyerProfile.getChildAt(x)
+
+                    if (daodao !is ProgressBar){
+                        daodao.visibility=View.VISIBLE
+                    }
+                }
                 var imagem= BitmapFactory.decodeByteArray(it,0,it.size)
                 imgVwPhotoLawyer.setImageBitmap(imagem)
             }

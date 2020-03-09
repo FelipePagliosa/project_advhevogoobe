@@ -7,12 +7,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import br.project_advhevogoober_final.Model.OfficeProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.fragment_lawyer_profile.*
 import kotlinx.android.synthetic.main.fragment_office_profile.*
 import kotlinx.android.synthetic.main.fragment_office_profile.txtVwDEmail
 import kotlinx.android.synthetic.main.fragment_office_profile.txtVwDNome
@@ -43,6 +45,14 @@ class OfficeProfileFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBarOffice.visibility=View.VISIBLE
+
+        for (x in 0 until layoutOfficeProfile.childCount ){
+            var daodao:View=layoutOfficeProfile.getChildAt(x)
+
+            if (daodao !is ProgressBar){
+                daodao.visibility=View.INVISIBLE
+            }
+        }
         db.collection("offices").document(user.uid).get().addOnSuccessListener {
             if (it.exists()){
                 var officeProfile=it.toObject(OfficeProfile::class.java)
@@ -60,10 +70,16 @@ class OfficeProfileFragment:Fragment() {
         var tarefa=storageReference.child("profileImages/"+user.uid).getBytes(1024*1024)
         tarefa.addOnSuccessListener {
             if (it!=null){
+                progressBarOffice.visibility= View.GONE
+                for (x in 0 until layoutOfficeProfile.childCount ){
+                    var daodao:View=layoutOfficeProfile.getChildAt(x)
+                    if (daodao !is ProgressBar){
+                        daodao.visibility=View.VISIBLE
+                    }
+                }
                 Toast.makeText(activity,"Completou com sucesso",Toast.LENGTH_LONG).show()
                 var imagem= BitmapFactory.decodeByteArray(it,0,it.size)
                 imgVwPhotoOffice.setImageBitmap(imagem)
-                progressBarOffice.visibility= View.GONE
             }
             else{
                 Toast.makeText(activity,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()
