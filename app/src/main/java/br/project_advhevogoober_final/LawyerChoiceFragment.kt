@@ -1,9 +1,9 @@
 package br.project_advhevogoober_final
 
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -29,6 +29,9 @@ import java.text.SimpleDateFormat
 class LawyerChoiceFragment:Fragment() {
 
     val TAG = "LawyerChoiceFragment"
+    private lateinit var mPreferences: SharedPreferences
+    private val PROFILE_CHECK_KEY:String="teste4"
+    private val mSharedPrefFile:String="br.project_advhevogoober_final"
     var storageReference= FirebaseStorage.getInstance().reference
     private val db= FirebaseFirestore.getInstance()
     private val user=FirebaseAuth.getInstance().currentUser!!
@@ -43,6 +46,7 @@ class LawyerChoiceFragment:Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate")
         super.onCreate(savedInstanceState)
+        mPreferences=this.activity!!.getSharedPreferences(mSharedPrefFile, Context.MODE_PRIVATE)
     }
 
     override fun onCreateView(
@@ -73,9 +77,13 @@ class LawyerChoiceFragment:Fragment() {
                 }
                 var tarefa=storageReference.child("profileImages/"+user.uid).putBytes(profileImage!!)
                 tarefa.addOnSuccessListener {
+                    var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
+                    preferencesEditor.putBoolean(PROFILE_CHECK_KEY,false)
+                    preferencesEditor.apply()
                     Toast.makeText(activity,"Imagem salva!",Toast.LENGTH_LONG).show()
                     var intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
+                    this.activity!!.finish()
                 }
             } else {
                 Toast.makeText(activity, "Preencha todos os campos corretamente e selecione/tire uma foto!!", Toast.LENGTH_LONG).show()
@@ -133,6 +141,16 @@ class LawyerChoiceFragment:Fragment() {
                     }
                 }
             }
+        }
+    }
+    override fun onPause() {
+        super.onPause()
+        var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
+        var checkFirstTimeUser=(mPreferences.getBoolean(PROFILE_CHECK_KEY,true))
+        if (!checkFirstTimeUser){}
+        else{
+            preferencesEditor.putBoolean(PROFILE_CHECK_KEY,true)
+            preferencesEditor.apply()
         }
     }
 }

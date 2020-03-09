@@ -29,8 +29,6 @@ class LoginRegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_register)
         btnLogReg.isEnabled = false
-        // Here, thisActivity is the current activity
-
         checkLocationPermission()
 
         if(FirebaseAuth.getInstance().currentUser!=null){

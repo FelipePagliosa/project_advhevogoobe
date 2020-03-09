@@ -1,6 +1,7 @@
 package br.project_advhevogoober_final
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
@@ -9,17 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_first_time_user.*
-import kotlinx.android.synthetic.main.fragment_choice.*
-import kotlinx.android.synthetic.main.fragment_choice.lawyer_choice_button
-import kotlinx.android.synthetic.main.fragment_choice.office_choice_button
 import kotlinx.android.synthetic.main.fragment_choice.view.*
-import java.lang.ClassCastException
 
 class ChoiceFragment() :Fragment(), Parcelable {
 
 
     val TAG ="ChoiceFragment"
+    private lateinit var mPreferences: SharedPreferences
+    private val PROFILE_CHECK_KEY:String="teste4"
+    private val mSharedPrefFile:String="br.project_advhevogoober_final"
 
     constructor(parcel: Parcel) : this() {
     }
@@ -33,6 +32,7 @@ class ChoiceFragment() :Fragment(), Parcelable {
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG,"onCreate")
         super.onCreate(savedInstanceState)
+        mPreferences=this.activity!!.getSharedPreferences(mSharedPrefFile, Context.MODE_PRIVATE)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,6 +57,17 @@ class ChoiceFragment() :Fragment(), Parcelable {
         }
 
         return view
+    }
+
+    override fun onPause() {
+        super.onPause()
+        var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
+        var checkFirstTimeUser=(mPreferences.getBoolean(PROFILE_CHECK_KEY,true))
+        if (!checkFirstTimeUser){}
+        else{
+            preferencesEditor.putBoolean(PROFILE_CHECK_KEY,true)
+            preferencesEditor.apply()
+        }
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

@@ -1,40 +1,48 @@
 package br.project_advhevogoober_final
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import br.project_advhevogoober_final.Model.LawyerProfile
-import br.project_advhevogoober_final.Model.OfficeProfile
+import androidx.drawerlayout.widget.DrawerLayout
 import br.project_advhevogoober_final.R.id.toolbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val manager = supportFragmentManager
     val db = FirebaseFirestore.getInstance()
+    private lateinit var mPreferences: SharedPreferences
+    private val PROFILE_CHECK_KEY:String="teste4"
+    private val mSharedPrefFile:String="br.project_advhevogoober_final"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (FirebaseAuth.getInstance().currentUser == null) {
+        var aaa = FirebaseAuth.getInstance().currentUser
+        if (aaa == null) {
             intent = Intent(this, LoginRegisterActivity::class.java)
+            var teste= intent
+            startActivity(teste)
+            finish()
+        }
+        mPreferences=getSharedPreferences(mSharedPrefFile, Context.MODE_PRIVATE)
+        var checkFirstTimeUser=(mPreferences.getBoolean(PROFILE_CHECK_KEY,false))
+        if (checkFirstTimeUser){
+            intent=Intent(this,FirstTimeUserActivity::class.java)
+            var teste= intent
             startActivity(intent)
             finish()
         }
@@ -42,7 +50,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar: Toolbar = findViewById(toolbar)
         setSupportActionBar(toolbar)
 
-//        val uid=FirebaseAuth.getInstance().currentUser!!.uid
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -59,12 +66,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-//        var office:OfficeProfile?
-//        db.collection("offices").document(uid).get().addOnSuccessListener {
-//            office=it.toObject(OfficeProfile::class.java)
-//            Toast.makeText(this, office?.name,Toast.LENGTH_LONG).show()
-//        }
-
         navView.setNavigationItemSelectedListener(this)
     }
 
