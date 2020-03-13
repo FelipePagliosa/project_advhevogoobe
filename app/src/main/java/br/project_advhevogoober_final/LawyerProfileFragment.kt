@@ -1,5 +1,6 @@
 package br.project_advhevogoober_final
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
@@ -44,6 +45,7 @@ class LawyerProfileFragment:Fragment() {
         return view
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBarTest.visibility=View.VISIBLE
