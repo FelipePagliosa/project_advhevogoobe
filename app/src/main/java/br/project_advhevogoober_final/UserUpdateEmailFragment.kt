@@ -40,6 +40,7 @@ class UserUpdateEmailFragment:Fragment() {
         view.btnSaveUpdatedEmail.setOnClickListener{
             user.updateEmail(eTxtNewEmail.text.toString()).addOnSuccessListener {
                 Snackbar.make(view,"O seu email foi atualizado!!",Snackbar.LENGTH_LONG).show()
+                //
                 var checkFirstTimeUser=(mPreferences.getBoolean(PROFILE_TYPE_KEY,true))
                 if(checkFirstTimeUser){
                     val manager = fragmentManager
