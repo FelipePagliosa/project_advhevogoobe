@@ -53,6 +53,9 @@ class OfficeChoiceFragment:Fragment() {
         Log.d(TAG, "onCreateView")
         container?.removeAllViews()// fix milagroso
         val view: View = inflater!!.inflate(R.layout.fragment_office_choice, container, false)
+        var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
+        preferencesEditor.putBoolean(PROFILE_CHECK_KEY,true)
+        preferencesEditor.apply()
         view.btnSaveOffice.setOnClickListener {
             if (view.office_name.text.toString() != "" && view.office_phone.text.toString() != "" && view.office_business_id.text.toString() != "" && profileImage!=null) {
                 office= OfficeProfile(view.office_name.text.toString(),view.office_phone.text.toString(),view.office_business_id.text.toString())

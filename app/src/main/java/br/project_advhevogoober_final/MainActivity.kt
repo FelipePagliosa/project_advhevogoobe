@@ -3,6 +3,7 @@ package br.project_advhevogoober_final
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val db = FirebaseFirestore.getInstance()
     private lateinit var mPreferences: SharedPreferences
     private val PROFILE_CHECK_KEY:String="teste4"
+    private val PROFILE_TYPE_KEY:String="tipoP"
     private val mSharedPrefFile:String="br.project_advhevogoober_final"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             finish()
         }
         carregarHome()
+        mPreferences=this.getSharedPreferences(mSharedPrefFile, Context.MODE_PRIVATE)
         val toolbar: Toolbar = findViewById(toolbar)
         setSupportActionBar(toolbar)
 
@@ -106,6 +109,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_profile -> {
                 db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
                     if (it.exists()) {
+                        var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
+                        preferencesEditor.putBoolean(PROFILE_TYPE_KEY,false)
+                        preferencesEditor.apply()
                         val transaction = manager.beginTransaction()
                         val fragment = LawyerProfileFragment()
                         transaction.replace(R.id.nav_host_fragment, fragment)
@@ -117,6 +123,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
                     if (it.exists()){
+                        var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
+                        preferencesEditor.putBoolean(PROFILE_TYPE_KEY,true)
+                        preferencesEditor.apply()
                         val transaction = manager.beginTransaction()
                         val fragment = OfficeProfileFragment()
                         transaction.replace(R.id.nav_host_fragment, fragment)

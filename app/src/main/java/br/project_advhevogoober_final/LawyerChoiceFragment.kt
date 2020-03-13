@@ -57,6 +57,9 @@ class LawyerChoiceFragment:Fragment() {
         Log.d(TAG, "onCreateView")
         container?.removeAllViews()// fix milagroso
         val view: View = inflater!!.inflate(R.layout.fragment_lawyer_choice, container, false)
+        var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
+        preferencesEditor.putBoolean(PROFILE_CHECK_KEY,true)
+        preferencesEditor.apply()
         view.btnSaveLawyer.setOnClickListener {
             if (view.lawyer_name.text.toString() != "" &&
                 view.lawyer_surname.text.toString() != "" &&

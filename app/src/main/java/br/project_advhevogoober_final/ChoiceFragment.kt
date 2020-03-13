@@ -39,6 +39,9 @@ class ChoiceFragment() :Fragment(), Parcelable {
         Log.d(TAG,"onCreateView")
         container?.removeAllViews()
         val view: View = inflater.inflate(R.layout.fragment_choice, container,false)
+        var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
+        preferencesEditor.putBoolean(PROFILE_CHECK_KEY,true)
+        preferencesEditor.apply()
 
         view.lawyer_choice_button.setOnClickListener{
             val transaction=fragmentManager!!.beginTransaction()

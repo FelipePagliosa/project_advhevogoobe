@@ -1,6 +1,7 @@
 package br.project_advhevogoober_final
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -38,7 +39,7 @@ class LawyerProfileFragment:Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG,"onCreateView")
         val view: View =inflater!!.inflate(R.layout.fragment_lawyer_profile, container,false)
-        view.btnUpdatePhoto.setOnClickListener{
+        view.btnUpdatePhotoLawyer.setOnClickListener{
         }
         return view
     }
@@ -86,6 +87,14 @@ class LawyerProfileFragment:Fragment() {
                 }
                 var imagem= BitmapFactory.decodeByteArray(it,0,it.size)
                 imgVwPhotoLawyer.setImageBitmap(imagem)
+                view.btnUpdateEmailLawyer.setOnClickListener{
+                    val manager = fragmentManager
+                    val transaction = manager!!.beginTransaction()
+                    val fragment = UserUpdateEmailFragment()
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
             }
             else{
                 Toast.makeText(activity,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()

@@ -14,11 +14,11 @@ import br.project_advhevogoober_final.Model.OfficeProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.fragment_lawyer_profile.*
 import kotlinx.android.synthetic.main.fragment_office_profile.*
 import kotlinx.android.synthetic.main.fragment_office_profile.txtVwDEmail
 import kotlinx.android.synthetic.main.fragment_office_profile.txtVwDNome
 import kotlinx.android.synthetic.main.fragment_office_profile.txtVwDTelefone
+import kotlinx.android.synthetic.main.fragment_office_profile.view.*
 
 class OfficeProfileFragment:Fragment() {
     val TAG ="OfficeProfileFragment"
@@ -80,6 +80,14 @@ class OfficeProfileFragment:Fragment() {
                 Toast.makeText(activity,"Completou com sucesso",Toast.LENGTH_LONG).show()
                 var imagem= BitmapFactory.decodeByteArray(it,0,it.size)
                 imgVwPhotoOffice.setImageBitmap(imagem)
+                view.btnUpdateEmailOffice.setOnClickListener{
+                    val manager = fragmentManager
+                    val transaction = manager!!.beginTransaction()
+                    val fragment = UserUpdateEmailFragment()
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
             }
             else{
                 Toast.makeText(activity,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()
