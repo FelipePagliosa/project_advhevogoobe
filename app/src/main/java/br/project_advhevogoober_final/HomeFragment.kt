@@ -12,17 +12,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.project_advhevogoober_final.Model.Offer
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment:Fragment() {
 
     val TAG ="HomeFragment"
-    private var offers = mutableListOf<Offer>(Offer("teste1", "teste2",33.25, "teste2","teste1", "teste2","teste1", "teste2"))
+    var db = FirebaseFirestore.getInstance()
+    private var offers = mutableListOf<Offer>()
     private var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
 
     private fun onPostItemClick(offer: Offer) {
-        Toast.makeText(activity, "ok!", Toast.LENGTH_LONG).show()
+        makeText(activity, "ok!", Toast.LENGTH_LONG).show()
     }
 
     override fun onAttach(context: Context) {
@@ -35,11 +37,31 @@ class HomeFragment:Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG,"onCreateView")
         val view: View =inflater!!.inflate(R.layout.fragment_home,container,false)
-        view.recycler_view_home.adapter = adapter
-        view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
+        var offers = mutableListOf<Offer>()
+        var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
+        db.collection("Offers").get().addOnSuccessListener { result ->
+
+            for (document in result) {
+                offers.add(document.toObject(Offer::class.java))
+            }
+            view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
+            view.recycler_view_home.adapter = adapter
+        }
+        view.btn_post_create.setOnClickListener{
+            val transaction = fragmentManager?.beginTransaction()
+            val fragment = CreateOffer()
+            transaction?.replace(R.id.nav_host_fragment, fragment)
+            transaction?.addToBackStack(null)
+            transaction?.commit()
+        }
         return view
     }
 }
