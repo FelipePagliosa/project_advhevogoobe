@@ -20,8 +20,6 @@ class HomeFragment:Fragment() {
 
     val TAG ="HomeFragment"
     var db = FirebaseFirestore.getInstance()
-    private var offers = mutableListOf<Offer>()
-    private var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
 
     private fun onPostItemClick(offer: Offer) {
         makeText(activity, "ok!", Toast.LENGTH_LONG).show()
