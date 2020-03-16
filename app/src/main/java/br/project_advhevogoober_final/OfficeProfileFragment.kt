@@ -88,6 +88,14 @@ class OfficeProfileFragment:Fragment() {
                     transaction.addToBackStack(null)
                     transaction.commit()
                 }
+                view.btnUpdatePhotoOffice.setOnClickListener{
+                    val manager = fragmentManager
+                    val transaction = manager!!.beginTransaction()
+                    val fragment = UserUpdatePhotoFragment()
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
             }
             else{
                 Toast.makeText(activity,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()

@@ -93,7 +93,7 @@ class LawyerChoiceFragment:Fragment() {
             }
         }
         view.btnSelectPhotoLawyer.setOnClickListener{
-
+            
             val pickIntent = Intent()
             pickIntent.type = "image/*"
             pickIntent.action = Intent.ACTION_GET_CONTENT
