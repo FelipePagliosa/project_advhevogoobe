@@ -49,6 +49,7 @@ class LawyerProfileFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBarTest.visibility=View.VISIBLE
+
         for (x in 0 until layoutLawyerProfile.childCount ){
             var daodao:View=layoutLawyerProfile.getChildAt(x)
 

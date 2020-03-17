@@ -18,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.fragment_user_update_email.*
 import kotlinx.android.synthetic.main.fragment_user_update_photo.view.*
 import java.io.ByteArrayOutputStream
 
