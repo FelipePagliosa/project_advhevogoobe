@@ -8,6 +8,7 @@
 
     <EditText
         android:id="@+id/eTxtNewEmail"
+        android:background="@drawable/edittext_profile_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -35,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Escreva seu novo e-mail"
+        android:textColor="@color/colorBackground"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
