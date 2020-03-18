@@ -6,10 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import br.project_advhevogoober_final.API.RetrofitBuilder
+import br.project_advhevogoober_final.Model.APIResultsObject
+import br.project_advhevogoober_final.Service.DAO
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_create_offer.*
 import kotlinx.android.synthetic.main.fragment_create_offer.view.*
 import org.imperiumlabs.geofirestore.GeoFirestore
+import retrofit2.Call
+import retrofit2.create
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,6 +22,9 @@ class CreateOfferFragment : Fragment() {
     val db = FirebaseFirestore.getInstance()
     val collectionReference = db.collection("Offers")
     val geoFirestore = GeoFirestore(collectionReference)
+    val retrofit = RetrofitBuilder.getInstance()
+    val service : DAO? = retrofit?.create(DAO::class.java)
+    val key = "oGaupp7uI2W88QMZHcpLQlcQTTRGwz0e"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +53,7 @@ class CreateOfferFragment : Fragment() {
             )
             collectionReference.add(offer).addOnSuccessListener {
                 Toast.makeText(activity,"Oferta salva!", Toast.LENGTH_LONG).show()
+                //service?.show(key, )
             }.addOnFailureListener{
                 Toast.makeText(activity,"Oferta não foi salva", Toast.LENGTH_LONG).show()
             }
