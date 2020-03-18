@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateOffer">
+    tools:context=".CreateOfferFragment">
 
     <EditText
         android:id="@+id/editText_location"

@@ -9,10 +9,15 @@ import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_create_offer.*
 import kotlinx.android.synthetic.main.fragment_create_offer.view.*
+import org.imperiumlabs.geofirestore.GeoFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateOffer : Fragment() {
+class CreateOfferFragment : Fragment() {
+    val db = FirebaseFirestore.getInstance()
+    val collectionReference = db.collection("Offers")
+    val geoFirestore = GeoFirestore(collectionReference)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,8 +30,8 @@ class CreateOffer : Fragment() {
         lateinit var jurisdiction:String
         val currentDate = sdf.format(Date())
 //        lateinit var name:String
-        val db= FirebaseFirestore.getInstance()
-        val view: View =inflater!!.inflate(R.layout.fragment_create_offer,container,false)
+
+        val view: View = inflater!!.inflate(R.layout.fragment_create_offer,container,false)
         view.btn_post.setOnClickListener {
             val offer = hashMapOf(
                 "date" to editText_date.text.toString(),
@@ -38,7 +43,7 @@ class CreateOffer : Fragment() {
                 "description" to editText_description.text.toString(),
                 "requirements" to editText_requirements.text.toString()
             )
-            db.collection("Offers").add(offer).addOnSuccessListener {
+            collectionReference.add(offer).addOnSuccessListener {
                 Toast.makeText(activity,"Oferta salva!", Toast.LENGTH_LONG).show()
             }.addOnFailureListener{
                 Toast.makeText(activity,"Oferta não foi salva", Toast.LENGTH_LONG).show()
@@ -50,6 +55,6 @@ class CreateOffer : Fragment() {
             transaction?.commit()
         }
         return view
-        }
+    }
 
 }
