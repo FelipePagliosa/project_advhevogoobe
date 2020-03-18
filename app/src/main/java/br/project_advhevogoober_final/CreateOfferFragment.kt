@@ -1,6 +1,7 @@
 package br.project_advhevogoober_final
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import br.project_advhevogoober_final.API.RetrofitBuilder
 import br.project_advhevogoober_final.Model.APIResultsObject
+import br.project_advhevogoober_final.Model.Offer
 import br.project_advhevogoober_final.Service.DAO
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import kotlinx.android.synthetic.main.fragment_create_offer.*
 import kotlinx.android.synthetic.main.fragment_create_offer.view.*
 import org.imperiumlabs.geofirestore.GeoFirestore
 import retrofit2.Call
-import retrofit2.create
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,19 +45,33 @@ class CreateOfferFragment : Fragment() {
 
         val view: View = inflater!!.inflate(R.layout.fragment_create_offer,container,false)
         view.btn_post.setOnClickListener {
-            val offer = hashMapOf(
-                "date" to editText_date.text.toString(),
-                "jurisdiction" to editText_jurisdiction.text.toString(),
-                "price" to editText_price.text.toString(),
-                "location" to editText_location.text.toString(),
-                "offerer" to editText_offerer.text.toString(),
-                "postDate" to currentDate,
-                "description" to editText_description.text.toString(),
-                "requirements" to editText_requirements.text.toString()
+            val offer = Offer(
+                editText_date.text.toString(),
+                editText_jurisdiction.text.toString(),
+                editText_price.text.toString(),
+                editText_street.text.toString(),
+                editText_city.text.toString(),
+                editText_state.text.toString(),
+                editText_postal_code.text.toString(),
+                editText_offerer.text.toString(),
+                currentDate,
+                editText_description.text.toString(),
+                editText_requirements.text.toString()
             )
             collectionReference.add(offer).addOnSuccessListener {
                 Toast.makeText(activity,"Oferta salva!", Toast.LENGTH_LONG).show()
-                //service?.show(key, )
+                service?.show(key, offer.street, offer.city, offer.state, offer.postalCode)?.enqueue(object : Callback<APIResultsObject> {
+                    override fun onFailure(call: Call<APIResultsObject>, t: Throwable) {
+                        Toast.makeText(activity, "Não foi possível salvar a oferta!", Toast.LENGTH_LONG)
+                        Log.i("Erro da request da API: ", t.toString())
+                    }
+
+                    override fun onResponse(call: Call<APIResultsObject>, response: Response<APIResultsObject>) {
+                        val lat : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lat!!
+                        val long : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lng!!
+                        geoFirestore.setLocation(it.id, GeoPoint(lat, long))
+                    }
+                })
             }.addOnFailureListener{
                 Toast.makeText(activity,"Oferta não foi salva", Toast.LENGTH_LONG).show()
             }
