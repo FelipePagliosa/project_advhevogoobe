@@ -1,5 +1,7 @@
 package br.project_advhevogoober_final.Model
 
+import java.io.Serializable
+
 data class Offer(
     var date: String = "",
     var jurisdiction: String = "",
@@ -8,7 +10,7 @@ data class Offer(
     var offerer: String = "",
     var postDate: String = "",
     var description: String = "",
-    var requirements: String =""
-){
-    constructor() : this("","","","","","","","")
-}
+    var requirements: String ="",
+    var id:String = ""
+)
+    // constructor() : this("","","","","","","","")

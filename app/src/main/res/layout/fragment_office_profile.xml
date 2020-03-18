@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/details_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtVwDNome" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/details_jurisdiction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -108,8 +108,8 @@
         android:paddingRight="6dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorBackground"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        app:layout_constraintStart_toStartOf="@+id/details_jurisdiction"
+        app:layout_constraintTop_toBottomOf="@+id/details_jurisdiction" />
 
     <TextView
         android:id="@+id/textView20"
@@ -149,8 +149,8 @@
         android:paddingRight="6dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorBackground"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintStart_toStartOf="@+id/details_date"
+        app:layout_constraintTop_toBottomOf="@+id/details_date" />
 
     <ImageView
         android:id="@+id/btnUpdateEmailOffice"
