@@ -9,12 +9,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Log.DEBUG
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import br.project_advhevogoober_final.BuildConfig.DEBUG
 import br.project_advhevogoober_final.Model.LawyerProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -93,7 +93,7 @@ class LawyerChoiceFragment:Fragment() {
             }
         }
         view.btnSelectPhotoLawyer.setOnClickListener{
-
+            
             val pickIntent = Intent()
             pickIntent.type = "image/*"
             pickIntent.action = Intent.ACTION_GET_CONTENT

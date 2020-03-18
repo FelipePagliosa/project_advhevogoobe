@@ -46,10 +46,14 @@
     <string name="post">publicar</string>
     <string name="description">Descrição</string>
     <string name="offerer">Ofertante</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="city">Cidade</string>
+    <string name="state">Estado</string>
+    <string name="postalCode">CEP</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile">Profile</string>
     <string name="email">Email</string>
+    <string name="street">Endereço</string>
+    <string name="addLocal">Adicionar Local</string>
 
 
 </resources>

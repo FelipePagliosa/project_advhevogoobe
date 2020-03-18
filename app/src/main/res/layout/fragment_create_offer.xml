@@ -5,33 +5,76 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateOffer">
+    tools:context=".CreateOfferFragment">
 
     <EditText
-        android:id="@+id/editText_location"
-        android:layout_width="0dp"
+        android:id="@+id/editText_postal_code"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
-        android:hint="@string/location"
+        android:hint="@string/postalCode"
         android:inputType="textPersonName"
         android:padding="6dp"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
         app:layout_constraintBottom_toTopOf="@+id/editText_jurisdiction"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_state" />
+
+    <EditText
+        android:id="@+id/editText_state"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_profile_bg"
+        android:ems="10"
+        android:hint="@string/state"
+        android:inputType="textPersonName"
+        android:padding="6dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/editText_postal_code"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_street" />
+
+    <EditText
+        android:id="@+id/editText_city"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_profile_bg"
+        android:ems="10"
+        android:hint="@string/city"
+        android:inputType="textPersonName"
+        android:padding="6dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/editText_street"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText_jurisdiction"
-        android:layout_width="0dp"
+        android:id="@+id/editText_street"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:background="@drawable/edittext_profile_bg"
+        android:ems="10"
+        android:hint="@string/street"
+        android:inputType="textPersonName"
+        android:padding="6dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/editText_state"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_city" />
+
+    <EditText
+        android:id="@+id/editText_jurisdiction"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
         android:hint="@string/jurisdiction"
@@ -41,16 +84,13 @@
         android:paddingRight="6dp"
         app:layout_constraintBottom_toTopOf="@+id/editText_offerer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_location" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_postal_code" />
 
     <EditText
         android:id="@+id/editText_offerer"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
         android:hint="@string/offerer"
@@ -60,16 +100,13 @@
         android:paddingRight="6dp"
         app:layout_constraintBottom_toTopOf="@+id/editText_date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_jurisdiction" />
 
     <EditText
         android:id="@+id/editText_date"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
         android:hint="@string/date"
@@ -79,16 +116,13 @@
         android:paddingRight="6dp"
         app:layout_constraintBottom_toTopOf="@+id/editText_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_offerer" />
 
     <EditText
         android:id="@+id/editText_description"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
         android:hint="@string/description"
@@ -98,16 +132,13 @@
         android:paddingRight="6dp"
         app:layout_constraintBottom_toTopOf="@+id/editText_requirements"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_date" />
 
     <EditText
         android:id="@+id/editText_requirements"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
         android:hint="@string/requirements"
@@ -117,16 +148,13 @@
         android:paddingRight="6dp"
         app:layout_constraintBottom_toTopOf="@+id/editText_price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_description" />
 
     <EditText
         android:id="@+id/editText_price"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
         android:hint="@string/price"
@@ -134,9 +162,8 @@
         android:padding="6dp"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/btn_post"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_requirements" />
 
@@ -146,7 +173,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.81"
+        app:layout_constraintGuide_percent="0.9"
         app:layout_constraintTop_toBottomOf="@+id/editText_price" />
 
     <Button

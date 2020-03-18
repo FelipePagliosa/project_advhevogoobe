@@ -49,6 +49,7 @@ class LawyerProfileFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBarTest.visibility=View.VISIBLE
+
         for (x in 0 until layoutLawyerProfile.childCount ){
             var daodao:View=layoutLawyerProfile.getChildAt(x)
 
@@ -77,22 +78,30 @@ class LawyerProfileFragment:Fragment() {
         }
         var tarefa=storageReference.child("profileImages/"+user.uid).getBytes(1024*1024)
         tarefa.addOnSuccessListener {
-            if (it!=null){
-                Toast.makeText(activity,"Completou com sucesso",Toast.LENGTH_LONG).show()
-                progressBarTest.visibility= View.GONE
-                for (x in 0 until layoutLawyerProfile.childCount ){
-                    var daodao:View=layoutLawyerProfile.getChildAt(x)
+            if (it!=null) {
+                Toast.makeText(activity, "Completou com sucesso", Toast.LENGTH_LONG).show()
+                progressBarTest.visibility = View.GONE
+                for (x in 0 until layoutLawyerProfile.childCount) {
+                    var daodao: View = layoutLawyerProfile.getChildAt(x)
 
-                    if (daodao !is ProgressBar){
-                        daodao.visibility=View.VISIBLE
+                    if (daodao !is ProgressBar) {
+                        daodao.visibility = View.VISIBLE
                     }
                 }
-                var imagem= BitmapFactory.decodeByteArray(it,0,it.size)
+                var imagem = BitmapFactory.decodeByteArray(it, 0, it.size)
                 imgVwPhotoLawyer.setImageBitmap(imagem)
-                view.btnUpdateEmailLawyer.setOnClickListener{
+                view.btnUpdateEmailLawyer.setOnClickListener {
                     val manager = fragmentManager
                     val transaction = manager!!.beginTransaction()
                     val fragment = UserUpdateEmailFragment()
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+                view.btnUpdatePhotoLawyer.setOnClickListener {
+                    val manager = fragmentManager
+                    val transaction = manager!!.beginTransaction()
+                    val fragment = UserUpdatePhotoFragment()
                     transaction.replace(R.id.nav_host_fragment, fragment)
                     transaction.addToBackStack(null)
                     transaction.commit()
