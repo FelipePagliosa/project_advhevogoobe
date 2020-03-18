@@ -62,7 +62,7 @@ class CreateOfferFragment : Fragment() {
                 Toast.makeText(activity,"Oferta salva!", Toast.LENGTH_LONG).show()
                 service?.show(key, offer.street, offer.city, offer.state, offer.postalCode)?.enqueue(object : Callback<APIResultsObject> {
                     override fun onFailure(call: Call<APIResultsObject>, t: Throwable) {
-                        Toast.makeText(activity, "Não foi possível salvar a oferta!", Toast.LENGTH_LONG)
+                        Toast.makeText(activity, "Não foi possível salvar a oferta!", Toast.LENGTH_LONG).show()
                         Log.i("Erro da request da API: ", t.toString())
                     }
 
