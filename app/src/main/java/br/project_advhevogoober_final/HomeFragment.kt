@@ -22,7 +22,7 @@ class HomeFragment:Fragment() {
     var db = FirebaseFirestore.getInstance()
 
     private fun onPostItemClick(offer: Offer) {
-        makeText(activity, "ok!", Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, "ok!", Toast.LENGTH_LONG).show()
     }
 
     override fun onAttach(context: Context) {
