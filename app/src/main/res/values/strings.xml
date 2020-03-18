@@ -53,6 +53,7 @@
     <string name="profile">Profile</string>
     <string name="email">Email</string>
     <string name="street">Endereço</string>
+    <string name="addLocal">Adicionar Local</string>
 
 
 </resources>

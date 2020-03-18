@@ -47,14 +47,18 @@ class HomeFragment:Fragment() {
         val view: View =inflater!!.inflate(R.layout.fragment_home,container,false)
         var offers = mutableListOf<Offer>()
         var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
-        collectionReference.get().addOnSuccessListener { result ->
+
+        /*collectionReference.get().addOnSuccessListener { result ->
 
             for (document in result) {
-                offers.add(document.toObject(Offer::class.java))
+
+                //offers.add(document.toObject(Offer::class.java))
             }
             view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
             view.recycler_view_home.adapter = adapter
-        }
+        }*/
+
+        //geoFirestore.getAtLocation()
         view.btn_post_create.setOnClickListener{
             val transaction = fragmentManager?.beginTransaction()
             val fragment = CreateOfferFragment()
