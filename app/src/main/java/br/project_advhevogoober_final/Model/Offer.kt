@@ -11,7 +11,8 @@ data class Offer(
     var offerer: String = "",
     var postDate: String = "",
     var description: String = "",
-    var requirements: String =""
+    var requirements: String ="",
+    var offererId: String = ""
 ){
     constructor() : this("","","","","","","","", "", "", "")
 }

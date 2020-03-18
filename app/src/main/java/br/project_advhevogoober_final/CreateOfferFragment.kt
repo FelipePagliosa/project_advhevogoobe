@@ -11,6 +11,7 @@ import br.project_advhevogoober_final.API.RetrofitBuilder
 import br.project_advhevogoober_final.Model.APIResultsObject
 import br.project_advhevogoober_final.Model.Offer
 import br.project_advhevogoober_final.Service.DAO
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.android.synthetic.main.fragment_create_offer.*
@@ -24,6 +25,7 @@ import java.util.*
 
 class CreateOfferFragment : Fragment() {
     val db = FirebaseFirestore.getInstance()
+    val user= FirebaseAuth.getInstance().currentUser!!
     val collectionReference = db.collection("Offers")
     val geoFirestore = GeoFirestore(collectionReference)
     val retrofit = RetrofitBuilder.getInstance()
@@ -39,10 +41,7 @@ class CreateOfferFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-        lateinit var jurisdiction:String
         val currentDate = sdf.format(Date())
-//        lateinit var name:String
-
         val view: View = inflater!!.inflate(R.layout.fragment_create_offer,container,false)
         view.btn_post.setOnClickListener {
             val offer = Offer(
@@ -56,7 +55,8 @@ class CreateOfferFragment : Fragment() {
                 editText_offerer.text.toString(),
                 currentDate,
                 editText_description.text.toString(),
-                editText_requirements.text.toString()
+                editText_requirements.text.toString(),
+                user.uid
             )
             collectionReference.add(offer).addOnSuccessListener {
                 Toast.makeText(activity,"Oferta salva!", Toast.LENGTH_LONG).show()
