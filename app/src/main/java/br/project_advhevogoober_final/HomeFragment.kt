@@ -20,6 +20,8 @@ class HomeFragment:Fragment() {
 
     val TAG ="HomeFragment"
     var db = FirebaseFirestore.getInstance()
+    val collectionReference = db.collection("Offers")
+
 
     private fun onPostItemClick(offer: Offer) {
         Toast.makeText(activity, "ok!", Toast.LENGTH_LONG).show()
@@ -45,7 +47,7 @@ class HomeFragment:Fragment() {
         val view: View =inflater!!.inflate(R.layout.fragment_home,container,false)
         var offers = mutableListOf<Offer>()
         var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
-        db.collection("Offers").get().addOnSuccessListener { result ->
+        collectionReference.get().addOnSuccessListener { result ->
 
             for (document in result) {
                 offers.add(document.toObject(Offer::class.java))
