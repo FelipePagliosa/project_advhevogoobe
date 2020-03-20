@@ -54,6 +54,7 @@
     <string name="email">Email</string>
     <string name="street">Endereço</string>
     <string name="addLocal">Adicionar Local</string>
+    <string name="password">Senha</string>
 
 
 </resources>
