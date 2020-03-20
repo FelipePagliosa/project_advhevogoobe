@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.project_advhevogoober_final.Model.Offer
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.imperiumlabs.geofirestore.GeoFirestore
@@ -21,6 +22,7 @@ class HomeFragment:Fragment() {
     val collectionReference = db.collection("Offers")
     val geoFirestore = GeoFirestore(collectionReference)
     val key = "oGaupp7uI2W88QMZHcpLQlcQTTRGwz0e"
+    val user = FirebaseAuth.getInstance().currentUser
 
 
     private fun onPostItemClick(offer: Offer) {
@@ -48,15 +50,18 @@ class HomeFragment:Fragment() {
         var offers = mutableListOf<Offer>()
         var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
 
-        collectionReference.get().addOnSuccessListener { result ->
+        collectionReference.document(user!!.uid).get().addOnSuccessListener {
 
-            for (document in result) {
-
-                offers.add(document.toObject(Offer::class.java))
-            }
-            view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
-            view.recycler_view_home.adapter = adapter
         }
+//        collectionReference.get().addOnSuccessListener { result ->
+//
+//            for (document in result) {
+//
+//                offers.add(document.toObject(Offer::class.java))
+//            }
+//            view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
+//            view.recycler_view_home.adapter = adapter
+//        }
 
 
         view.btn_post_create.setOnClickListener{
@@ -66,6 +71,15 @@ class HomeFragment:Fragment() {
             transaction?.addToBackStack(null)
             transaction?.commit()
         }
+
+        view.btn_local_add.setOnClickListener {
+            val transaction = fragmentManager?.beginTransaction()
+            val fragment = AddLocalFragment()
+            transaction?.replace(R.id.nav_host_fragment, fragment)
+            transaction?.addToBackStack(null)
+            transaction?.commit()
+        }
+
         return view
     }
 }
