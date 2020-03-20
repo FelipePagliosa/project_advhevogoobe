@@ -1,5 +1,7 @@
 package br.project_advhevogoober_final.Model
 
+import java.io.Serializable
+
 data class Offer(
     var date: String = "",
     var jurisdiction: String = "",
@@ -13,6 +15,6 @@ data class Offer(
     var description: String = "",
     var requirements: String ="",
     var offererId: String = ""
-){
+): Serializable{
     constructor() : this("","","","","","","","", "", "", "")
 }

@@ -1,6 +1,7 @@
 package br.project_advhevogoober_final
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,7 +27,9 @@ class HomeFragment:Fragment() {
 
 
     private fun onPostItemClick(offer: Offer) {
-        Toast.makeText(activity, "ok!", Toast.LENGTH_LONG).show()
+        var intent = Intent(activity,OfferDetails::class.java)
+        intent.putExtra("offer", offer)
+        startActivity(intent)
     }
 
     override fun onAttach(context: Context) {
@@ -56,8 +59,6 @@ class HomeFragment:Fragment() {
             view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
             view.recycler_view_home.adapter = adapter
         }
-
-
         view.btn_post_create.setOnClickListener{
             val transaction = fragmentManager?.beginTransaction()
             val fragment = CreateOfferFragment()
