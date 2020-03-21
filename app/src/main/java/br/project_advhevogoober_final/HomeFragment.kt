@@ -20,8 +20,9 @@ class HomeFragment:Fragment() {
 
     val TAG ="HomeFragment"
     var db = FirebaseFirestore.getInstance()
-    val user= FirebaseAuth.getInstance().currentUser!!
     val collectionReference = db.collection("Offers")
+    val user= FirebaseAuth.getInstance().currentUser!!
+
     val geoFirestore = GeoFirestore(collectionReference)
     val key = "oGaupp7uI2W88QMZHcpLQlcQTTRGwz0e"
 
@@ -58,6 +59,7 @@ class HomeFragment:Fragment() {
             for (document in result) {
                 if(document.toObject(Offer::class.java).offererId != user.uid) {
                     offers.add(document.toObject(Offer::class.java))
+
                 }
             }
             view.recycler_view_home.layoutManager = LinearLayoutManager(activity)

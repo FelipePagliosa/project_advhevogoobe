@@ -56,6 +56,8 @@
     <string name="street">Endereço</string>
     <string name="addLocal">Adicionar Local</string>
     <string name="password">Senha</string>
+    <string name="Delete">Excluir</string>
+    <string name="edit">Editar</string>
 
 
 </resources>

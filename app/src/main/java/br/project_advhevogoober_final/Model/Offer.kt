@@ -14,7 +14,8 @@ data class Offer(
     var postDate: String = "",
     var description: String = "",
     var requirements: String ="",
-    var offererId: String = ""
+    var offererId: String = "",
+    var idOffer: String? = ""
 ): Serializable{
     constructor() : this("","","","","","","","", "", "", "")
 }
