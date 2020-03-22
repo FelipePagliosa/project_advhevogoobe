@@ -81,7 +81,8 @@ class HomeFragment:Fragment() {
         }
         db.collection("offices").document(user!!.uid).get().addOnSuccessListener {
             if (it.exists()){
-                config = it.toObject(OfficeProfile::class.java)!!.config!!
+                val documentConfig: Config? = it.toObject(LawyerProfile::class.java)!!.config
+                config = documentConfig ?: Config(10.0, listOf(true, true, true, true, true, true))
                 geoFirestore.getLocation(user!!.uid) { location, exception ->
                     if (exception == null && location != null){
                         no_locals_text.visibility = View.GONE
