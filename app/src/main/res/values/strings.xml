@@ -55,6 +55,8 @@
     <string name="street">Endereço</string>
     <string name="addLocal">Adicionar Local</string>
     <string name="password">Senha</string>
+    <string name="noLocals">Vemos que você não tem um local adicionado ainda! Clique no botão esquerdo para adicionar um local de busca:</string>
+    <string name="save_configs">Salvar configurações</string>
 
 
 </resources>
