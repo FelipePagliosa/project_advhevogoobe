@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,7 +37,7 @@ class HomeFragment:Fragment() {
 
 
     private fun onPostItemClick(offer: Offer) {
-        Toast.makeText(activity, "ok!", Toast.LENGTH_LONG).show()
+        makeText(activity, "ok!", Toast.LENGTH_LONG).show()
     }
 
     override fun onAttach(context: Context) {
@@ -60,14 +61,14 @@ class HomeFragment:Fragment() {
         var offers = mutableListOf<Offer>()
         var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
 
-        db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+        db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener { it ->
             if (it.exists()) {
                 val documentConfig: Config? = it.toObject(LawyerProfile::class.java)!!.config
                 config = documentConfig ?: Config(10.0, listOf(true, true, true, true, true, true))
 
-                geoFirestore.getLocation(it.id) { location, exception ->
+                geoFirestore.getLocation(user!!.uid) { location, exception ->
                     if (exception == null && location != null){
-                        no_locals_text.visibility = View.GONE
+                        view.no_locals_text.visibility = View.GONE
                         userLocation = location
                     }
                     if (exception != null) {
@@ -78,10 +79,10 @@ class HomeFragment:Fragment() {
         }.addOnFailureListener{
             Log.i("LAWYERS_RETRIEVE_ERROR", "Erro: $it")
         }
-        db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+        db.collection("offices").document(user!!.uid).get().addOnSuccessListener {
             if (it.exists()){
                 config = it.toObject(OfficeProfile::class.java)!!.config!!
-                geoFirestore.getLocation(it.id) { location, exception ->
+                geoFirestore.getLocation(user!!.uid) { location, exception ->
                     if (exception == null && location != null){
                         no_locals_text.visibility = View.GONE
                         userLocation = location
