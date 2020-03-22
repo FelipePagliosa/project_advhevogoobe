@@ -45,5 +45,18 @@
         app:layout_constraintVertical_bias="0.976"
         app:srcCompat="@android:drawable/ic_dialog_map" />
 
+    <TextView
+        android:id="@+id/no_locals_text"
+        android:layout_width="338dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:text="@string/noLocals"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_view_home"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view_home"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
