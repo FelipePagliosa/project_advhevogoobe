@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import br.project_advhevogoober_final.Model.Config
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import kotlinx.android.synthetic.main.fragment_config.*
 import kotlinx.android.synthetic.main.fragment_config.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -55,7 +56,8 @@ class ConfigFragment:Fragment() {
                     jurisdiction6.isChecked
                 )
                 val config = Config(range, jurisdictions)
-                db.collection("lawyers").document(user.uid).set(config)
+                db.collection("lawyers").document(user.uid).update("config", config)
+                changeFragment()
             }
         }.addOnFailureListener{
             Log.i("LAWYERS_RETRIEVE_ERROR", "Erro: $it")
@@ -72,17 +74,20 @@ class ConfigFragment:Fragment() {
                     jurisdiction6.isChecked
                 )
                 val config = Config(range, jurisdictions)
-                db.collection("offices").document(user.uid).set(config)
+                db.collection("offices").document(user.uid).update("config", config)
+                changeFragment()
             }
         }.addOnFailureListener{
             Log.i("OFFICES_RETRIEVE_ERROR", "Erro: $it")
         }
+    }
+
+    fun changeFragment() {
         val transaction = fragmentManager?.beginTransaction()
         val fragment = HomeFragment()
         transaction?.replace(R.id.nav_host_fragment, fragment)
         transaction?.addToBackStack(null)
         transaction?.commit()
     }
-
 
 }
