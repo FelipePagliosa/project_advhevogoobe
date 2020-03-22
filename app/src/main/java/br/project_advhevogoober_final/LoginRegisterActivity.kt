@@ -78,9 +78,9 @@ class LoginRegisterActivity : AppCompatActivity() {
 
     fun setSnackbar() {
         var snackbar = Snackbar.make(loginLayout, R.string.snackbar_explanation, Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction("OK", {
+        snackbar.setAction("OK") {
             snackbar.dismiss()
-        }).show()
+        }.show()
         var txtView: TextView = snackbar.view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
         txtView.maxLines = 5
     }
