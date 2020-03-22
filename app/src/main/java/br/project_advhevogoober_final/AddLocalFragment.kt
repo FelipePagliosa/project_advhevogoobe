@@ -66,21 +66,13 @@ class AddLocalFragment:Fragment() {
                         Log.i("Erro de chamada da API: ", t.toString())
                     }
 
-                    override fun onResponse(
-                        call: Call<APIResultsObject>,
-                        response: Response<APIResultsObject>
-                    ) {
+                    override fun onResponse(call: Call<APIResultsObject>, response: Response<APIResultsObject>) {
                         val lat : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lat!!
                         val long : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lng!!
 
                         db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
                             if (it.exists()) {
                                 geoFirestore.setLocation(it.id, GeoPoint(lat, long))
-                                val transaction = manager?.beginTransaction()
-                                val fragment = HomeFragment()
-                                transaction?.replace(R.id.nav_host_fragment, fragment)
-                                transaction?.addToBackStack(null)
-                                transaction?.commit()
                             }
                             else {
                                 Toast.makeText(activity, "Documento não encontrado nos advogados!", Toast.LENGTH_SHORT).show()
@@ -92,11 +84,6 @@ class AddLocalFragment:Fragment() {
                         db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
                             if (it.exists()){
                                 geoFirestore.setLocation(it.id, GeoPoint(lat, long))
-                                val transaction = manager!!.beginTransaction()
-                                val fragment = HomeFragment()
-                                transaction.replace(R.id.nav_host_fragment, fragment)
-                                transaction.addToBackStack(null)
-                                transaction.commit()
                             }
                             else {
                                 Toast.makeText(activity, "Documento não encontrado nos escritórios!", Toast.LENGTH_SHORT).show()
@@ -105,6 +92,11 @@ class AddLocalFragment:Fragment() {
                             Toast.makeText(activity,"Erro ao adicionar local",Toast.LENGTH_LONG).show()
                             Log.i("LOCAL_ADD_ERROR", "Erro: $it")
                         }
+                        val transaction = manager?.beginTransaction()
+                        val fragment = HomeFragment()
+                        transaction?.replace(R.id.nav_host_fragment, fragment)
+                        transaction?.addToBackStack(null)
+                        transaction?.commit()
                     }
                 })
             } else {
