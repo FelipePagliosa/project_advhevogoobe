@@ -11,7 +11,7 @@ class RetrofitBuilder {
         fun getInstance() : Retrofit? {
             if (INSTANCE == null) {
                 INSTANCE = Retrofit.Builder()
-                    .baseUrl("http://open.mapquestapi.com/geocoding")
+                    .baseUrl("https://open.mapquestapi.com/geocoding/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             }
