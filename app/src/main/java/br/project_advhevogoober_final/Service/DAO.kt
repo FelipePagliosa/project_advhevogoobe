@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface DAO {
 
-    @GET("/v1/address")
+    @GET("v1/address")
     fun show(
         @Query("key") key : String,
         @Query("street") street : String,
