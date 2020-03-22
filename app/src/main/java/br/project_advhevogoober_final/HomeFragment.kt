@@ -21,6 +21,7 @@ import com.google.firebase.firestore.GeoPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.imperiumlabs.geofirestore.GeoFirestore
+import org.imperiumlabs.geofirestore.GeoFirestore.LocationCallback
 import org.imperiumlabs.geofirestore.extension.getAtLocation
 import org.imperiumlabs.geofirestore.extension.getLocation
 
@@ -29,7 +30,7 @@ class HomeFragment:Fragment() {
     val TAG ="HomeFragment"
     var db = FirebaseFirestore.getInstance()
     val collectionReferenceOffers = db.collection("Offers")
-    val geoFirestore = GeoFirestore(collectionReferenceOffers)
+    val geoFirestoreOffers = GeoFirestore(collectionReferenceOffers)
     val key = "oGaupp7uI2W88QMZHcpLQlcQTTRGwz0e"
     val user = FirebaseAuth.getInstance().currentUser
     var userLocation: GeoPoint? = null
@@ -60,54 +61,34 @@ class HomeFragment:Fragment() {
         val view: View =inflater!!.inflate(R.layout.fragment_home,container,false)
         var offers = mutableListOf<Offer>()
         var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
+        view.no_locals_text.isVisible = false
 
-        db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener { it ->
+        db.collection("lawyers").document(user!!.uid).get().addOnSuccessListener { it ->
             if (it.exists()) {
-                val documentConfig: Config? = it.toObject(LawyerProfile::class.java)!!.config
+                val documentObject = it.toObject(LawyerProfile::class.java)!!
+                val documentConfig: Config? = documentObject.config
                 config = documentConfig ?: Config(10.0, listOf(true, true, true, true, true, true))
-
-                geoFirestore.getLocation(user!!.uid) { location, exception ->
-                    if (exception == null && location != null){
-                        view.no_locals_text.visibility = View.GONE
-                        userLocation = location
-                    }
-                    if (exception != null) {
-                        Log.i("LOCAL_RETRIEVE_ERROR", "Erro: $exception")
-                    }
-                }
+                userLocation = documentObject.l
+                onConfigAndLocationGet(offers, adapter, view)
+                loading.visibility = View.GONE
             }
         }.addOnFailureListener{
             Log.i("LAWYERS_RETRIEVE_ERROR", "Erro: $it")
         }
         db.collection("offices").document(user!!.uid).get().addOnSuccessListener {
             if (it.exists()){
-                val documentConfig: Config? = it.toObject(LawyerProfile::class.java)!!.config
+                val documentObject = it.toObject(OfficeProfile::class.java)!!
+                val documentConfig: Config? = documentObject.config
                 config = documentConfig ?: Config(10.0, listOf(true, true, true, true, true, true))
-                geoFirestore.getLocation(user!!.uid) { location, exception ->
-                    if (exception == null && location != null){
-                        no_locals_text.visibility = View.GONE
-                        userLocation = location
-                    }
-                    if (exception != null) {
-                        Log.i("LOCAL_RETRIEVE_ERROR", "Erro: $exception")
-                    }
-                }
+                userLocation = documentObject.l
+                onConfigAndLocationGet(offers, adapter, view)
+                loading.visibility = View.GONE
             }
         }.addOnFailureListener{
             Log.i("OFFICES_RETRIEVE_ERROR", "Erro: $it")
         }
 
-        if (userLocation != null && config != null) {
-            geoFirestore.getAtLocation(userLocation!!, config!!.range) { docs, ex ->
-                if (docs!!.isNotEmpty() && ex != null) {
-                    for (document in docs) {
-                        offers.add(document.toObject(Offer::class.java)!!)
-                        view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
-                        view.recycler_view_home.adapter = adapter
-                    }
-                }
-            }
-        }
+
 //        collectionReference.get().addOnSuccessListener { result ->
 //
 //            for (document in result) {
@@ -136,6 +117,27 @@ class HomeFragment:Fragment() {
         }
 
         return view
+    }
+
+    fun onConfigAndLocationGet(offers: MutableList<Offer>, adapter: OfferRecycleAdapter, view: View) {
+        if (userLocation != null && config != null) {
+            view.no_locals_text.visibility = View.GONE
+            geoFirestoreOffers.getAtLocation(userLocation!!, config!!.range!!) { docs, ex ->
+                if (docs!!.isNotEmpty() && ex == null) {
+                    for (document in docs) {
+                        offers.add(document.toObject(Offer::class.java)!!)
+                        view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
+                        view.recycler_view_home.adapter = adapter
+                    }
+                }
+                if (ex != null) {
+                    Log.i("GETOFFERS_ERROR", "Erro ao procurar ofertas por raio: $ex")
+                }
+            }
+        }
+        if(userLocation == null) {
+            view.no_locals_text.isVisible = true
+        }
     }
 }
 
