@@ -30,7 +30,7 @@ class AddLocalFragment:Fragment() {
     val retrofit = RetrofitBuilder.getInstance()
     val service = retrofit?.create(DAO::class.java)
     val key = "oGaupp7uI2W88QMZHcpLQlcQTTRGwz0e"
-    val manager = fragmentManager
+    val user = FirebaseAuth.getInstance().currentUser!!
 
     val TAG ="TesteFragment"
 
@@ -70,9 +70,19 @@ class AddLocalFragment:Fragment() {
                         val lat : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lat!!
                         val long : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lng!!
 
-                        db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+                        db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
                             if (it.exists()) {
-                                geoFirestore.setLocation(it.id, GeoPoint(lat, long))
+                                try {
+                                    geoFirestore.setLocation(user.uid, GeoPoint(lat, long))
+                                    val manager = fragmentManager
+                                    val transaction = manager!!.beginTransaction()
+                                    val fragment = HomeFragment()
+                                    transaction?.replace(R.id.nav_host_fragment, fragment)
+                                    transaction?.addToBackStack(null)
+                                    transaction?.commit()
+                                } catch(e: Exception) {
+                                    Log.i("GEOFIRESTORE_EXCEPTION", "Erro na inserção de localização: $e")
+                                }
                             }
                             else {
                                 Toast.makeText(activity, "Documento não encontrado nos advogados!", Toast.LENGTH_SHORT).show()
@@ -81,22 +91,28 @@ class AddLocalFragment:Fragment() {
                             Toast.makeText(activity,"Erro ao adicionar local",Toast.LENGTH_LONG).show()
                             Log.i("LOCAL_ADD_ERROR", "Erro: $it")
                         }
-                        db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+                        db.collection("offices").document(user.uid).get().addOnSuccessListener {
                             if (it.exists()){
-                                geoFirestore.setLocation(it.id, GeoPoint(lat, long))
+                                try {
+                                    geoFirestore.setLocation(it.id, GeoPoint(lat, long))
+                                    val manager = fragmentManager
+                                    val transaction = manager!!.beginTransaction()
+                                    val fragment = HomeFragment()
+                                    transaction?.replace(R.id.nav_host_fragment, fragment)
+                                    transaction?.addToBackStack(null)
+                                    transaction?.commit()
+                                } catch (e: Exception) {
+                                    Log.i("GEOFIRESTORE_EXCEPTION", "Erro na inserção de localização: $e")
+                                }
                             }
                             else {
                                 Toast.makeText(activity, "Documento não encontrado nos escritórios!", Toast.LENGTH_SHORT).show()
                             }
-                        }.addOnFailureListener{
-                            Toast.makeText(activity,"Erro ao adicionar local",Toast.LENGTH_LONG).show()
+                        }.addOnFailureListener {
+                            Toast.makeText(activity, "Erro ao adicionar local", Toast.LENGTH_LONG)
+                                .show()
                             Log.i("LOCAL_ADD_ERROR", "Erro: $it")
                         }
-                        val transaction = manager?.beginTransaction()
-                        val fragment = HomeFragment()
-                        transaction?.replace(R.id.nav_host_fragment, fragment)
-                        transaction?.addToBackStack(null)
-                        transaction?.commit()
                     }
                 })
             } else {
