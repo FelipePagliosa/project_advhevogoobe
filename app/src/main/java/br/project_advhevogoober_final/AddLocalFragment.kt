@@ -25,8 +25,10 @@ import retrofit2.Response
 class AddLocalFragment:Fragment() {
 
     val db = FirebaseFirestore.getInstance()
-    val collectionReference = db.collection("Offers")
-    val geoFirestore = GeoFirestore(collectionReference)
+    val collectionReferenceLawyers = db.collection("lawyers")
+    val geoFirestoreLawyers = GeoFirestore(collectionReferenceLawyers)
+    val collectionReferenceOffices = db.collection("offices")
+    val geoFirestoreOffices = GeoFirestore(collectionReferenceOffices)
     val retrofit = RetrofitBuilder.getInstance()
     val service = retrofit?.create(DAO::class.java)
     val key = "oGaupp7uI2W88QMZHcpLQlcQTTRGwz0e"
@@ -69,11 +71,12 @@ class AddLocalFragment:Fragment() {
                     override fun onResponse(call: Call<APIResultsObject>, response: Response<APIResultsObject>) {
                         val lat : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lat!!
                         val long : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lng!!
+                        val geoPoint = GeoPoint(lat, long)
 
                         db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
                             if (it.exists()) {
                                 try {
-                                    geoFirestore.setLocation(user.uid, GeoPoint(lat, long))
+                                    geoFirestoreLawyers.setLocation(user.uid, geoPoint)
                                     val manager = fragmentManager
                                     val transaction = manager!!.beginTransaction()
                                     val fragment = HomeFragment()
@@ -84,9 +87,6 @@ class AddLocalFragment:Fragment() {
                                     Log.i("GEOFIRESTORE_EXCEPTION", "Erro na inserção de localização: $e")
                                 }
                             }
-                            else {
-                                Toast.makeText(activity, "Documento não encontrado nos advogados!", Toast.LENGTH_SHORT).show()
-                            }
                         }.addOnFailureListener{
                             Toast.makeText(activity,"Erro ao adicionar local",Toast.LENGTH_LONG).show()
                             Log.i("LOCAL_ADD_ERROR", "Erro: $it")
@@ -94,7 +94,7 @@ class AddLocalFragment:Fragment() {
                         db.collection("offices").document(user.uid).get().addOnSuccessListener {
                             if (it.exists()){
                                 try {
-                                    geoFirestore.setLocation(it.id, GeoPoint(lat, long))
+                                    geoFirestoreOffices.setLocation(it.id, geoPoint)
                                     val manager = fragmentManager
                                     val transaction = manager!!.beginTransaction()
                                     val fragment = HomeFragment()
@@ -104,9 +104,6 @@ class AddLocalFragment:Fragment() {
                                 } catch (e: Exception) {
                                     Log.i("GEOFIRESTORE_EXCEPTION", "Erro na inserção de localização: $e")
                                 }
-                            }
-                            else {
-                                Toast.makeText(activity, "Documento não encontrado nos escritórios!", Toast.LENGTH_SHORT).show()
                             }
                         }.addOnFailureListener {
                             Toast.makeText(activity, "Erro ao adicionar local", Toast.LENGTH_LONG)
