@@ -34,7 +34,6 @@ class HomeFragment:Fragment() {
     var userLocation: GeoPoint? = null
     var config: Config? = null
 
-
     private fun onPostItemClick(offer: Offer) {
         var intent = Intent(activity, OfferDetails::class.java)
         intent.putExtra("offer", offer)
