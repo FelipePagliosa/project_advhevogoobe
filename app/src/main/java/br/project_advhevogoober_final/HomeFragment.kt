@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import android.widget.Toast.makeText
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +37,7 @@ class HomeFragment:Fragment() {
 
 
     private fun onPostItemClick(offer: Offer) {
-        makeText(activity, "ok!", Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, "ok!", Toast.LENGTH_LONG).show()
     }
 
     override fun onAttach(context: Context) {
