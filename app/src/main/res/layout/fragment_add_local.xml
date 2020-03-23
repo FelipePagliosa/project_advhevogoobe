@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/local_street"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
@@ -20,14 +20,13 @@
         android:paddingRight="6dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/local_city"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColorHint="@color/colorBackground"
+        app:layout_constraintStart_toStartOf="@+id/textView27"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
     <EditText
         android:id="@+id/local_city"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
@@ -38,14 +37,13 @@
         android:paddingRight="6dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/local_state"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/local_street" />
+        android:textColorHint="@color/colorBackground"
+        app:layout_constraintStart_toStartOf="@+id/textView28"
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
     <EditText
         android:id="@+id/local_state"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
@@ -56,14 +54,13 @@
         android:paddingRight="6dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/local_postal_code"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/local_city" />
+        android:textColorHint="@color/colorBackground"
+        app:layout_constraintStart_toStartOf="@+id/textView29"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
     <EditText
         android:id="@+id/local_postal_code"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
@@ -74,58 +71,66 @@
         android:paddingRight="6dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/local_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/local_state" />
+        android:textColorHint="@color/colorBackground"
+        app:layout_constraintStart_toStartOf="@+id/textView30"
+        app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
     <Button
         android:id="@+id/local_add"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/addLocal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/local_postal_code" />
+        app:layout_constraintEnd_toEndOf="@+id/local_postal_code"
+        app:layout_constraintStart_toStartOf="@+id/local_postal_code"
+        app:layout_constraintTop_toBottomOf="@+id/local_postal_code"
+        app:layout_constraintVertical_bias="0.558" />
 
     <TextView
         android:id="@+id/textView27"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="60dp"
         android:text="@string/street"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/local_street"
-        app:layout_constraintStart_toStartOf="@+id/local_street" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView28"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="60dp"
         android:text="@string/city"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/local_city"
-        app:layout_constraintStart_toStartOf="@+id/local_city" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/local_street" />
 
     <TextView
         android:id="@+id/textView29"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="60dp"
         android:text="@string/state"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/local_state"
-        app:layout_constraintStart_toStartOf="@+id/local_state" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/local_city" />
 
     <TextView
         android:id="@+id/textView30"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="60dp"
         android:text="@string/postalCode"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/local_postal_code"
-        app:layout_constraintStart_toStartOf="@+id/local_postal_code" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/local_state" />
 </androidx.constraintlayout.widget.ConstraintLayout>
