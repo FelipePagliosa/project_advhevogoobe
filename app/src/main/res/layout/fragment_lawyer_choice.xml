@@ -75,7 +75,7 @@
         android:background="@drawable/edtext_bg"
         android:ems="10"
         android:hint="@string/ssn"
-        android:inputType="number"
+        android:inputType="date"
         android:paddingStart="10dp"
         android:textColorHint="@color/colorBackground"
         app:layout_constraintBottom_toTopOf="@+id/lawyer_oab_code"
@@ -111,18 +111,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lawyer_oab_code" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="176dp"
-        android:layout_height="157dp"
-        android:src="@android:color/holo_blue_bright"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.876"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.059" />
 
     <Button
         android:id="@+id/btnSelectPhotoLawyer"

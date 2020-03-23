@@ -24,11 +24,11 @@
     <string name="next">Próximo</string>
     <string name="name">Nome</string>
     <string name="surname">Sobreome</string>
-    <string name="ssn">CPF</string>
+    <string name="ssn">CPF (xxx.xxx.xxx-xx)</string>
     <string name="oab_code">Código da OAB</string>
-    <string name="phone">Telefone</string>
-    <string name="business_id">CNPJ</string>
-    <string name="birthdate">Data de nascimento</string>
+    <string name="phone">Telefone (DD xxxxx-xxxx)</string>
+    <string name="business_id">CNPJ (xx.xxx.xxx/xxxx-xx)</string>
+    <string name="birthdate">Data de nascimento (dd/mm/yyyy)</string>
     <string name="config">Configurações</string>
     <string name="jurisdiction1">Vara 1</string>
     <string name="jurisdiction2">Vara 2</string>

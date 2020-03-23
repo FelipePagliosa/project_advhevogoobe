@@ -57,7 +57,10 @@ class OfficeChoiceFragment:Fragment() {
         preferencesEditor.putBoolean(PROFILE_CHECK_KEY,true)
         preferencesEditor.apply()
         view.btnSaveOffice.setOnClickListener {
-            if (view.office_name.text.toString() != "" && view.office_phone.text.toString() != "" && view.office_business_id.text.toString() != "" && profileImage!=null) {
+            val regexCnpj : Regex = Regex( "^[0-9]{2}\\.?[0-9]{3}\\.?[0-9]{3}\\/?[0-9]{4}\\-?[0-9]{2}$")
+            val regexCelTel : Regex = Regex("^([1-9]{2}) (?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}$")
+            if (view.office_name.text.toString() != "" && view.office_phone.text.toString() != "" && view.office_business_id.text.toString() != "" && profileImage!=null
+                && regexCnpj.matches(view.office_business_id.text.toString()) && regexCelTel.matches(view.office_phone.text.toString())) {
                 office= OfficeProfile(view.office_name.text.toString(),view.office_phone.text.toString(),view.office_business_id.text.toString())
                 db.collection("offices").document(user.uid).set(office).addOnSuccessListener {
                     Toast.makeText(activity,"Funcionou",Toast.LENGTH_LONG).show()

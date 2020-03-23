@@ -45,7 +45,7 @@
         android:background="@drawable/edtext_bg"
         android:ems="10"
         android:hint="@string/business_id"
-        android:inputType="number"
+        android:inputType="date"
         android:paddingLeft="10dp"
         android:textColorHint="@color/colorBackground"
         app:layout_constraintBottom_toTopOf="@+id/btnSaveOffice"
