@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/btnSaveUpdatedEmail"
-        android:layout_width="291dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
