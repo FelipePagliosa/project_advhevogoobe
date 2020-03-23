@@ -1,13 +1,13 @@
 package br.project_advhevogoober_final
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.project_advhevogoober_final.Model.Config
@@ -20,9 +20,8 @@ import com.google.firebase.firestore.GeoPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.imperiumlabs.geofirestore.GeoFirestore
-import org.imperiumlabs.geofirestore.GeoFirestore.LocationCallback
+import androidx.core.view.*
 import org.imperiumlabs.geofirestore.extension.getAtLocation
-import org.imperiumlabs.geofirestore.extension.getLocation
 
 class HomeFragment:Fragment() {
 
@@ -35,9 +34,10 @@ class HomeFragment:Fragment() {
     var userLocation: GeoPoint? = null
     var config: Config? = null
 
-
     private fun onPostItemClick(offer: Offer) {
-        Toast.makeText(activity, "ok!", Toast.LENGTH_LONG).show()
+        var intent = Intent(activity, OfferDetails::class.java)
+        intent.putExtra("offer", offer)
+        startActivity(intent)
     }
 
     override fun onAttach(context: Context) {
@@ -60,7 +60,7 @@ class HomeFragment:Fragment() {
         val view: View =inflater!!.inflate(R.layout.fragment_home,container,false)
         var offers = mutableListOf<Offer>()
         var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
-        view.no_locals_text.isVisible = false
+        view.no_locals_text.isVisible =false
 
         db.collection("lawyers").document(user!!.uid).get().addOnSuccessListener { it ->
             if (it.exists()) {
@@ -85,20 +85,9 @@ class HomeFragment:Fragment() {
             }
         }.addOnFailureListener{
             Log.i("OFFICES_RETRIEVE_ERROR", "Erro: $it")
+            view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
+            view.recycler_view_home.adapter = adapter
         }
-
-
-//        collectionReference.get().addOnSuccessListener { result ->
-//
-//            for (document in result) {
-//
-//                offers.add(document.toObject(Offer::class.java))
-//            }
-//            view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
-//            view.recycler_view_home.adapter = adapter
-//        }
-
-
         view.btn_post_create.setOnClickListener{
             val transaction = fragmentManager?.beginTransaction()
             val fragment = CreateOfferFragment()

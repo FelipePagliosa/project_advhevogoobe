@@ -92,6 +92,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
+            R.id.nav_myOffers ->{
+                val transaction = manager.beginTransaction()
+                val fragment = MyOffersFragment()
+                transaction.replace(R.id.nav_host_fragment, fragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
             R.id.nav_teste -> {
                 val transaction = manager.beginTransaction()
                 val fragment = TesteFragment()

@@ -11,6 +11,7 @@ import br.project_advhevogoober_final.API.RetrofitBuilder
 import br.project_advhevogoober_final.Model.APIResultsObject
 import br.project_advhevogoober_final.Model.Offer
 import br.project_advhevogoober_final.Service.DAO
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.android.synthetic.main.fragment_create_offer.*
@@ -24,7 +25,9 @@ import java.util.*
 
 class CreateOfferFragment : Fragment() {
     val db = FirebaseFirestore.getInstance()
+    val user= FirebaseAuth.getInstance().currentUser!!
     val collectionReference = db.collection("Offers")
+    val userRef = db.collection("Offers").document()
     val geoFirestore = GeoFirestore(collectionReference)
     val retrofit = RetrofitBuilder.getInstance()
     val service : DAO? = retrofit?.create(DAO::class.java)
@@ -39,10 +42,7 @@ class CreateOfferFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-        lateinit var jurisdiction:String
         val currentDate = sdf.format(Date())
-//        lateinit var name:String
-
         val view: View = inflater!!.inflate(R.layout.fragment_create_offer,container,false)
         view.btn_post.setOnClickListener {
             val offer = Offer(
@@ -56,9 +56,11 @@ class CreateOfferFragment : Fragment() {
                 editText_offerer.text.toString(),
                 currentDate,
                 editText_description.text.toString(),
-                editText_requirements.text.toString()
+                editText_requirements.text.toString(),
+                user.uid,
+                userRef.id
             )
-            collectionReference.add(offer).addOnSuccessListener {
+            collectionReference.document(userRef.id).set(offer).addOnSuccessListener {
                 Toast.makeText(activity,"Oferta salva!", Toast.LENGTH_LONG).show()
                 service?.show(key, offer.street, offer.city, offer.state, offer.postalCode)?.enqueue(object : Callback<APIResultsObject> {
                     override fun onFailure(call: Call<APIResultsObject>, t: Throwable) {
@@ -69,7 +71,7 @@ class CreateOfferFragment : Fragment() {
                     override fun onResponse(call: Call<APIResultsObject>, response: Response<APIResultsObject>) {
                         val lat : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lat!!
                         val long : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lng!!
-                        geoFirestore.setLocation(it.id, GeoPoint(lat, long))
+                        geoFirestore.setLocation(userRef.id, GeoPoint(lat, long))
                     }
                 })
             }.addOnFailureListener{

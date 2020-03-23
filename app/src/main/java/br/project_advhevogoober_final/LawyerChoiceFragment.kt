@@ -61,12 +61,15 @@ class LawyerChoiceFragment:Fragment() {
         preferencesEditor.putBoolean(PROFILE_CHECK_KEY,true)
         preferencesEditor.apply()
         view.btnSaveLawyer.setOnClickListener {
+            val regexCpf : Regex = Regex( "^[0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9]{2}$")
+            val regexCelTel : Regex = Regex("^([1-9]{2}) (?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}$")
             if (view.lawyer_name.text.toString() != "" &&
                 view.lawyer_surname.text.toString() != "" &&
                 view.lawyer_phone.text.toString() != "" &&
                 view.lawyer_ssn.text.toString() != "" &&
                 view.lawyer_oab_code.text.toString() != "" &&
-                view.lawyer_birthdate.text.toString() != "" && legalDoB() && profileImage!=null
+                view.lawyer_birthdate.text.toString() != "" && legalDoB() && profileImage!=null && regexCpf.matches(view.lawyer_ssn.text.toString())
+                && regexCelTel.matches(view.lawyer_phone.text.toString())
             ) {
 
                 var dateFormat=SimpleDateFormat("dd/MM/yyyy")
