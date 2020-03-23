@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.imperiumlabs.geofirestore.GeoFirestore
 import androidx.core.view.*
+import com.google.firebase.firestore.DocumentSnapshot
+import org.imperiumlabs.geofirestore.GeoFirestore.SingleGeoQueryDataEventCallback
 import org.imperiumlabs.geofirestore.extension.getAtLocation
 
 class HomeFragment:Fragment() {
@@ -60,20 +62,24 @@ class HomeFragment:Fragment() {
         val view: View =inflater!!.inflate(R.layout.fragment_home,container,false)
         var offers = mutableListOf<Offer>()
         var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
-        view.no_locals_text.isVisible =false
+        view.no_locals_text.isVisible = false
+        view.btn_local_add.isVisible = false
+        view.btn_post_create.isVisible = false
 
         db.collection("lawyers").document(user!!.uid).get().addOnSuccessListener { it ->
             if (it.exists()) {
                 val documentObject = it.toObject(LawyerProfile::class.java)!!
                 val documentConfig: Config? = documentObject.config
-                config = documentConfig ?: Config(10.0, listOf(true, true, true, true, true, true))
+                config = documentConfig ?: Config(20.0, listOf(true, true, true, true, true, true))
                 userLocation = documentObject.l
                 onConfigAndLocationGet(offers, adapter, view)
-                loading.visibility = View.GONE
+                view.loading.visibility = View.GONE
+                view.btn_post_create.isVisible = true
             }
         }.addOnFailureListener{
             Log.i("LAWYERS_RETRIEVE_ERROR", "Erro: $it")
         }
+
         db.collection("offices").document(user!!.uid).get().addOnSuccessListener {
             if (it.exists()){
                 val documentObject = it.toObject(OfficeProfile::class.java)!!
@@ -82,12 +88,14 @@ class HomeFragment:Fragment() {
                 userLocation = documentObject.l
                 onConfigAndLocationGet(offers, adapter, view)
                 loading.visibility = View.GONE
+                view.btn_post_create.isVisible = true
             }
         }.addOnFailureListener{
             Log.i("OFFICES_RETRIEVE_ERROR", "Erro: $it")
             view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
             view.recycler_view_home.adapter = adapter
         }
+
         view.btn_post_create.setOnClickListener{
             val transaction = fragmentManager?.beginTransaction()
             val fragment = CreateOfferFragment()
@@ -107,25 +115,31 @@ class HomeFragment:Fragment() {
         return view
     }
 
-    fun onConfigAndLocationGet(offers: MutableList<Offer>, adapter: OfferRecycleAdapter, view: View) {
+    private fun onConfigAndLocationGet(offers: MutableList<Offer>, adapter: OfferRecycleAdapter, view: View) {
         if (userLocation != null && config != null) {
             view.no_locals_text.visibility = View.GONE
-            geoFirestoreOffers.getAtLocation(userLocation!!, config!!.range!!) { docs, ex ->
+            view.btn_local_add.visibility = View.GONE
+
+            geoFirestoreOffers.getAtLocation(userLocation!!, (config!!.range!!) * 1000) { docs, ex ->
                 if (docs!!.isNotEmpty() && ex == null) {
                     for (document in docs) {
                         offers.add(document.toObject(Offer::class.java)!!)
-                        view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
-                        view.recycler_view_home.adapter = adapter
                     }
+                    view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
+                    view.recycler_view_home.adapter = adapter
                 }
+
                 if (ex != null) {
                     Log.i("GETOFFERS_ERROR", "Erro ao procurar ofertas por raio: $ex")
                 }
             }
         }
+
         if(userLocation == null) {
             view.no_locals_text.isVisible = true
+            view.btn_local_add.isVisible = true
         }
+
     }
 }
 
