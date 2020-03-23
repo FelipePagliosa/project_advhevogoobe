@@ -62,6 +62,8 @@
     <string name="edit">Editar</string>
     <string name="conectar_se">Conectar-se</string>
     <string name="btn_confirmar">Confirmar</string>
+    <string name="save">SALVAR</string>
+    <string name="new_email">Escreva seu novo e-mail</string>
 
 
 </resources>
