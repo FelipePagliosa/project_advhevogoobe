@@ -8,7 +8,7 @@ import br.project_advhevogoober_final.Model.Offer
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_edit_offer.*
 
-class EditOffer : AppCompatActivity() {
+class EditOfferActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,11 +63,11 @@ class EditOffer : AppCompatActivity() {
             OfferRef.set(offer_teste)
                 .addOnSuccessListener {
                 Toast.makeText(this, "funcionou", Toast.LENGTH_LONG).show()
-                var intent=Intent(this@EditOffer, MainActivity::class.java)
+                var intent=Intent(this@EditOfferActivity, MainActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener{
                 Toast.makeText(this, "nao funcionou", Toast.LENGTH_LONG).show()
-                var intent=Intent(this@EditOffer, MainActivity::class.java)
+                var intent=Intent(this@EditOfferActivity, MainActivity::class.java)
                 startActivity(intent)
             }
         }
