@@ -23,8 +23,10 @@
 
     <EditText
         android:id="@+id/editTextREmail"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
         android:hint="@string/email"
@@ -41,8 +43,10 @@
 
     <EditText
         android:id="@+id/editTextRPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:background="@drawable/edittext_profile_bg"
         android:ems="10"
         android:hint="@string/password"
