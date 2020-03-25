@@ -48,24 +48,30 @@ class CreateOfferFragment : Fragment() {
         val view: View = inflater!!.inflate(R.layout.fragment_create_offer,container,false)
         var nome = ""
         db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
-        if (it.exists()) {
-            var lawyerProfile = it.toObject(LawyerProfile::class.java)
-            nome = lawyerProfile!!.name.toString()
-        }else{
-            Toast.makeText(activity,"n achou", Toast.LENGTH_LONG).show()
+            if (it.exists()) {
+                var lawyerProfile = it.toObject(LawyerProfile::class.java)
+                nome = lawyerProfile!!.name!!
+            }
         }
-    }
-
-    db.collection("offices").document(user.uid).get().addOnSuccessListener {
-        if (it.exists()) {
-            var officeProfile = it.toObject(OfficeProfile::class.java)
-            nome = officeProfile!!.name.toString()
-        }else{
-            Toast.makeText(activity,"achou", Toast.LENGTH_LONG).show()
+        db.collection("offices").document(user.uid).get().addOnSuccessListener {
+            if (it.exists()) {
+                var officeProfile = it.toObject(OfficeProfile::class.java)
+                nome = officeProfile!!.name!!
+            }
         }
-    }
-
-    view.btn_post.setOnClickListener {
+        view.btn_post.setOnClickListener {
+//            db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
+//                if (it.exists()) {
+//                    var lawyerProfile = it.toObject(LawyerProfile::class.java)
+//                    nome = lawyerProfile!!.name!!
+//                }
+//            }
+//            db.collection("offices").document(user.uid).get().addOnSuccessListener {
+//                if (it.exists()) {
+//                    var officeProfile = it.toObject(OfficeProfile::class.java)
+//                    nome = officeProfile!!.name!!
+//                }
+//            }
 
             val offer = Offer(
                 editText_date.text.toString(),
@@ -82,6 +88,7 @@ class CreateOfferFragment : Fragment() {
                 user.uid,
                 userRef.id
             )
+
             collectionReference.document(userRef.id).set(offer).addOnSuccessListener {
                 Toast.makeText(activity,"Oferta salva!", Toast.LENGTH_LONG).show()
                 service?.show(key, offer.street, offer.city, offer.state, offer.postalCode)?.enqueue(object : Callback<APIResultsObject> {
