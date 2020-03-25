@@ -89,11 +89,6 @@ class OfficeChoiceFragment:Fragment() {
             val chooserIntent = Intent.createChooser(pickIntent, pickTitle)
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePhotoIntent))
             startActivityForResult(chooserIntent, 0)
-//            val gallery = Intent()
-//            gallery.type = "image/*"
-//            gallery.action = Intent.ACTION_GET_CONTENT
-//            startActivityForResult(Intent.createChooser(gallery, "Sellect Picture"), 0)
-
         }
         return view
     }
