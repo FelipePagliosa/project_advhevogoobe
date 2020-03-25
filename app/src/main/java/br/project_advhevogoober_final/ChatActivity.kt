@@ -1,26 +1,35 @@
 package br.project_advhevogoober_final
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.project_advhevogoober_final.Model.LawyerProfile
 import br.project_advhevogoober_final.Model.OfficeProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.layout_message_from.view.*
+import kotlinx.android.synthetic.main.layout_message_to.view.*
+import java.util.*
+
 
 class ChatActivity : AppCompatActivity() {
 
     val db = FirebaseFirestore.getInstance()
+    private val user= FirebaseAuth.getInstance().currentUser!!
+    val adapter = GroupAdapter<ViewHolder>()
+    private var messages= mutableListOf<br.project_advhevogoober_final.Model.Message>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        var offererId = intent.getStringExtra("id")
+        var offererId = intent.getStringExtra("offererId")
+
         db.collection("lawyers").document(offererId).get().addOnSuccessListener {
             if (it.exists()) {
                 var lawyerProfile=it.toObject(LawyerProfile::class.java)
@@ -37,28 +46,54 @@ class ChatActivity : AppCompatActivity() {
         }.addOnFailureListener{
             Toast.makeText(this,"Erro ao carregar perfil", Toast.LENGTH_LONG).show()
         }
-        supportActionBar?.title
-        val adapter = GroupAdapter<ViewHolder>()
-        adapter.add(ChatItem())
-        adapter.add(ChatItemTo())
-        adapter.add(ChatItem())
-        adapter.add(ChatItemTo())
-        my_recycler_view.layoutManager = LinearLayoutManager(this)
-        my_recycler_view.adapter=adapter
+
+
+        db.collection("user-messages").document(user.uid).collection(offererId).orderBy("data", Query.Direction.ASCENDING).addSnapshotListener{ snapshot, e->
+            if(snapshot !=null && !snapshot.isEmpty){
+                messages.clear()
+                adapter.clear()
+                messages.addAll(snapshot!!.toObjects(br.project_advhevogoober_final.Model.Message::class.java))
+                for (message in messages){
+                    if(message.idUserOrigin==user.uid){
+                        adapter.add(ChatToItem(message.msgText!!))
+                    }
+                    else{
+                        adapter.add(ChatFromItem(message.msgText!!))
+                    }
+                    val mLayoutManager = LinearLayoutManager(this)
+                    mLayoutManager.stackFromEnd = true
+                    my_recycler_view.adapter=adapter
+                    my_recycler_view.layoutManager= mLayoutManager
+                }
+            }
+        }
+
+        btnSendMessage.setOnClickListener{
+            val chatMessage=br.project_advhevogoober_final.Model.Message(eTxtVwSendMessage.text.toString(),Date(),user.uid,offererId)
+            db.collection("user-messages").document(user.uid).collection(offererId).add(chatMessage)
+            db.collection("user-messages").document(offererId).collection(user.uid).add(chatMessage)
+        }
     }
 
-    class ChatItem:Item<ViewHolder>(){
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
+    class ChatFromItem(val text:String):Item<ViewHolder>(){
 
         override fun bind(viewHolder: ViewHolder, position: Int) {
+            viewHolder.itemView.txtVwFrom.text=text
         }
         override fun getLayout(): Int {
             return R.layout.layout_message_from
         }
     }
 
-    class ChatItemTo:Item<ViewHolder>(){
+    class ChatToItem(val text:String):Item<ViewHolder>(){
 
         override fun bind(viewHolder: ViewHolder, position: Int) {
+            viewHolder.itemView.txtVwTo.text=text
         }
         override fun getLayout(): Int {
             return R.layout.layout_message_to

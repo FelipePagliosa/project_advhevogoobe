@@ -120,7 +120,9 @@ class HomeFragment:Fragment() {
             geoFirestoreOffers.getAtLocation(userLocation!!, (config!!.range!!) * 1000) { docs, ex ->
                 if (docs!!.isNotEmpty() && ex == null) {
                     for (document in docs) {
-                        offers.add(document.toObject(Offer::class.java)!!)
+                        if(document.toObject(Offer::class.java)!!.offererId != user!!.uid){
+                            offers.add(document.toObject(Offer::class.java)!!)
+                        }
                     }
                     view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
                     view.recycler_view_home.adapter = adapter

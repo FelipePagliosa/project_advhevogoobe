@@ -92,7 +92,7 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
 
         btnChat.setOnClickListener {
             var intent = Intent(this, ChatActivity::class.java)
-            intent.putExtra("id", id)
+            intent.putExtra("offererId", id.offererId)
             startActivity(intent)
         }
     }
