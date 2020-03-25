@@ -1,6 +1,5 @@
 package br.project_advhevogoober_final
 
-import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +8,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.view.isVisible
 import br.project_advhevogoober_final.Model.LawyerProfile
+import br.project_advhevogoober_final.Model.Offer
 import br.project_advhevogoober_final.Model.OfficeProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,10 +24,10 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_offer_details)
-        val id = intent.getStringExtra("id")
+        val id = intent.getSerializableExtra("id") as Offer
 
 
-        db.collection("lawyers").document(id).get().addOnSuccessListener {
+        db.collection("lawyers").document(id.offererId).get().addOnSuccessListener {
             if (it.exists()) {
                 var lawyerProfile = it.toObject(LawyerProfile::class.java)
 
@@ -36,11 +36,12 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
                 txtVwDTelefoneOffer.text = lawyerProfile!!.phone
                 txtVwDEmailOffer.text = user.email
                 txtVwDOABOffer.text = lawyerProfile!!.oab_code
-
             }
 
+        }.addOnFailureListener{
+            Toast.makeText(this,it.message.toString(), Toast.LENGTH_LONG).show()
         }
-        db.collection("offices").document(id).get().addOnSuccessListener {
+        db.collection("offices").document(id.offererId).get().addOnSuccessListener {
             if (it.exists()) {
                 var officeProfile = it.toObject(OfficeProfile::class.java)
                 txtVwDNomeOffer.text = officeProfile!!.name
@@ -57,7 +58,7 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
             Toast.makeText(this, it.message.toString(), Toast.LENGTH_LONG).show()
         }
 
-        var tarefa=storageReference.child("profileImages/"+user.uid).getBytes(1024*1024)
+        var tarefa=storageReference.child("profileImages/"+id.offererId).getBytes(1024*1024)
         tarefa.addOnSuccessListener {
             if (it!=null){
                 progressBarOffer.visibility= View.GONE
@@ -79,5 +80,8 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
             progressBarOffer.visibility= View.GONE
         }
 
+        btnChat.setOnClickListener {
+            Toast.makeText(this,"Você apertou o botão, parabens!!", Toast.LENGTH_LONG).show()
+        }
     }
 }
