@@ -35,6 +35,10 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
                 txtVwDSobrenomeOffer.text = lawyerProfile!!.surname
                 txtVwDTelefoneOffer.text = lawyerProfile!!.phone
                 txtVwDEmailOffer.text = user.email
+                textView6.isVisible=true
+                txtVwDSobrenomeOffer.isVisible=true
+                textView11.isVisible = true
+                txtVwDOABOffer.isVisible = true
                 txtVwDOABOffer.text = lawyerProfile!!.oab_code
             }
 

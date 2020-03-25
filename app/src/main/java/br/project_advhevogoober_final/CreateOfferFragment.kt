@@ -47,19 +47,25 @@ class CreateOfferFragment : Fragment() {
         val currentDate = sdf.format(Date())
         val view: View = inflater!!.inflate(R.layout.fragment_create_offer,container,false)
         var nome = ""
-        view.btn_post.setOnClickListener {
-            db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
-                if (it.exists()) {
-                    var lawyerProfile = it.toObject(LawyerProfile::class.java)
-                    nome = lawyerProfile!!.name!!
-                }
-            }
-            db.collection("offices").document(user.uid).get().addOnSuccessListener {
-                if (it.exists()) {
-                    var officeProfile = it.toObject(OfficeProfile::class.java)
-                    nome = officeProfile!!.name!!
-                }
-            }
+        db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
+        if (it.exists()) {
+            var lawyerProfile = it.toObject(LawyerProfile::class.java)
+            nome = lawyerProfile!!.name.toString()
+        }else{
+            Toast.makeText(activity,"n achou", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    db.collection("offices").document(user.uid).get().addOnSuccessListener {
+        if (it.exists()) {
+            var officeProfile = it.toObject(OfficeProfile::class.java)
+            nome = officeProfile!!.name.toString()
+        }else{
+            Toast.makeText(activity,"achou", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    view.btn_post.setOnClickListener {
 
             val offer = Offer(
                 editText_date.text.toString(),

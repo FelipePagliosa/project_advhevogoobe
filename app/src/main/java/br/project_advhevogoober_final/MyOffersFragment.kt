@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.project_advhevogoober_final.Model.Offer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -49,6 +50,5 @@ class MyOffersFragment : Fragment() {
         var intent = Intent(activity, OfferDetailsActivity::class.java)
         intent.putExtra("offer", offer)
         startActivity(intent)
-
     }
 }
