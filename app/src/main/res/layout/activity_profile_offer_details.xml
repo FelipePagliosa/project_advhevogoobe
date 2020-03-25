@@ -17,16 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnChat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="chat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
-
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
@@ -211,7 +201,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/btnChat"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="16dp"
@@ -222,12 +212,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7742818" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
