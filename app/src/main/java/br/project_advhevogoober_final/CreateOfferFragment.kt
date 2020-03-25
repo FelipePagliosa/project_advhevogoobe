@@ -45,6 +45,7 @@ class CreateOfferFragment : Fragment() {
         val currentDate = sdf.format(Date())
         val view: View = inflater!!.inflate(R.layout.fragment_create_offer,container,false)
         view.btn_post.setOnClickListener {
+
             val offer = Offer(
                 editText_date.text.toString(),
                 editText_jurisdiction.text.toString(),
