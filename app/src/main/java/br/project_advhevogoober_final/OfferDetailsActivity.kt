@@ -32,7 +32,7 @@ class OfferDetailsActivity : AppCompatActivity() {
         if (offer.offererId != user.uid) {
             details_offerer.setOnClickListener {
                 var intent = Intent(this, ProfileOfferDetailsActivity::class.java)
-                intent.putExtra("id", offer.offererId)
+                intent.putExtra("id", offer)
                 startActivity(intent)
             }
             btn_layout.visibility = View.GONE

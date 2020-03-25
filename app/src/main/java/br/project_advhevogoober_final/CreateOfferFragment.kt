@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import br.project_advhevogoober_final.API.RetrofitBuilder
 import br.project_advhevogoober_final.Model.APIResultsObject
+import br.project_advhevogoober_final.Model.LawyerProfile
 import br.project_advhevogoober_final.Model.Offer
+import br.project_advhevogoober_final.Model.OfficeProfile
 import br.project_advhevogoober_final.Service.DAO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -44,7 +46,20 @@ class CreateOfferFragment : Fragment() {
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
         val view: View = inflater!!.inflate(R.layout.fragment_create_offer,container,false)
+        var nome = ""
         view.btn_post.setOnClickListener {
+            db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
+                if (it.exists()) {
+                    var lawyerProfile = it.toObject(LawyerProfile::class.java)
+                    nome = lawyerProfile!!.name!!
+                }
+            }
+            db.collection("offices").document(user.uid).get().addOnSuccessListener {
+                if (it.exists()) {
+                    var officeProfile = it.toObject(OfficeProfile::class.java)
+                    nome = officeProfile!!.name!!
+                }
+            }
 
             val offer = Offer(
                 editText_date.text.toString(),
@@ -54,7 +69,7 @@ class CreateOfferFragment : Fragment() {
                 editText_city.text.toString(),
                 editText_state.text.toString(),
                 editText_postal_code.text.toString(),
-                editText_offerer.text.toString(),
+                nome,
                 currentDate,
                 editText_description.text.toString(),
                 editText_requirements.text.toString(),

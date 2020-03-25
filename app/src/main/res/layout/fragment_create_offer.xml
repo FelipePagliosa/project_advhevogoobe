@@ -102,22 +102,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
             <EditText
-                android:id="@+id/editText_offerer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_profile_bg"
-                android:ems="10"
-                android:hint="@string/offerer"
-                android:inputType="textPersonName"
-                android:padding="6dp"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColorHint="@color/colorBackground"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-            <EditText
                 android:id="@+id/editText_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -256,18 +240,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/editText_postal_code" />
 
             <TextView
-                android:id="@+id/textView22"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/offerer"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/colorBackground"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText_jurisdiction" />
-
-            <TextView
                 android:id="@+id/textView23"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -277,7 +249,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/colorBackground"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText_offerer" />
+                app:layout_constraintTop_toBottomOf="@+id/editText_jurisdiction" />
 
             <TextView
                 android:id="@+id/textView24"
