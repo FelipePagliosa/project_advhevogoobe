@@ -1,5 +1,6 @@
 package br.project_advhevogoober_final
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_profile_offer_details.*
+import kotlinx.android.synthetic.main.fragment_office_profile.*
 
 
 class ProfileOfferDetailsActivity : AppCompatActivity() {
@@ -24,9 +26,17 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_offer_details)
+        progressBarOffer.visibility=View.VISIBLE
+
+        for (x in 0 until layoutProfileOffer.childCount ){
+            var daodao:View=layoutProfileOffer.getChildAt(x)
+
+            if (daodao !is ProgressBar){
+                daodao.visibility=View.INVISIBLE
+            }
+        }
+
         val id = intent.getSerializableExtra("id") as Offer
-
-
         db.collection("lawyers").document(id.offererId).get().addOnSuccessListener {
             if (it.exists()) {
                 var lawyerProfile = it.toObject(LawyerProfile::class.java)
@@ -81,7 +91,9 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
         }
 
         btnChat.setOnClickListener {
-            Toast.makeText(this,"Você apertou o botão, parabens!!", Toast.LENGTH_LONG).show()
+            var intent = Intent(this, ChatActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
         }
     }
 }
