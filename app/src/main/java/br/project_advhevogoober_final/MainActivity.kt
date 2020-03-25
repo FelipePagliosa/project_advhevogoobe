@@ -154,6 +154,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     finish()
                 }
             }
+            R.id.action_check_chat ->{
+                intent = Intent(this, ChatRoomsActivity::class.java)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
