@@ -1,6 +1,7 @@
 package br.project_advhevogoober_final
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -23,13 +24,14 @@ class OfferDetailsActivity : AppCompatActivity() {
         var offer = intent.getSerializableExtra("offer") as Offer
         details_price.text = offer.price
         details_requirements.text=offer.requirements
-        details_offerer.text = offer.offerer
         details_date.text = offer.date
         details_description.text = offer.description
         details_jurisdiction.text=offer.jurisdiction
         details_location.text = offer.street
 
         if (offer.offererId != user.uid) {
+            details_offerer.text = offer.offerer+" (Clique para detalhes)"
+            details_offerer.setTextColor(Color.parseColor("#008000"));
             details_offerer.setOnClickListener {
                 var intent = Intent(this, ProfileOfferDetailsActivity::class.java)
                 intent.putExtra("id", offer)

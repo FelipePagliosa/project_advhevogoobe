@@ -70,8 +70,10 @@ class ChatActivity : AppCompatActivity() {
 
         btnSendMessage.setOnClickListener{
             val chatMessage=br.project_advhevogoober_final.Model.Message(eTxtVwSendMessage.text.toString(),Date(),user.uid,offererId)
+            eTxtVwSendMessage.setText("")
             db.collection("user-messages").document(user.uid).collection(offererId).add(chatMessage)
             db.collection("user-messages").document(offererId).collection(user.uid).add(chatMessage)
+
         }
     }
 
