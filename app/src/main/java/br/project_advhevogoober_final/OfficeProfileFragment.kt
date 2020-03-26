@@ -58,7 +58,7 @@ class OfficeProfileFragment:Fragment() {
                 var officeProfile=it.toObject(OfficeProfile::class.java)
                 txtVwDNome.text=officeProfile!!.name
                 txtVwDTelefone.text=officeProfile!!.phone
-                txtVwDEmail.text=user.email
+                txtVwDEmail.text=officeProfile.email
                 txtVwDCNPJ.text=officeProfile!!.businessId
             }
             else{

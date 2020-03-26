@@ -44,11 +44,7 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
                 txtVwDNomeOffer.text = lawyerProfile!!.name
                 txtVwDSobrenomeOffer.text = lawyerProfile!!.surname
                 txtVwDTelefoneOffer.text = lawyerProfile!!.phone
-                txtVwDEmailOffer.text = user.email
-                textView6.isVisible=true
-                txtVwDSobrenomeOffer.isVisible=true
-                textView11.isVisible = true
-                txtVwDOABOffer.isVisible = true
+                txtVwDEmailOffer.text = lawyerProfile!!.email
                 txtVwDOABOffer.text = lawyerProfile!!.oab_code
             }
 
@@ -60,7 +56,7 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
                 var officeProfile = it.toObject(OfficeProfile::class.java)
                 txtVwDNomeOffer.text = officeProfile!!.name
                 txtVwDTelefoneOffer.text = officeProfile!!.phone
-                txtVwDEmailOffer.text = user.email
+                txtVwDEmailOffer.text = officeProfile!!.email
                 textView6.isVisible=false
                 txtVwDSobrenomeOffer.isVisible=false
                 textView11.isVisible = false

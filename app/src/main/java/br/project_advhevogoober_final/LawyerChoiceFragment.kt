@@ -75,7 +75,7 @@ class LawyerChoiceFragment:Fragment() {
                 var dateFormat=SimpleDateFormat("dd/MM/yyyy")
                 var date=dateFormat.parse(lawyer_birthdate.text.toString())
 
-                lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date)
+                lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date,null,user.email)
                 db.collection("lawyers").document(user.uid).set(lawyer).addOnSuccessListener {
                     Toast.makeText(activity,"Funcionou",Toast.LENGTH_LONG).show()
                 }.addOnFailureListener{
