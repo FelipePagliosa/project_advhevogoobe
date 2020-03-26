@@ -22,6 +22,7 @@ class OfferDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_offer_details)
         var offer = intent.getSerializableExtra("offer") as Offer
+        details_offerer.text=offer.offerer
         details_price.text = offer.price
         details_requirements.text=offer.requirements
         details_date.text = offer.date

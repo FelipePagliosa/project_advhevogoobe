@@ -60,19 +60,6 @@ class CreateOfferFragment : Fragment() {
             }
         }
         view.btn_post.setOnClickListener {
-//            db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
-//                if (it.exists()) {
-//                    var lawyerProfile = it.toObject(LawyerProfile::class.java)
-//                    nome = lawyerProfile!!.name!!
-//                }
-//            }
-//            db.collection("offices").document(user.uid).get().addOnSuccessListener {
-//                if (it.exists()) {
-//                    var officeProfile = it.toObject(OfficeProfile::class.java)
-//                    nome = officeProfile!!.name!!
-//                }
-//            }
-
             val offer = Offer(
                 editText_date.text.toString(),
                 editText_jurisdiction.text.toString(),
