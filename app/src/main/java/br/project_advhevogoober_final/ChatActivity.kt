@@ -24,6 +24,8 @@ class ChatActivity : AppCompatActivity() {
     private val user= FirebaseAuth.getInstance().currentUser!!
     val adapter = GroupAdapter<ViewHolder>()
     private var messages= mutableListOf<br.project_advhevogoober_final.Model.Message>()
+    var lawyerProfile: LawyerProfile? =null
+    var officeProfile: OfficeProfile? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,7 @@ class ChatActivity : AppCompatActivity() {
 
         db.collection("lawyers").document(offererId).get().addOnSuccessListener {
             if (it.exists()) {
-                var lawyerProfile=it.toObject(LawyerProfile::class.java)
+                lawyerProfile=it.toObject(LawyerProfile::class.java)
                 supportActionBar?.title=lawyerProfile!!.name
             }
         }.addOnFailureListener{
@@ -40,7 +42,7 @@ class ChatActivity : AppCompatActivity() {
         }
         db.collection("offices").document(offererId).get().addOnSuccessListener {
             if (it.exists()){
-                var officeProfile=it.toObject(OfficeProfile::class.java)
+                officeProfile=it.toObject(OfficeProfile::class.java)
                 supportActionBar?.title=officeProfile!!.name
             }
         }.addOnFailureListener{
@@ -73,6 +75,40 @@ class ChatActivity : AppCompatActivity() {
             eTxtVwSendMessage.setText("")
             db.collection("user-messages").document(user.uid).collection(offererId).add(chatMessage)
             db.collection("user-messages").document(offererId).collection(user.uid).add(chatMessage)
+            if(lawyerProfile!=null){
+                var list = lawyerProfile!!.messagees ?: mutableListOf<String>()
+                list.add(offererId)
+                lawyerProfile!!.messagees=list
+                if(!lawyerProfile!!.messagees!!.contains(offererId)){
+                    db.collection("lawyers").document(user.uid).set(lawyerProfile!!).addOnSuccessListener {
+                        Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
+                    }.addOnFailureListener{
+                        Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+            else if (officeProfile!=null){
+                if(officeProfile!!.messagees.isNullOrEmpty()){
+                    var list= mutableListOf<String>()
+                    list.add(offererId)
+                    officeProfile!!.messagees=list
+                    db.collection("offices").document(user.uid).set(officeProfile!!).addOnSuccessListener {
+                        Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
+                    }.addOnFailureListener{
+                        Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
+                    }
+                }
+                else{
+                    if(!officeProfile!!.messagees!!.contains(offererId)){
+                        officeProfile!!.messagees!!.add(offererId)
+                        db.collection("offices").document(user.uid).set(officeProfile!!).addOnSuccessListener {
+                            Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
+                        }.addOnFailureListener{
+                            Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            }
         }
     }
 

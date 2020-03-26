@@ -65,7 +65,7 @@ class LawyerProfileFragment:Fragment() {
                 txtVwDNome.text=lawyerProfile!!.name
                 txtVwDSobrenome.text=lawyerProfile!!.surname
                 txtVwDTelefone.text=lawyerProfile!!.phone
-                txtVwDEmail.text=user.email
+                txtVwDEmail.text=lawyerProfile.email
                 txtVwDCPF.text=lawyerProfile!!.ssn
                 txtVwDOAB.text=lawyerProfile!!.oab_code
                 txtVwDDataN.text=dateFormat.format(lawyerProfile.birthdate)
