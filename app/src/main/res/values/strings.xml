@@ -7,7 +7,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_myoffers">MyOffers</string>
     <string name="menu_gallery">Gallery</string>
@@ -85,6 +84,9 @@
     <string name="offer_s_location">Offer\'s Location</string>
     <string name="offer_s_jurisdiction">Offer\'s Jurisdiction</string>
     <string name="offer_s_offerer">Offer\'s Offerer</string>
+    <string name="voc_ficou_sem_logar_por_muito_tempo_ponha_seus_dados_de_login_novamente">Você ficou sem logar por muito tempo, ponha seus dados de login novamente</string>
+    <string name="reautenticar">Reautenticar</string>
+    <string name="preencha_os_campos_corretamente">Preencha os campos corretamente!</string>
 
 
 </resources>

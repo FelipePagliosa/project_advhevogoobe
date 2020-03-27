@@ -83,7 +83,7 @@ class ChatActivity : AppCompatActivity() {
                     list.add(user.uid)
                     lawyerProfile!!.messagees=list
                     db.collection("lawyers").document(offererId).set(lawyerProfile!!).addOnSuccessListener {
-                        Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
                     }.addOnFailureListener{
                         Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
                     }
@@ -92,7 +92,7 @@ class ChatActivity : AppCompatActivity() {
                     if(!lawyerProfile!!.messagees!!.contains(user.uid)){
                         lawyerProfile!!.messagees!!.add(user.uid)
                         db.collection("lawyers").document(offererId).set(lawyerProfile!!).addOnSuccessListener {
-                            Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
+//                            Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
                         }.addOnFailureListener{
                             Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
                         }
@@ -105,7 +105,7 @@ class ChatActivity : AppCompatActivity() {
                     list.add(user.uid)
                     officeProfile!!.messagees=list
                     db.collection("offices").document(offererId).set(officeProfile!!).addOnSuccessListener {
-                        Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
                     }.addOnFailureListener{
                         Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
                     }
@@ -114,7 +114,7 @@ class ChatActivity : AppCompatActivity() {
                     if(!officeProfile!!.messagees!!.contains(user.uid)){
                         officeProfile!!.messagees!!.add(user.uid)
                         db.collection("offices").document(offererId).set(officeProfile!!).addOnSuccessListener {
-                            Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
+//                            Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
                         }.addOnFailureListener{
                             Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
                         }

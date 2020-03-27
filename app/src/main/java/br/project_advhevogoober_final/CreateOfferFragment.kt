@@ -106,7 +106,8 @@ class CreateOfferFragment : Fragment() {
                 transaction?.commit()
             }
             else{
-                Toast.makeText(this.activity,"Preencha os campos corretamente!",Toast.LENGTH_LONG).show()
+                val string: String = getString(R.string.preencha_os_campos_corretamente)
+                Toast.makeText(this.activity,string,Toast.LENGTH_LONG).show()
             }
         }
         return view
