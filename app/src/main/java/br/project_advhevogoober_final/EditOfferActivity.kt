@@ -3,10 +3,12 @@ package br.project_advhevogoober_final
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.widget.Toast
 import br.project_advhevogoober_final.Model.Offer
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_edit_offer.*
+import java.text.SimpleDateFormat
 
 class EditOfferActivity : AppCompatActivity() {
 
@@ -15,21 +17,25 @@ class EditOfferActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_offer)
         var offer = intent.getSerializableExtra("offer") as Offer
         val OfferRef = FirebaseFirestore.getInstance().collection("Offers").document(offer.idOffer!!)
+        val dateFormat = DateFormat.getDateFormat(this)
         edit_city.setText(offer.city)
-        edit_date.setText(offer.date)
+        edit_date.setText(dateFormat.format(offer.date))
         edit_description.setText(offer.description)
         edit_jurisdiction.setText(offer.jurisdiction)
         edit_postalcode.setText(offer.postalCode)
-        edit_price.setText(offer.price)
+        edit_price.setText(offer.price.toString())
         edit_requirements.setText(offer.requirements)
         edit_state.setText(offer.state)
         edit_street.setText(offer.street)
 
         btn_edit.setOnClickListener {
+
+            var dateFormat= SimpleDateFormat("dd/MM/yyyy")
+            var date=dateFormat.parse(edit_date.text.toString())
             val offer_teste = Offer(
-                edit_date.text.toString(),
+                date,
                 edit_jurisdiction.text.toString(),
-                edit_price.text.toString(),
+                edit_price.text.toString().toDouble(),
                 edit_street.text.toString(),
                 edit_city.text.toString(),
                 edit_state.text.toString(),
@@ -41,32 +47,12 @@ class EditOfferActivity : AppCompatActivity() {
                 offer.offererId,
                 offer.idOffer
             )
-//            OfferRef.update(
-//                "city",
-//                edit_city.text.toString(),
-//                "date",
-//                edit_date.text.toString(),
-//                "description",
-//                edit_description.text,
-//                "jurisdiction",
-//                edit_jurisdiction.text.toString(),
-//                "postalCode",
-//                edit_postalcode.text.toString(),
-//                "price",
-//                edit_price.text.toString(),
-//                "requirements",
-//                edit_requirements.text.toString(),
-//                "state",
-//                edit_state.text.toString(),
-//                "street",
-//                edit_street.text.toString()
             OfferRef.set(offer_teste)
                 .addOnSuccessListener {
-                Toast.makeText(this, "funcionou", Toast.LENGTH_LONG).show()
                 var intent=Intent(this@EditOfferActivity, MainActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener{
-                Toast.makeText(this, "nao funcionou", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Falha ao criar oferta", Toast.LENGTH_LONG).show()
                 var intent=Intent(this@EditOfferActivity, MainActivity::class.java)
                 startActivity(intent)
             }

@@ -77,7 +77,6 @@ class OfficeProfileFragment:Fragment() {
                         daodao.visibility=View.VISIBLE
                     }
                 }
-                Toast.makeText(activity,"Completou com sucesso",Toast.LENGTH_LONG).show()
                 var imagem= BitmapFactory.decodeByteArray(it,0,it.size)
                 imgVwPhotoOffice.setImageBitmap(imagem)
                 view.btnUpdateEmailOffice.setOnClickListener{

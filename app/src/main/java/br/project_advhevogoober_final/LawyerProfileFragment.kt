@@ -79,7 +79,6 @@ class LawyerProfileFragment:Fragment() {
         var tarefa=storageReference.child("profileImages/"+user.uid).getBytes(1024*1024)
         tarefa.addOnSuccessListener {
             if (it!=null) {
-                Toast.makeText(activity, "Completou com sucesso", Toast.LENGTH_LONG).show()
                 progressBarTest.visibility = View.GONE
                 for (x in 0 until layoutLawyerProfile.childCount) {
                     var daodao: View = layoutLawyerProfile.getChildAt(x)

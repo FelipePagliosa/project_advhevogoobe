@@ -18,10 +18,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.android.synthetic.main.fragment_create_offer.*
 import kotlinx.android.synthetic.main.fragment_create_offer.view.*
+import kotlinx.android.synthetic.main.fragment_lawyer_choice.*
 import org.imperiumlabs.geofirestore.GeoFirestore
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,46 +62,62 @@ class CreateOfferFragment : Fragment() {
             }
         }
         view.btn_post.setOnClickListener {
-            val offer = Offer(
-                editText_date.text.toString(),
-                editText_jurisdiction.text.toString(),
-                editText_price.text.toString(),
-                editText_street.text.toString(),
-                editText_city.text.toString(),
-                editText_state.text.toString(),
-                editText_postal_code.text.toString(),
-                nome,
-                currentDate,
-                editText_description.text.toString(),
-                editText_requirements.text.toString(),
-                user.uid,
-                userRef.id
-            )
+            if(legalDoB() && editText_jurisdiction.text.toString().isNotEmpty() && editText_price.text.toString().toDoubleOrNull()!=null && editText_street.text.toString().isNotEmpty() &&
+                    editText_city.text.toString().isNotEmpty() && editText_state.text.toString().isNotEmpty() && editText_postal_code.text.toString().isNotEmpty() && nome.isNotEmpty() &&
+                    editText_description.text.toString().isNotEmpty() && editText_requirements.text.toString().isNotEmpty()){
+                var dateFormat=SimpleDateFormat("dd/MM/yyyy")
+                var date=dateFormat.parse(editText_date.text.toString())
+                val offer = Offer(
+                    date,
+                    editText_jurisdiction.text.toString(),
+                    editText_price.text.toString().toDouble(),
+                    editText_street.text.toString(),
+                    editText_city.text.toString(),
+                    editText_state.text.toString(),
+                    editText_postal_code.text.toString(),
+                    nome,
+                    currentDate,
+                    editText_description.text.toString(),
+                    editText_requirements.text.toString(),
+                    user.uid,
+                    userRef.id
+                )
 
-            collectionReference.document(userRef.id).set(offer).addOnSuccessListener {
-                Toast.makeText(activity,"Oferta salva!", Toast.LENGTH_LONG).show()
-                service?.show(key, offer.street, offer.city, offer.state, offer.postalCode)?.enqueue(object : Callback<APIResultsObject> {
-                    override fun onFailure(call: Call<APIResultsObject>, t: Throwable) {
-                        Toast.makeText(activity, "Não foi possível salvar a oferta!", Toast.LENGTH_LONG).show()
-                        Log.i("Erro da request da API: ", t.toString())
-                    }
+                collectionReference.document(userRef.id).set(offer).addOnSuccessListener {
+                    service?.show(key, offer.street, offer.city, offer.state, offer.postalCode)?.enqueue(object : Callback<APIResultsObject> {
+                        override fun onFailure(call: Call<APIResultsObject>, t: Throwable) {
+                            Toast.makeText(activity, "Não foi possível salvar a oferta!", Toast.LENGTH_LONG).show()
+                            Log.i("Erro da request da API: ", t.toString())
+                        }
 
-                    override fun onResponse(call: Call<APIResultsObject>, response: Response<APIResultsObject>) {
-                        val lat : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lat!!
-                        val long : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lng!!
-                        geoFirestore.setLocation(userRef.id, GeoPoint(lat, long))
-                    }
-                })
-            }.addOnFailureListener{
-                Toast.makeText(activity,"Oferta não foi salva", Toast.LENGTH_LONG).show()
+                        override fun onResponse(call: Call<APIResultsObject>, response: Response<APIResultsObject>) {
+                            val lat : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lat!!
+                            val long : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lng!!
+                            geoFirestore.setLocation(userRef.id, GeoPoint(lat, long))
+                        }
+                    })
+                }.addOnFailureListener{
+                    Toast.makeText(activity,"Oferta não foi salva", Toast.LENGTH_LONG).show()
+                }
+                val transaction = fragmentManager?.beginTransaction()
+                val fragment = HomeFragment()
+                transaction?.replace(R.id.nav_host_fragment, fragment)
+                transaction?.addToBackStack(null)
+                transaction?.commit()
             }
-            val transaction = fragmentManager?.beginTransaction()
-            val fragment = HomeFragment()
-            transaction?.replace(R.id.nav_host_fragment, fragment)
-            transaction?.addToBackStack(null)
-            transaction?.commit()
+            else{
+                Toast.makeText(this.activity,"Preencha os campos corretamente!",Toast.LENGTH_LONG).show()
+            }
         }
         return view
+    }private fun legalDoB():Boolean{
+        var dateFormat=SimpleDateFormat("dd/MM/yyyy")
+        return try{
+            var date=dateFormat.parse(editText_date.text.toString())
+            true
+        } catch (e: ParseException){
+            Log.d(Log.DEBUG.toString(),"Not legal date")
+            false
+        }
     }
-
 }

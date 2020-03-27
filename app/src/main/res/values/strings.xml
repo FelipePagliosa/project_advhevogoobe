@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Suit App</string>
+    <string name="app_name">Adhevogoober</string>
     <string name="title_activity_main">Advoguberr</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -52,7 +52,6 @@
     <string name="postalCode">CEP</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile">Profile</string>
-    <string name="email">Email</string>
     <string name="street">Endereço</string>
     <string name="addLocal">Adicionar Local</string>
     <string name="password">Senha</string>
@@ -64,6 +63,28 @@
     <string name="btn_confirmar">Confirmar</string>
     <string name="save">SALVAR</string>
     <string name="new_email">Escreva seu novo e-mail</string>
+    <string name="escreva_a_mensagem">Escreva a mensagem...</string>
+    <string name="enviar">Enviar</string>
+    <string name="bem_vindo_sua_rede_profissional">Bem-vindo à sua rede profissional</string>
+    <string name="conta">Conta</string>
+    <string name="saldo_dispon_vel">Saldo disponível</string>
+    <string name="r_7_500_00">R$ 7.500,00</string>
+    <string name="selecionar_foto">Selecionar Foto</string>
+    <string name="nome">Nome</string>
+    <string name="sobrenome">Sobrenome</string>
+    <string name="email">Email</string>
+    <string name="telefone">Telefone</string>
+    <string name="data_de_nascimento">Data de nascimento</string>
+    <string name="cpf">CPF</string>
+    <string name="salvar">Salvar</string>
+    <string name="selecionar_foto_2">selecionar foto</string>
+    <string name="selecione_sua_nova_foto">Selecione sua nova foto</string>
+    <string name="selecionar_tirar_foto">SELECIONAR/TIRAR FOTO</string>
+    <string name="offer_s_date">Offer\'s Date</string>
+    <string name="offer_s_price">Offer\'s Price</string>
+    <string name="offer_s_location">Offer\'s Location</string>
+    <string name="offer_s_jurisdiction">Offer\'s Jurisdiction</string>
+    <string name="offer_s_offerer">Offer\'s Offerer</string>
 
 
 </resources>
