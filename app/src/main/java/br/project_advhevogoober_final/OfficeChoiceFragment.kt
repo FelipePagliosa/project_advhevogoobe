@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import br.project_advhevogoober_final.Model.OfficeProfile
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -63,7 +64,6 @@ class OfficeChoiceFragment:Fragment() {
                 && regexCnpj.matches(view.office_business_id.text.toString()) && regexCelTel.matches(view.office_phone.text.toString())) {
                 office= OfficeProfile(view.office_name.text.toString(),view.office_phone.text.toString(),view.office_business_id.text.toString(),null,user.email)
                 db.collection("offices").document(user.uid).set(office).addOnSuccessListener {
-                    Toast.makeText(activity,"Funcionou",Toast.LENGTH_LONG).show()
                 }.addOnFailureListener{
                     Toast.makeText(activity,it.toString(),Toast.LENGTH_LONG).show()
                 }
@@ -72,7 +72,7 @@ class OfficeChoiceFragment:Fragment() {
                     var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
                     preferencesEditor.putBoolean(PROFILE_CHECK_KEY,false)
                     preferencesEditor.apply()
-                    Toast.makeText(activity,"Imagem salva!",Toast.LENGTH_LONG).show()
+//                    Snackbar.make(view,"Foto salva com sucesso!!", Snackbar.LENGTH_LONG).show()
                     var intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
                 }

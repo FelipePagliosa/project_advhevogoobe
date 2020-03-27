@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.View
 import android.widget.Toast
 import br.project_advhevogoober_final.Model.Offer
@@ -22,9 +23,11 @@ class OfferDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_offer_details)
         var offer = intent.getSerializableExtra("offer") as Offer
-        details_price.text = offer.price
+        val dateFormat = DateFormat.getDateFormat(this)
+        details_offerer.text=offer.offerer
+        details_price.text = offer.price.toString()
         details_requirements.text=offer.requirements
-        details_date.text = offer.date
+        details_date.text = dateFormat.format(offer.date)
         details_description.text = offer.description
         details_jurisdiction.text=offer.jurisdiction
         details_location.text = offer.street

@@ -1,5 +1,6 @@
 package br.project_advhevogoober_final
 
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -29,8 +30,10 @@ class OfferRecycleAdapter(private val offers: List<Offer>, private val callback:
 
     override fun onBindViewHolder(holder: OfferViewHolder, position: Int) {
         val (date, jurisdiction, price, location, offerer, postDate, description, requirements) = offers[position]
+        val context = holder.itemView.context
+        val dateFormat = DateFormat.getDateFormat(context)
         holder.txtVwLocation.text = location
-        holder.txtVwDate.text = date
+        holder.txtVwDate.text = dateFormat.format(date)
         holder.txtVwOfferer.text = offerer
         holder.txtVwPrice.text = price.toString()
         holder.txtVwJurisdiction.text = jurisdiction
@@ -43,6 +46,4 @@ class OfferRecycleAdapter(private val offers: List<Offer>, private val callback:
         val txtVwPrice: TextView = itemView.offer_price
         val txtVwJurisdiction: TextView = itemView.offer_jurisdiction
     }
-
-
 }

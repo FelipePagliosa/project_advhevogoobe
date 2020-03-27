@@ -77,16 +77,15 @@ class LawyerChoiceFragment:Fragment() {
 
                 lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date,null,user.email)
                 db.collection("lawyers").document(user.uid).set(lawyer).addOnSuccessListener {
-                    Toast.makeText(activity,"Funcionou",Toast.LENGTH_LONG).show()
                 }.addOnFailureListener{
-                    Toast.makeText(activity,it.toString(),Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity,"Problema ocorreu ao criar o perfil",Toast.LENGTH_LONG).show()
                 }
                 var tarefa=storageReference.child("profileImages/"+user.uid).putBytes(profileImage!!)
                 tarefa.addOnSuccessListener {
                     var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
                     preferencesEditor.putBoolean(PROFILE_CHECK_KEY,false)
                     preferencesEditor.apply()
-                    Toast.makeText(activity,"Imagem salva!",Toast.LENGTH_LONG).show()
+//                    Toast.makeText(activity,"Imagem salva!",Toast.LENGTH_LONG).show()
                     var intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
                     this.activity!!.finish()
