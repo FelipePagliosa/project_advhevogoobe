@@ -64,7 +64,7 @@ class AddLocalFragment:Fragment() {
                     view.local_postal_code.text.toString()
                 )?.enqueue(object : Callback<APIResultsObject> {
                     override fun onFailure(call: Call<APIResultsObject>, t: Throwable) {
-                        Toast.makeText(activity, "Ocorreu um erro na inserção do local.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity, R.string.erro_ao_add_local, Toast.LENGTH_LONG).show()
                         Log.i("Erro de chamada da API: ", t.toString())
                     }
 
@@ -88,7 +88,7 @@ class AddLocalFragment:Fragment() {
                                 }
                             }
                         }.addOnFailureListener{
-                            Toast.makeText(activity,"Erro ao adicionar local",Toast.LENGTH_LONG).show()
+                            Toast.makeText(activity,R.string.erro_ao_add_local,Toast.LENGTH_LONG).show()
                             Log.i("LOCAL_ADD_ERROR", "Erro: $it")
                         }
                         db.collection("offices").document(user.uid).get().addOnSuccessListener {
@@ -106,14 +106,14 @@ class AddLocalFragment:Fragment() {
                                 }
                             }
                         }.addOnFailureListener {
-                            Toast.makeText(activity, "Erro ao adicionar local", Toast.LENGTH_LONG)
+                            Toast.makeText(activity, R.string.erro_ao_add_local, Toast.LENGTH_LONG)
                                 .show()
                             Log.i("LOCAL_ADD_ERROR", "Erro: $it")
                         }
                     }
                 })
             } else {
-                Toast.makeText(activity, "Preencha todos os campos antes de continuar!", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, R.string.preencha_os_campos_corretamente, Toast.LENGTH_LONG).show()
             }
         }
         return view

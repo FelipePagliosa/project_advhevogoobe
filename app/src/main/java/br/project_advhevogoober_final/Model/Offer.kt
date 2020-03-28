@@ -17,9 +17,7 @@ data class Offer(
     var description: String = "",
     var requirements: String ="",
     var offererId: String = "",
-    var idOffer: String? = "",
-    var g:String?=null,
-    var l:GeoPoint?=null
+    var idOffer: String? = ""
 ): Serializable{
-    constructor() : this(null,"",null,"","","","","", "", "", "","","",null,null)
+    constructor() : this(null,"",null,"","","","","", "", "", "","","")
 }

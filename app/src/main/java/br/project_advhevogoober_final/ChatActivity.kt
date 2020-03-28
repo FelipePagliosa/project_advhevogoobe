@@ -39,7 +39,7 @@ class ChatActivity : AppCompatActivity() {
                 supportActionBar?.title=lawyerProfile!!.name
             }
         }.addOnFailureListener{
-            Toast.makeText(this,"Erro ao carregar perfil", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,R.string.erro_ao_carregar_perfil, Toast.LENGTH_LONG).show()
         }
         db.collection("offices").document(offererId).get().addOnSuccessListener {
             if (it.exists()){
@@ -47,7 +47,7 @@ class ChatActivity : AppCompatActivity() {
                 supportActionBar?.title=officeProfile!!.name
             }
         }.addOnFailureListener{
-            Toast.makeText(this,"Erro ao carregar perfil", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,R.string.erro_ao_carregar_perfil, Toast.LENGTH_LONG).show()
         }
 
 
