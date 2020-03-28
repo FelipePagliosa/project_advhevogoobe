@@ -62,14 +62,23 @@ class CreateOfferFragment : Fragment() {
             }
         }
         view.btn_post.setOnClickListener {
-            if(legalDoB() && editText_jurisdiction.text.toString().isNotEmpty() && editText_price.text.toString().toDoubleOrNull()!=null && editText_street.text.toString().isNotEmpty() &&
+            if(legalDoB() && jurisdictions.checkedRadioButtonId != -1 && editText_price.text.toString().toDoubleOrNull()!=null && editText_street.text.toString().isNotEmpty() &&
                     editText_city.text.toString().isNotEmpty() && editText_state.text.toString().isNotEmpty() && editText_postal_code.text.toString().isNotEmpty() && nome.isNotEmpty() &&
                     editText_description.text.toString().isNotEmpty() && editText_requirements.text.toString().isNotEmpty()){
                 var dateFormat=SimpleDateFormat("dd/MM/yyyy")
                 var date=dateFormat.parse(editText_date.text.toString())
+                var jurisdictionList: MutableList<Boolean> = mutableListOf()
+                when (jurisdictions.checkedRadioButtonId) {
+                    R.id.jurisdiction1 -> jurisdictionList.addAll(listOf(true, false, false, false, false, false))
+                    R.id.jurisdiction2 -> jurisdictionList.addAll(listOf(false, true, false, false, false, false))
+                    R.id.jurisdiction3 -> jurisdictionList.addAll(listOf(false, false, true, false, false, false))
+                    R.id.jurisdiction4 -> jurisdictionList.addAll(listOf(false, false, false, true, false, false))
+                    R.id.jurisdiction5 -> jurisdictionList.addAll(listOf(false, false, false, false, true, false))
+                    R.id.jurisdiction6 -> jurisdictionList.addAll(listOf(false, false, false, false, false, true))
+                }
                 val offer = Offer(
                     date,
-                    editText_jurisdiction.text.toString(),
+                    jurisdictionList,
                     editText_price.text.toString().toDouble(),
                     editText_street.text.toString(),
                     editText_city.text.toString(),
@@ -91,8 +100,8 @@ class CreateOfferFragment : Fragment() {
                         }
 
                         override fun onResponse(call: Call<APIResultsObject>, response: Response<APIResultsObject>) {
-                            val lat : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lat!!
-                            val long : Double = response?.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lng!!
+                            val lat : Double = response.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lat!!
+                            val long : Double = response.body()?.results?.get(0)?.locations?.get(0)?.latLng?.lng!!
                             geoFirestore.setLocation(userRef.id, GeoPoint(lat, long))
                         }
                     })
