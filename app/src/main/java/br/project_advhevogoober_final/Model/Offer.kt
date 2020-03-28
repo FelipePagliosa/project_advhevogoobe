@@ -1,5 +1,6 @@
 package br.project_advhevogoober_final.Model
 
+import com.google.firebase.firestore.GeoPoint
 import java.io.Serializable
 import java.util.*
 
@@ -16,7 +17,9 @@ data class Offer(
     var description: String = "",
     var requirements: String ="",
     var offererId: String = "",
-    var idOffer: String? = ""
+    var idOffer: String? = "",
+    var g:String?=null,
+    var l:GeoPoint?=null
 ): Serializable{
-    constructor() : this(null,"",null,"","","","","", "", "", "")
+    constructor() : this(null,"",null,"","","","","", "", "", "","","",null,null)
 }

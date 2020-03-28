@@ -106,8 +106,7 @@ class CreateOfferFragment : Fragment() {
                 transaction?.commit()
             }
             else{
-                val string: String = getString(R.string.preencha_os_campos_corretamente)
-                Toast.makeText(this.activity,string,Toast.LENGTH_LONG).show()
+                Toast.makeText(this.activity,getString(R.string.preencha_os_campos_corretamente),Toast.LENGTH_LONG).show()
             }
         }
         return view
