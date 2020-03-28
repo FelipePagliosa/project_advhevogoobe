@@ -78,7 +78,7 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
                         daodao.visibility=View.VISIBLE
                     }
                 }
-                Toast.makeText(this,"Completou com sucesso",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,R.string.completou_com_sucesso,Toast.LENGTH_LONG).show()
                 var imagem= BitmapFactory.decodeByteArray(it,0,it.size)
                 imgVwPhotoOfferPrefile.setImageBitmap(imagem)
             }
