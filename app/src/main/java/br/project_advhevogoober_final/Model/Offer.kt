@@ -6,7 +6,7 @@ import java.util.*
 
 data class Offer(
     var date: Date? = null,
-    var jurisdiction: String = "",
+    var jurisdiction: List<Boolean>? = null,
     var price: Double? = null,
     var street: String = "",
     var city: String = "",
@@ -17,9 +17,7 @@ data class Offer(
     var description: String = "",
     var requirements: String ="",
     var offererId: String = "",
-    var idOffer: String? = "",
-    var g:String?=null,
-    var l:GeoPoint?=null
+    var idOffer: String? = ""
 ): Serializable{
-    constructor() : this(null,"",null,"","","","","", "", "", "","","",null,null)
+    constructor() : this(null,null,null,"","","","","", "", "", "","","")
 }
