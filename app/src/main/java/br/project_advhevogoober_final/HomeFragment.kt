@@ -9,10 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.project_advhevogoober_final.Model.Config
-import br.project_advhevogoober_final.Model.LawyerProfile
-import br.project_advhevogoober_final.Model.Offer
-import br.project_advhevogoober_final.Model.OfficeProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -20,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.imperiumlabs.geofirestore.GeoFirestore
 import androidx.core.view.*
+import br.project_advhevogoober_final.Model.*
 import org.imperiumlabs.geofirestore.extension.getAtLocation
 
 class HomeFragment:Fragment() {
@@ -112,7 +109,17 @@ class HomeFragment:Fragment() {
         return view
     }
 
-    private fun onConfigAndLocationGet(offers: MutableList<Offer>, adapter: OfferRecycleAdapter, view: View) {
+    private fun MutableList<Offer>.filterByListBool(listBool: List<Boolean>, filterBool: (List<Boolean>) -> Offer): MutableList<Offer> {
+        var result: MutableList<Offer> = mutableListOf()
+        for (element: Offer in this) {
+            val filteredElement: Offer = filterBool(listBool)
+            result.add(filteredElement)
+        }
+        return result
+    }
+
+    private fun onConfigAndLocationGet(offers: MutableList<Offer>, adapter: OfferRecycleAdapter, view: View): MutableList<Offer>{
+        var resultOffers = mutableListOf<Offer>()
         if (userLocation != null && config != null) {
             view.no_locals_text.visibility = View.GONE
             view.btn_local_add.visibility = View.GONE
@@ -140,6 +147,21 @@ class HomeFragment:Fragment() {
             view.btn_local_add.isVisible = true
         }
 
+        if (!offers.isNullOrEmpty()) {
+            resultOffers = offers.filterByListBool(config!!.jurisdictions!!) {
+                var result = Offer()
+                for (bool in it) {
+                    for (offer in offers) {
+                        if (offer.jurisdiction!![it.indexOf(bool)] == bool) {
+                            result = offer
+                        }
+                    }
+                }
+                result
+            }
+        }
+
+        return resultOffers
     }
 }
 
