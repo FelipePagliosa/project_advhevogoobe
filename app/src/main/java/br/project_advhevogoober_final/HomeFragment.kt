@@ -139,7 +139,6 @@ class HomeFragment:Fragment() {
             view.no_locals_text.isVisible = true
             view.btn_local_add.isVisible = true
         }
-
     }
 }
 

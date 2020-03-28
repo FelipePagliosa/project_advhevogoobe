@@ -86,7 +86,7 @@ class CreateOfferFragment : Fragment() {
                 collectionReference.document(userRef.id).set(offer).addOnSuccessListener {
                     service?.show(key, offer.street, offer.city, offer.state, offer.postalCode)?.enqueue(object : Callback<APIResultsObject> {
                         override fun onFailure(call: Call<APIResultsObject>, t: Throwable) {
-                            Toast.makeText(activity, "Não foi possível salvar a oferta!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(activity, R.string.erro_ao_salvar_oferta, Toast.LENGTH_LONG).show()
                             Log.i("Erro da request da API: ", t.toString())
                         }
 
@@ -97,7 +97,7 @@ class CreateOfferFragment : Fragment() {
                         }
                     })
                 }.addOnFailureListener{
-                    Toast.makeText(activity,"Oferta não foi salva", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity,R.string.erro_ao_salvar_oferta, Toast.LENGTH_LONG).show()
                 }
                 val transaction = fragmentManager?.beginTransaction()
                 val fragment = HomeFragment()

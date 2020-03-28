@@ -53,7 +53,7 @@ class UserUpdatePhotoFragment: Fragment() {
             pickIntent.type = "image/*"
             pickIntent.action = Intent.ACTION_GET_CONTENT
             val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val pickTitle = "Take or select a photo"
+            val pickTitle = getString(R.string.tire_ou_selecione_foto)
             val chooserIntent = Intent.createChooser(pickIntent, pickTitle)
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePhotoIntent))
             startActivityForResult(chooserIntent, 0)
@@ -63,7 +63,6 @@ class UserUpdatePhotoFragment: Fragment() {
             if(profileImage!=null){
                 var tarefa=storageReference.child("profileImages/"+user.uid).putBytes(profileImage!!)
                 tarefa.addOnSuccessListener {
-                    Snackbar.make(view,"A imagem foi atualizada!!", Snackbar.LENGTH_LONG).show()
                     var profileType=(mPreferences.getBoolean(PROFILE_TYPE_KEY,true))
                     if(profileType){
                         val manager = fragmentManager
@@ -82,11 +81,11 @@ class UserUpdatePhotoFragment: Fragment() {
                         transaction.commit()
                     }
                 }.addOnFailureListener{
-                    Snackbar.make(view,"Houve um erro ao atualizar a imagem", Snackbar.LENGTH_LONG).show()
+                    Toast.makeText(activity,R.string.erro_ao_att_imagem,Toast.LENGTH_LONG).show()
                 }
             }
             else{
-                Snackbar.make(view,"Selecione uma nova imagem!", Snackbar.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.selecione_sua_nova_foto,Toast.LENGTH_LONG).show()
             }
         }
         return view
@@ -113,12 +112,11 @@ class UserUpdatePhotoFragment: Fragment() {
                             //view!!.imageView2.setImageBitmap(photo)
                         }
                         else -> {
-                            Toast.makeText(activity,"Erro", Toast.LENGTH_LONG).show()
+                            Toast.makeText(activity,R.string.erro_ao_att_imagem, Toast.LENGTH_LONG).show()
                         }
                     }
                 }
             }
         }
     }
-
 }

@@ -33,15 +33,18 @@ class OfferDetailsActivity : AppCompatActivity() {
         details_location.text = offer.street
 
         if (offer.offererId != user.uid) {
-            details_offerer.text = offer.offerer+" (Clique para detalhes)"
-            details_offerer.setTextColor(Color.parseColor("#008000"));
-            details_offerer.setOnClickListener {
+            details_offerer.text = offer.offerer+getString(R.string.clique_para_detalhes)
+//            details_offerer.setTextColor(Color.parseColor("#008000"));
+            btnCheckOffererProfile.setOnClickListener {
                 var intent = Intent(this, ProfileOfferDetailsActivity::class.java)
                 intent.putExtra("id", offer)
                 startActivity(intent)
             }
             btn_layout.visibility = View.GONE
             btn_layout.isClickable=false
+        }
+        else{
+            btnCheckOffererProfile.visibility=View.GONE
         }
         btn_edit.setOnClickListener {
             var intent = Intent(this@OfferDetailsActivity,EditOfferActivity::class.java)
@@ -50,14 +53,12 @@ class OfferDetailsActivity : AppCompatActivity() {
         }
         btn_excluir.setOnClickListener {
             collectionReference.document(offer.idOffer.toString()).delete().addOnSuccessListener {
-                Toast.makeText(this@OfferDetailsActivity,"deletou",Toast.LENGTH_LONG).show()
+                Toast.makeText(this@OfferDetailsActivity,R.string.deletar_oferta,Toast.LENGTH_LONG).show()
                 var intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener{
-                Toast.makeText(this@OfferDetailsActivity,"nao deletou",Toast.LENGTH_LONG).show()
+                Toast.makeText(this@OfferDetailsActivity,R.string.erro_ao_deletar_oferta,Toast.LENGTH_LONG).show()
             }
         }
     }
-
-
 }

@@ -71,10 +71,10 @@ class LawyerProfileFragment:Fragment() {
                 txtVwDDataN.text=dateFormat.format(lawyerProfile.birthdate)
             }
             else{
-                Toast.makeText(activity,"Erro ao carregar seus dados",Toast.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.erro_ao_carregar_perfil,Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener{
-            Toast.makeText(activity,it.message.toString(),Toast.LENGTH_LONG).show()
+            Toast.makeText(activity,R.string.erro_pegar_dados_firebase,Toast.LENGTH_LONG).show()
         }
         var tarefa=storageReference.child("profileImages/"+user.uid).getBytes(1024*1024)
         tarefa.addOnSuccessListener {
@@ -107,10 +107,10 @@ class LawyerProfileFragment:Fragment() {
                 }
             }
             else{
-                Toast.makeText(activity,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.erro_ao_carregar_imagem_perfil,Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener{
-            Toast.makeText(activity,it.message,Toast.LENGTH_LONG).show()
+            Toast.makeText(activity,R.string.erro_ao_carregar_imagem_perfil,Toast.LENGTH_LONG).show()
             progressBarTest.visibility= View.GONE
         }
     }

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.*
@@ -36,7 +37,7 @@ class UserReauthenticateFragment:Fragment() {
             if(view.editTextREmail.text.toString().isNotEmpty() && view.editTextRPassword.text.toString().isNotEmpty()){
                 var emailAuthProvider:AuthCredential=EmailAuthProvider.getCredential(view.editTextREmail.text.toString(),view.editTextRPassword.text.toString())
                 user.reauthenticate(emailAuthProvider).addOnSuccessListener {
-                    Snackbar.make(view,"Você foi reautenticado",Snackbar.LENGTH_LONG).show()
+                    Toast.makeText(activity,R.string.voce_foi_reautenticado,Toast.LENGTH_LONG).show()
                     val manager = fragmentManager
                     val transaction = manager!!.beginTransaction()
                     val fragment = UserUpdateEmailFragment()
@@ -46,20 +47,20 @@ class UserReauthenticateFragment:Fragment() {
                 }.addOnFailureListener{
                     when (it) {
                         is FirebaseAuthInvalidUserException -> {
-                            Snackbar.make(view,"O seu e-mail e/ou senha estão incorretos",Snackbar.LENGTH_LONG).show()
+                            Toast.makeText(activity,R.string.email_ou_senha_incorretos,Toast.LENGTH_LONG).show()
                         }
                         is FirebaseAuthInvalidCredentialsException -> {
-                            Snackbar.make(view,"O seu e-mail está com a formatação incorreta",Snackbar.LENGTH_LONG).show()
+                            Toast.makeText(activity,R.string.email_form_incorreto,Toast.LENGTH_LONG).show()
                         }
                         else -> {
-                            Snackbar.make(view,"Erro desconhecido ao realizar a autenticação",Snackbar.LENGTH_LONG).show()
+                            Toast.makeText(activity,R.string.erro_auth_desconhecido,Toast.LENGTH_LONG).show()
                         }
                     }
                 }
 
             }
             else{
-                Snackbar.make(view,"Preencha corretamente o campo de email e senha",Snackbar.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.preencha_email_e_senha_corretamente,Toast.LENGTH_LONG).show()
             }
         }
         return view

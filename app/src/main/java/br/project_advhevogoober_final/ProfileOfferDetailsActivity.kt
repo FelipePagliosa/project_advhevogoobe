@@ -49,7 +49,7 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
             }
 
         }.addOnFailureListener{
-            Toast.makeText(this,it.message.toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(this,R.string.erro_pegar_dados_firebase, Toast.LENGTH_LONG).show()
         }
         db.collection("offices").document(id.offererId).get().addOnSuccessListener {
             if (it.exists()) {
@@ -65,7 +65,7 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
 
             }
         }.addOnFailureListener {
-            Toast.makeText(this, it.message.toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.erro_pegar_dados_firebase, Toast.LENGTH_LONG).show()
         }
 
         var tarefa=storageReference.child("profileImages/"+id.offererId).getBytes(1024*1024)
@@ -83,10 +83,10 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
                 imgVwPhotoOfferPrefile.setImageBitmap(imagem)
             }
             else{
-                Toast.makeText(this,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,R.string.erro_ao_carregar_imagem_perfil,Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener{
-            Toast.makeText(this,it.message,Toast.LENGTH_LONG).show()
+            Toast.makeText(this,R.string.erro_ao_carregar_imagem_perfil,Toast.LENGTH_LONG).show()
             progressBarOffer.visibility= View.GONE
         }
 

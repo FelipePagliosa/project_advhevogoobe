@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -42,7 +43,7 @@ class UserUpdateEmailFragment:Fragment() {
         view.btnSaveUpdatedEmail.setOnClickListener{
             if(eTxtNewEmail.text.toString().isNotEmpty()){
                 user.updateEmail(eTxtNewEmail.text.toString()).addOnSuccessListener {
-                    Snackbar.make(view,"O seu email foi atualizado!!",Snackbar.LENGTH_LONG).show()
+                    Toast.makeText(activity,R.string.email_foi_atualizado,Toast.LENGTH_LONG).show()
                     var checkFirstTimeUser=(mPreferences.getBoolean(PROFILE_TYPE_KEY,true))
                     if(checkFirstTimeUser){
                         val manager = fragmentManager
@@ -62,7 +63,7 @@ class UserUpdateEmailFragment:Fragment() {
                     }
                 }.addOnFailureListener{
                     if(it is FirebaseAuthRecentLoginRequiredException){
-                        Snackbar.make(view,"É necessário se relogar para realizar essa operação",Snackbar.LENGTH_LONG).show()
+                        Toast.makeText(activity,R.string.necessario_reautenticar,Toast.LENGTH_LONG).show()
                         val manager = fragmentManager
                         val transaction = manager!!.beginTransaction()
                         val fragment = UserReauthenticateFragment()
@@ -71,12 +72,12 @@ class UserUpdateEmailFragment:Fragment() {
                         transaction.commit()
                     }
                     else if(it is FirebaseAuthInvalidCredentialsException){
-                        Snackbar.make(view,"Escreva um e-mail válido",Snackbar.LENGTH_LONG).show()
+                        Toast.makeText(activity,R.string.email_form_incorreto,Toast.LENGTH_LONG).show()
                     }
                 }
             }
             else{
-                Snackbar.make(view,"Preencha o campo e-mail corretamente",Snackbar.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.preencha_email_corretamente,Toast.LENGTH_LONG).show()
             }
         }
         return view

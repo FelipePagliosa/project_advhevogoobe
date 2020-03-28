@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         transaction.commit()
                     }
                 }.addOnFailureListener{
-                    Toast.makeText(this,"Erro ao carregar perfil",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,R.string.erro_ao_carregar_perfil,Toast.LENGTH_LONG).show()
                 }
                 db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
                     if (it.exists()){
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         transaction.commit()
                     }
                 }.addOnFailureListener{
-                    Toast.makeText(this,"Erro ao carregar perfil",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,R.string.erro_ao_carregar_perfil,Toast.LENGTH_LONG).show()
                 }
             }
         }
