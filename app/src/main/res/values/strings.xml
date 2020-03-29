@@ -99,5 +99,8 @@
     <string name="request_button">Candidatar-se</string>
     <string name="menu_mysolicitations">My Solicitations</string>
     <string name="candidate_button">Condidatos</string>
+    <string name="title_activity_aplicants_tabs">AplicantsTabsActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
     <!--/-->
 </resources>
