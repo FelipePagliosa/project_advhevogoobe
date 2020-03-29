@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatRoomsActivity"></activity>
+        <activity android:name=".ApplicantListActivity"></activity>
+        <activity android:name=".CandidateListActivity" />
+        <activity android:name=".CheckOutActivity" />
+        <activity android:name=".ChatRoomsActivity" />
         <activity android:name=".OfferDetailsActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".EditOfferActivity" />

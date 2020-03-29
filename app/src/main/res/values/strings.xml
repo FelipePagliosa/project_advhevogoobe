@@ -8,7 +8,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="menu_home">Home</string>
-    <string name="menu_myoffers">MyOffers</string>
+    <string name="menu_myoffers">My Offers</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
@@ -91,6 +91,13 @@
     <string name="erro_ao_add_local">Ocorreu um erro na inserção do local.</string>
     <string name="erro_ao_carregar_perfil">Erro ao carregar perfil.</string>
     <string name="erro_ao_enviar_mensagem">Erro ao enviar a mensagem, o outro usuário não irá receber essa mensagem.</string>
-
-<!--/-->
+    <string name="store_name" translatable="false">Auto T-Shirt Shop</string>
+    <string name="googlepay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this phone.</string>
+    <string name="googlepay_status_checking" translatable="false">Checking if Google Pay is available...</string>
+    <string name="payments_show_name">Successfully received payment data for %s!</string>
+    <string name="toast_succeeded_payment">Pagamento bem-sucedido!</string>
+    <string name="request_button">Candidatar-se</string>
+    <string name="menu_mysolicitations">My Solicitations</string>
+    <string name="candidate_button">Condidatos</string>
+    <!--/-->
 </resources>

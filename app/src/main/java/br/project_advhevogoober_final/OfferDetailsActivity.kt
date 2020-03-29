@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import br.project_advhevogoober_final.Model.Offer
+import br.project_advhevogoober_final.Model.Solicitation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_offer_details.*
@@ -32,6 +34,29 @@ class OfferDetailsActivity : AppCompatActivity() {
         details_jurisdiction.text=offer.jurisdiction
         details_location.text = offer.street
 
+        db.collection("Solicitations").whereEqualTo("userId",user.uid).whereEqualTo("offerId",offer.idOffer).get().addOnSuccessListener {
+            if(it.size() == 0){
+                btn_request.setOnClickListener {
+                    var solicitation = Solicitation(
+                        user.uid,
+                        offer.idOffer.toString()
+                    )
+                    db.collection("Solicitations").add(solicitation)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Solicitação enviada!", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Solicitação não enviada!", Toast.LENGTH_LONG).show()
+                        }
+
+                }
+            }else{
+                btn_request.isEnabled = false
+            }
+        }
+
         if (offer.offererId != user.uid) {
             details_offerer.text = offer.offerer+" (Clique para detalhes)"
             details_offerer.setTextColor(Color.parseColor("#008000"));
@@ -40,8 +65,17 @@ class OfferDetailsActivity : AppCompatActivity() {
                 intent.putExtra("id", offer)
                 startActivity(intent)
             }
-            btn_layout.visibility = View.GONE
-            btn_layout.isClickable=false
+            btn_excluir.isVisible=false
+            btn_excluir.isClickable=false
+            btn_edit.isVisible=false
+            btn_edit.isClickable=false
+            btn_candidate.isClickable=false
+
+
+        }else{
+            btn_request.isEnabled=false
+            btn_request.isVisible=false
+            btn_candidate.isVisible=true
         }
         btn_edit.setOnClickListener {
             var intent = Intent(this@OfferDetailsActivity,EditOfferActivity::class.java)
@@ -57,7 +91,8 @@ class OfferDetailsActivity : AppCompatActivity() {
                 Toast.makeText(this@OfferDetailsActivity,"nao deletou",Toast.LENGTH_LONG).show()
             }
         }
+        btn_candidate.setOnClickListener {
+            val intent = Intent(this, CandidateListActivity)
+        }
     }
-
-
 }
