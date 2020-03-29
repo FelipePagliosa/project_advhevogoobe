@@ -62,7 +62,7 @@ class OfficeProfileFragment:Fragment() {
                 txtVwDCNPJ.text=officeProfile!!.businessId
             }
             else{
-                Toast.makeText(activity,"Erro ao carregar seus dados",Toast.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.erro_pegar_dados_firebase,Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener{
             Toast.makeText(activity,it.message.toString(), Toast.LENGTH_LONG).show()
@@ -97,7 +97,7 @@ class OfficeProfileFragment:Fragment() {
                 }
             }
             else{
-                Toast.makeText(activity,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.erro_ao_carregar_imagem_perfil,Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener{
             Toast.makeText(activity,it.message,Toast.LENGTH_LONG).show()

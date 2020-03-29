@@ -78,20 +78,19 @@ class LawyerChoiceFragment:Fragment() {
                 lawyer=LawyerProfile(view.lawyer_name.text.toString(),view.lawyer_surname.text.toString(),view.lawyer_phone.text.toString(),view.lawyer_ssn.text.toString(),view.lawyer_oab_code.text.toString(),date,null,user.email)
                 db.collection("lawyers").document(user.uid).set(lawyer).addOnSuccessListener {
                 }.addOnFailureListener{
-                    Toast.makeText(activity,"Problema ocorreu ao criar o perfil",Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity,R.string.erro_ao_criar_perfil,Toast.LENGTH_LONG).show()
                 }
                 var tarefa=storageReference.child("profileImages/"+user.uid).putBytes(profileImage!!)
                 tarefa.addOnSuccessListener {
                     var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
                     preferencesEditor.putBoolean(PROFILE_CHECK_KEY,false)
                     preferencesEditor.apply()
-//                    Toast.makeText(activity,"Imagem salva!",Toast.LENGTH_LONG).show()
                     var intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
                     this.activity!!.finish()
                 }
             } else {
-                Toast.makeText(activity, "Preencha todos os campos corretamente e selecione/tire uma foto!!", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.preencha_os_campos_corretamente_e_foto, Toast.LENGTH_LONG).show()
             }
         }
         view.btnSelectPhotoLawyer.setOnClickListener{
@@ -100,7 +99,7 @@ class LawyerChoiceFragment:Fragment() {
             pickIntent.type = "image/*"
             pickIntent.action = Intent.ACTION_GET_CONTENT
             val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val pickTitle = "Take or select a photo"
+            val pickTitle=getString(R.string.tire_ou_selecione_foto)
             val chooserIntent = Intent.createChooser(pickIntent, pickTitle)
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePhotoIntent))
             startActivityForResult(chooserIntent, 0)
@@ -129,8 +128,6 @@ class LawyerChoiceFragment:Fragment() {
                             val imageUri: Uri? = data.data
                             var bytearray=this.activity!!.contentResolver.openInputStream(imageUri!!)?.buffered().use { it?.readBytes() }
                             profileImage = bytearray
-//                            val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
-//                            view!!.imageView2.setImageBitmap(bitmap)
                         }
                         data?.extras!!.get("data")!=null -> {
                             val photo = data?.extras!!.get("data") as Bitmap
@@ -138,10 +135,9 @@ class LawyerChoiceFragment:Fragment() {
                             photo.compress(Bitmap.CompressFormat.PNG, 90, stream)
                             val image= stream.toByteArray()
                             profileImage = image
-                            //view!!.imageView2.setImageBitmap(photo)
                         }
                         else -> {
-                            Toast.makeText(activity,"Erro",Toast.LENGTH_LONG).show()
+                            Toast.makeText(activity,R.string.erro_ao_tirar_ou_selecionar_foto,Toast.LENGTH_LONG).show()
                         }
                     }
                 }

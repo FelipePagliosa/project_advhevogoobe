@@ -2,8 +2,10 @@ package br.project_advhevogoober_final
 
 import android.content.Intent
 import android.graphics.Color
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -69,9 +71,9 @@ class OfferDetailsActivity : AppCompatActivity() {
         }
 
         if (offer.offererId != user.uid) {
-            details_offerer.text = offer.offerer+" (Clique para detalhes)"
-            details_offerer.setTextColor(Color.parseColor("#008000"));
-            details_offerer.setOnClickListener {
+            details_offerer.text = offer.offerer+getString(R.string.clique_para_detalhes)
+//            details_offerer.setTextColor(Color.parseColor("#008000"));
+            btnCheckOffererProfile.setOnClickListener {
                 var intent = Intent(this, ProfileOfferDetailsActivity::class.java)
                 intent.putExtra("id", offer.offererId)
                 startActivity(intent)
@@ -88,6 +90,9 @@ class OfferDetailsActivity : AppCompatActivity() {
             btn_request.isVisible=false
             btn_candidate.isVisible=true
         }
+        else{
+            btnCheckOffererProfile.visibility=View.GONE
+        }
         btn_edit.setOnClickListener {
             var intent = Intent(this@OfferDetailsActivity,EditOfferActivity::class.java)
             intent.putExtra("offer",offer)
@@ -95,11 +100,11 @@ class OfferDetailsActivity : AppCompatActivity() {
         }
         btn_excluir.setOnClickListener {
             collectionReference.document(offer.idOffer.toString()).delete().addOnSuccessListener {
-                Toast.makeText(this@OfferDetailsActivity,"deletou",Toast.LENGTH_LONG).show()
+                Toast.makeText(this@OfferDetailsActivity,R.string.deletar_oferta,Toast.LENGTH_LONG).show()
                 var intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener{
-                Toast.makeText(this@OfferDetailsActivity,"nao deletou",Toast.LENGTH_LONG).show()
+                Toast.makeText(this@OfferDetailsActivity,R.string.erro_ao_deletar_oferta,Toast.LENGTH_LONG).show()
             }
         }
         db.collection("Solicitations").whereEqualTo("offerId", offer.idOffer).get().addOnSuccessListener {docs ->

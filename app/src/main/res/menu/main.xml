@@ -10,7 +10,7 @@
     <item
         android:id="@+id/action_check_chat"
         android:orderInCategory="100"
-        android:title="Mensagens"
+        android:title="@string/mensagens"
         android:icon="@drawable/ic_message_white"
         app:showAsAction="ifRoom" />
 
