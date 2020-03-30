@@ -1,9 +1,9 @@
 package br.project_advhevogoober_final
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -18,8 +18,12 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun changeActivity(){
         Handler().postDelayed ({
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            val launchNextActivity: Intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(launchNextActivity)
+            overridePendingTransition(0,0)
         }, SPLASH_TIME_OUT)
     }
 }
+//overridePendingTransition(0,0)
+//finish()

@@ -106,5 +106,6 @@
     <string name="preencha_email_corretamente">Preencha o campo e-mail corretamente</string>
     <string name="erro_ao_att_imagem">Houve um erro ao atualizar a imagem</string>
     <string name="mensagens">Mensagens</string>
+    <string name="preparando_o_app">Preparando o app...</string>
     <!--/-->
 </resources>

@@ -31,6 +31,7 @@
             android:theme="@style/Theme.AppCompat.Light.Fullscreen" />
         <activity
             android:name=".SplashScreenActivity"
+            android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

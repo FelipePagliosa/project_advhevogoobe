@@ -49,6 +49,7 @@ class UserUpdateEmailFragment:Fragment() {
                         val manager = fragmentManager
                         val transaction = manager!!.beginTransaction()
                         val fragment = OfficeProfileFragment()
+                        transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                         transaction.replace(R.id.nav_host_fragment, fragment)
                         transaction.addToBackStack(null)
                         transaction.commit()
@@ -57,6 +58,7 @@ class UserUpdateEmailFragment:Fragment() {
                         val manager = fragmentManager
                         val transaction = manager!!.beginTransaction()
                         val fragment = LawyerProfileFragment()
+                        transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                         transaction.replace(R.id.nav_host_fragment, fragment)
                         transaction.addToBackStack(null)
                         transaction.commit()
@@ -67,6 +69,7 @@ class UserUpdateEmailFragment:Fragment() {
                         val manager = fragmentManager
                         val transaction = manager!!.beginTransaction()
                         val fragment = UserReauthenticateFragment()
+                        transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                         transaction.replace(R.id.nav_host_fragment, fragment)
                         transaction.addToBackStack(null)
                         transaction.commit()

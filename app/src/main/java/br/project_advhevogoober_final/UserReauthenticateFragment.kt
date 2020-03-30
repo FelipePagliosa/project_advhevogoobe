@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_user_reauthenticate.view.*
 
 class UserReauthenticateFragment:Fragment() {
@@ -41,9 +42,13 @@ class UserReauthenticateFragment:Fragment() {
                     val manager = fragmentManager
                     val transaction = manager!!.beginTransaction()
                     val fragment = UserUpdateEmailFragment()
-                    transaction.replace(R.id.nav_host_fragment, fragment)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
+                    transaction.setCustomAnimations(R.anim.enter_left_to_right,R.anim.exit_left_to_right,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
+                    var f: Fragment? =manager.findFragmentById(R.id.nav_host_fragment)
+                    if (f !is UserUpdateEmailFragment){
+                        transaction.replace(R.id.nav_host_fragment, fragment)
+                        transaction.addToBackStack(null)
+                        transaction.commit()
+                    }
                 }.addOnFailureListener{
                     when (it) {
                         is FirebaseAuthInvalidUserException -> {

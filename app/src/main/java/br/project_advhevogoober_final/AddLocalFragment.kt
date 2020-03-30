@@ -80,6 +80,7 @@ class AddLocalFragment:Fragment() {
                                     val manager = fragmentManager
                                     val transaction = manager!!.beginTransaction()
                                     val fragment = HomeFragment()
+                                    transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                                     transaction?.replace(R.id.nav_host_fragment, fragment)
                                     transaction?.addToBackStack(null)
                                     transaction?.commit()
@@ -98,6 +99,7 @@ class AddLocalFragment:Fragment() {
                                     val manager = fragmentManager
                                     val transaction = manager!!.beginTransaction()
                                     val fragment = HomeFragment()
+                                    transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                                     transaction?.replace(R.id.nav_host_fragment, fragment)
                                     transaction?.addToBackStack(null)
                                     transaction?.commit()

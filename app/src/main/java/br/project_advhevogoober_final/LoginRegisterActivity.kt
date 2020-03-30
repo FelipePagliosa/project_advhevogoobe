@@ -9,8 +9,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.firebase.ui.auth.AuthUI
@@ -37,6 +35,9 @@ class LoginRegisterActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
+
     fun handleLoginRegister(view: View){
         val providers= arrayListOf(AuthUI.IdpConfig.EmailBuilder().setRequireName(false).build())
 
@@ -121,21 +122,21 @@ class LoginRegisterActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        setContentView(R.layout.layout_prep)
         when (requestCode){
             AUTHUI_REQUEST_CODE -> {
                 if(resultCode== Activity.RESULT_OK){
                     //novo usuário ou usuário velho
                     var user=FirebaseAuth.getInstance().currentUser
-                    Log.d(TAG,"onActivityResult"+user!!.email)
-                    if(user.metadata!!.creationTimestamp==user.metadata!!.lastSignInTimestamp){
+                    if(user!!.metadata!!.creationTimestamp== user.metadata!!.lastSignInTimestamp){
                         intent=Intent(this,FirstTimeUserActivity::class.java)
                         startActivity(intent)
-                        finish()
+                        this.finish()
                     }
                     else{
                         intent=Intent(this,MainActivity::class.java)
                         startActivity(intent)
-                        finish()
+                        this.finish()
                     }
                 }
                 else {

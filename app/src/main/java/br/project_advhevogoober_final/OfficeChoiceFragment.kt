@@ -72,9 +72,9 @@ class OfficeChoiceFragment:Fragment() {
                     var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
                     preferencesEditor.putBoolean(PROFILE_CHECK_KEY,false)
                     preferencesEditor.apply()
-//                    Snackbar.make(view,"Foto salva com sucesso!!", Snackbar.LENGTH_LONG).show()
                     var intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
+                    this.activity!!.finish()
                 }
             } else {
                 Toast.makeText(activity, R.string.preencha_os_campos_corretamente_e_foto, Toast.LENGTH_LONG).show()

@@ -45,20 +45,27 @@ class ChoiceFragment() :Fragment(), Parcelable {
 
         view.lawyer_choice_button.setOnClickListener{
             val transaction=fragmentManager!!.beginTransaction()
+            transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
             val lawyerFragment=LawyerChoiceFragment()
-            transaction.replace(R.id.choice, lawyerFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            var f: Fragment? =fragmentManager!!.findFragmentById(R.id.nav_host_fragment)
+            if(f !is LawyerChoiceFragment){
+                transaction.replace(R.id.choice, lawyerFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
 
         view.office_choice_button.setOnClickListener{
             val transaction=fragmentManager!!.beginTransaction()
+            transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
             val officeFragment=OfficeChoiceFragment()
-            transaction.replace(R.id.choice, officeFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            var f: Fragment? =fragmentManager!!.findFragmentById(R.id.nav_host_fragment)
+            if(f !is OfficeChoiceFragment){
+                transaction.replace(R.id.choice, officeFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
-
         return view
     }
 
