@@ -47,9 +47,8 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:src="@drawable/ic_launcher_background"
-                android:visibility="invisible"
                 app:civ_border_color="@color/colorWhite"
                 app:civ_border_width="2dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -214,11 +213,10 @@
                 android:id="@+id/btnChat"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="256dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgVwPhotoApplicantPrefile"
-                app:layout_constraintStart_toEndOf="@+id/imgVwPhotoApplicantPrefile"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3"
-                app:layout_constraintVertical_bias="1.0"
+                android:layout_marginLeft="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtVwDNomeApplicant"
+                app:layout_constraintStart_toEndOf="@+id/txtVwDNomeApplicant"
+                app:layout_constraintTop_toTopOf="@+id/txtVwDNomeApplicant"
                 app:srcCompat="@drawable/ic_mensagem" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
