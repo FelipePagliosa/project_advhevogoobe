@@ -2,7 +2,6 @@ package br.project_advhevogoober_final
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -58,6 +57,15 @@ class LawyerProfileFragment:Fragment() {
             }
         }
 
+        lawyer_local_edit_button.setOnClickListener {
+            val manager = fragmentManager
+            val transaction = manager!!.beginTransaction()
+            val fragment = EditLocalFragment()
+            transaction.replace(R.id.nav_host_fragment, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
         db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
             if (it.exists()){
                 var lawyerProfile=it.toObject(LawyerProfile::class.java)
@@ -69,6 +77,9 @@ class LawyerProfileFragment:Fragment() {
                 txtVwDCPF.text=lawyerProfile!!.ssn
                 txtVwDOAB.text=lawyerProfile!!.oab_code
                 txtVwDDataN.text=dateFormat.format(lawyerProfile.birthdate)
+                if (lawyerProfile.l != null) {
+                    lawyer_local_edit_button.visibility = View.VISIBLE
+                }
             }
             else{
                 Toast.makeText(activity,"Erro ao carregar seus dados",Toast.LENGTH_LONG).show()
