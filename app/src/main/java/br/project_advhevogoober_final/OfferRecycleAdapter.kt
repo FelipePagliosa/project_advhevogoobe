@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import br.project_advhevogoober_final.Model.Utils.JurisdictionNames
 import br.project_advhevogoober_final.Model.Offer
 import kotlinx.android.synthetic.main.offer_recycle_item.view.*
 
@@ -31,13 +32,16 @@ class OfferRecycleAdapter(private val offers: List<Offer>, private val callback:
     override fun onBindViewHolder(holder: OfferViewHolder, position: Int) {
         val (date, jurisdiction, price, location, offerer, postDate, description, requirements) = offers[position]
         val context = holder.itemView.context
+        var jurisdictionName = JurisdictionNames.generateJurisdictionName(jurisdiction, context)
         val dateFormat = DateFormat.getDateFormat(context)
         holder.txtVwLocation.text = location
         holder.txtVwDate.text = dateFormat.format(date)
         holder.txtVwOfferer.text = offerer
         holder.txtVwPrice.text = price.toString()
-        holder.txtVwJurisdiction.text = jurisdiction
+        holder.txtVwJurisdiction.text = jurisdictionName
     }
+
+
 
     class OfferViewHolder(view: android.view.View) : RecyclerView.ViewHolder(view) {
         val txtVwLocation: TextView = itemView.offer_location
