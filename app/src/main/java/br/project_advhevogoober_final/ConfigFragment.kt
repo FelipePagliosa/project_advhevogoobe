@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.project_advhevogoober_final.Model.Config
+import br.project_advhevogoober_final.Model.LawyerProfile
+import br.project_advhevogoober_final.Model.OfficeProfile
 import br.project_advhevogoober_final.Model.ViewModel.ConfigViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,6 +25,7 @@ class ConfigFragment:Fragment() {
     val user = FirebaseAuth.getInstance().currentUser!!
     val db = FirebaseFirestore.getInstance()
     private lateinit var sliderViewModel : ConfigViewModel
+    private var config: Config? = null
 
     override fun onAttach(context: Context) {
         Log.d(TAG,"onAttach")
@@ -38,21 +41,23 @@ class ConfigFragment:Fragment() {
         Log.d(TAG,"onCreateView")
         val view: View = inflater.inflate(R.layout.fragment_config, container,false)
 
+        config = getConfig(view)
+
         sliderViewModel = ViewModelProviders.of(this.activity!!).get(ConfigViewModel::class.java)
 
         view.save_configs.setOnClickListener {
-            saveConfig()
+            saveConfig(view)
         }
 
-        setSliderChangeListener()
+        setSliderChangeListener(view)
 
-        setSliderTextValue()
+        setSliderTextValue(view)
 
         return view
     }
 
-    private fun setSliderChangeListener() {
-        mapsRange.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+    private fun setSliderChangeListener(view: View) {
+        view.mapsRange.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 sliderViewModel.sliderValue.value = progress.toDouble()
             }
@@ -64,18 +69,53 @@ class ConfigFragment:Fragment() {
         })
     }
 
-    private fun setSliderTextValue() {
+    private fun setSliderTextValue(view: View) {
         sliderViewModel.sliderValue.observe(this.activity!!, Observer {
             if (it != null) {
-                rangeNumber.text = it.toString()
+                view.mapsRange.progress = it.toInt()
+                view.rangeNumber.text = "$it km"
             }
         })
     }
 
-    private fun saveConfig() {
+    private fun getConfig(view: View): Config? {
+        var result: Config? = null
         db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
             if (it.exists()) {
-                val config = setConfig()
+                val documentObject = it.toObject(LawyerProfile::class.java)
+                if (documentObject!!.config != null) {
+                    result = documentObject.config
+                }
+            }
+        }.addOnFailureListener{
+            Log.i("LAWYERS_RETRIEVE_ERROR", "Erro: $it")
+        }
+        db.collection("offices").document(user.uid).get().addOnSuccessListener {
+            if (it.exists()){
+                val documentObject = it.toObject(OfficeProfile::class.java)
+                if (documentObject!!.config != null) {
+                    result = documentObject.config
+                    view.jurisdiction1.isChecked = result!!.jurisdictions!![0]
+                    view.jurisdiction2.isChecked = result!!.jurisdictions!![1]
+                    view.jurisdiction3.isChecked = result!!.jurisdictions!![2]
+                    view.jurisdiction4.isChecked = result!!.jurisdictions!![3]
+                    view.jurisdiction5.isChecked = result!!.jurisdictions!![4]
+                    view.jurisdiction6.isChecked = result!!.jurisdictions!![5]
+                    view.mapsRange.progress = (result!!.range!! * 10).toInt()
+                    view.rangeNumber.text = "${(result!!.range!! * 10)} km"
+                }
+            }
+        }.addOnFailureListener{
+            Log.i("OFFICES_RETRIEVE_ERROR", "Erro: $it")
+        }
+
+        return result
+    }
+
+    private fun saveConfig(view: View) {
+        db.collection("lawyers").document(user.uid).get().addOnSuccessListener {
+            if (it.exists()) {
+                val config = setConfig(view)
                 db.collection("lawyers").document(user.uid).update("config", config)
                 changeFragment(HomeFragment())
             }
@@ -84,7 +124,7 @@ class ConfigFragment:Fragment() {
         }
         db.collection("offices").document(user.uid).get().addOnSuccessListener {
             if (it.exists()){
-                val config = setConfig()
+                val config = setConfig(view)
                 db.collection("offices").document(user.uid).update("config", config)
                 changeFragment(HomeFragment())
             }
@@ -93,15 +133,15 @@ class ConfigFragment:Fragment() {
         }
     }
 
-    private fun setConfig(): Config {
-        val range: Double = (mapsRange.progress / 10).toDouble()
+    private fun setConfig(view: View): Config {
+        val range: Double = (view.mapsRange.progress / 10).toDouble()
         val jurisdictions = listOf(
-            jurisdiction1.isChecked,
-            jurisdiction2.isChecked,
-            jurisdiction3.isChecked,
-            jurisdiction4.isChecked,
-            jurisdiction5.isChecked,
-            jurisdiction6.isChecked
+            view.jurisdiction1.isChecked,
+            view.jurisdiction2.isChecked,
+            view.jurisdiction3.isChecked,
+            view.jurisdiction4.isChecked,
+            view.jurisdiction5.isChecked,
+            view.jurisdiction6.isChecked
         )
         return Config(range, jurisdictions)
     }
