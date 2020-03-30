@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp">
+        android:layout_height="165dp">
 
         <ImageView
             android:id="@+id/imageView8"
@@ -25,7 +25,7 @@
             app:srcCompat="@drawable/ic_calendar" />
 
         <TextView
-            android:id="@+id/offer_date"
+            android:id="@+id/applicant_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -47,7 +47,7 @@
             app:srcCompat="@drawable/ic_money" />
 
         <TextView
-            android:id="@+id/offer_price"
+            android:id="@+id/applicant_oab_cnpj"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -77,30 +77,8 @@
             app:layout_constraintTop_toTopOf="@+id/imageView10"
             app:srcCompat="@drawable/ic_right_chevron" />
 
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="49dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView10"
-            app:srcCompat="@drawable/ic_pin" />
-
         <TextView
-            android:id="@+id/offer_location"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/offer_s_location"
-            android:textColor="@color/colorBackground"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-            app:layout_constraintStart_toEndOf="@+id/imageView12"
-            app:layout_constraintTop_toTopOf="@+id/imageView12" />
-
-        <TextView
-            android:id="@+id/offer_jurisdiction"
+            android:id="@+id/applicant_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -113,18 +91,6 @@
             app:layout_constraintStart_toEndOf="@+id/imageView10"
             app:layout_constraintTop_toTopOf="@+id/imageView11"
             app:layout_constraintVertical_bias="1.0" />
-
-        <TextView
-            android:id="@+id/offer_offerer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/offer_s_offerer"
-            android:textColor="@color/colorBackground"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

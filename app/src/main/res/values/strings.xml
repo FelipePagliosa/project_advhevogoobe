@@ -106,6 +106,16 @@
     <string name="preencha_email_corretamente">Preencha o campo e-mail corretamente</string>
     <string name="erro_ao_att_imagem">Houve um erro ao atualizar a imagem</string>
     <string name="mensagens">Mensagens</string>
-    <string name="preparando_o_app">Preparando o app...</string>
+    <string name="preparando_o_app">Preparando o app…</string>
+    <string name="buy_with_googlepay_button_content_description">Comprar com Google Pay</string>
+    <string name="payments_show_name">"Sucesso "</string>
+    <string name="toast_succeeded_payment">Dados de pagamento recebidos com sucesso</string>
+    <string name="menu_mysolicitations">Minhas solicitações</string>
+    <string name="candidate_button">C</string>
+    <string name="googlepay_button_content_description">Google Pay</string>
+    <string name="request_button">Aplicar</string>
+    <string name="title_activity_aplicants_tabs">Aba de Aplicante</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
     <!--/-->
 </resources>

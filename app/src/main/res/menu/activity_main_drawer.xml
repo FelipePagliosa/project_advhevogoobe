@@ -13,6 +13,11 @@
             android:icon="@drawable/ic_clipboard"
             android:title="@string/menu_myoffers" />
         <item
+            android:id="@+id/nav_mySolicitations"
+            android:icon="@drawable/ic_clipboard"
+            android:title="@string/menu_mysolicitations" />
+
+        <item
             android:id="@+id/nav_config"
             android:icon="@drawable/ic_setting"
             android:title="@string/config" />

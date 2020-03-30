@@ -1,5 +1,6 @@
 package br.project_advhevogoober_final
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -99,12 +100,15 @@ class CreateOfferFragment : Fragment() {
                 }.addOnFailureListener{
                     Toast.makeText(activity,R.string.erro_ao_salvar_oferta, Toast.LENGTH_LONG).show()
                 }
-                val transaction = fragmentManager?.beginTransaction()
-                val fragment = HomeFragment()
-                transaction?.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
-                transaction?.replace(R.id.nav_host_fragment, fragment)
-                transaction?.addToBackStack(null)
-                transaction?.commit()
+//                val transaction = fragmentManager?.beginTransaction()
+//                val fragment = HomeFragment()
+//                transaction?.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
+//                transaction?.replace(R.id.nav_host_fragment, fragment)
+//                transaction?.addToBackStack(null)
+//                transaction?.commit()
+                val intent= Intent(this.activity!!,CheckoutActivity::class.java)
+                intent.putExtra("offer",offer)
+                startActivity(intent)
             }
             else{
                 Toast.makeText(this.activity,getString(R.string.preencha_os_campos_corretamente),Toast.LENGTH_LONG).show()

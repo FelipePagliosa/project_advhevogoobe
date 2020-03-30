@@ -121,6 +121,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     transaction.commit()
                 }
             }
+            R.id.nav_mySolicitations -> {
+                val transaction = manager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
+                val fragment = MySolicitationsFragment()
+                var f: Fragment? =manager.findFragmentById(R.id.nav_host_fragment)
+                if(f !is MySolicitationsFragment){
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+            }
             R.id.nav_profile -> {
                 db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
                     if (it.exists()) {
