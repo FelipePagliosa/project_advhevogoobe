@@ -53,6 +53,16 @@ class OfficeProfileFragment:Fragment() {
                 daodao.visibility=View.INVISIBLE
             }
         }
+
+        office_local_edit_button.setOnClickListener {
+            val manager = fragmentManager
+            val transaction = manager!!.beginTransaction()
+            val fragment = EditLocalFragment()
+            transaction.replace(R.id.nav_host_fragment, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
         db.collection("offices").document(user.uid).get().addOnSuccessListener {
             if (it.exists()){
                 var officeProfile=it.toObject(OfficeProfile::class.java)
