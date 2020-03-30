@@ -64,8 +64,6 @@ class MySolicitationsFragment : Fragment() {
 
                     }
                 }
-
-
             }
         }
         return view

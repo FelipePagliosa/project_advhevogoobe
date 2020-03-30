@@ -74,14 +74,6 @@ class LawyersApplicantFragment : Fragment() {
             view.myApplicantLoad.visibility=View.GONE
 
         }
-
-
-
-
-
         return view
     }
-
-
-
 }

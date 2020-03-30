@@ -110,13 +110,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     transaction.commit()
                 }
             }
-            R.id.nav_mySolicitations ->{
-                val transaction = manager.beginTransaction()
-                val fragment = MySolicitationsFragment()
-                transaction.replace(R.id.nav_host_fragment, fragment)
-                transaction.addToBackStack(null)
-                transaction.commit()
-            }
             R.id.nav_config -> {
                 val transaction = manager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
