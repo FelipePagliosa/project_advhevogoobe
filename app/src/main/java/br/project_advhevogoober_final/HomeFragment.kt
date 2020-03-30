@@ -55,7 +55,6 @@ class HomeFragment:Fragment() {
         Log.d(TAG,"onCreateView")
         val view: View =inflater!!.inflate(R.layout.fragment_home,container,false)
         var offers = mutableListOf<Offer>()
-        var adapter = OfferRecycleAdapter(offers, this::onPostItemClick)
         view.no_locals_text.isVisible = false
         view.btn_local_add.isVisible = false
         view.btn_post_create.isVisible = false
@@ -66,7 +65,7 @@ class HomeFragment:Fragment() {
                 val documentConfig: Config? = documentObject.config
                 config = documentConfig ?: Config(20.0, listOf(true, true, true, true, true, true))
                 userLocation = documentObject.l
-                onConfigAndLocationGet(offers, adapter, view)
+                onConfigAndLocationGet(offers, view)
                 view.loading.visibility = View.GONE
                 view.btn_post_create.isVisible = true
             }
@@ -80,14 +79,12 @@ class HomeFragment:Fragment() {
                 val documentConfig: Config? = documentObject.config
                 config = documentConfig ?: Config(10.0, listOf(true, true, true, true, true, true))
                 userLocation = documentObject.l
-                onConfigAndLocationGet(offers, adapter, view)
+                onConfigAndLocationGet(offers, view)
                 loading.visibility = View.GONE
                 view.btn_post_create.isVisible = true
             }
         }.addOnFailureListener{
             Log.i("OFFICES_RETRIEVE_ERROR", "Erro: $it")
-            view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
-            view.recycler_view_home.adapter = adapter
         }
 
         view.btn_post_create.setOnClickListener{
@@ -109,16 +106,18 @@ class HomeFragment:Fragment() {
         return view
     }
 
-    private fun MutableList<Offer>.filterByListBool(listBool: List<Boolean>, filterBool: (List<Boolean>) -> Offer): MutableList<Offer> {
+    private fun MutableList<Offer>.filterByListBool(listBool: List<Boolean>, filterBool: (List<Boolean>) -> Offer?): MutableList<Offer> {
         var result: MutableList<Offer> = mutableListOf()
         for (element: Offer in this) {
-            val filteredElement: Offer = filterBool(listBool)
-            result.add(filteredElement)
+            val filteredElement: Offer? = filterBool(listBool)
+            if (filteredElement != null) {
+                result.add(filteredElement)
+            }
         }
         return result
     }
 
-    private fun onConfigAndLocationGet(offers: MutableList<Offer>, adapter: OfferRecycleAdapter, view: View): MutableList<Offer>{
+    private fun onConfigAndLocationGet(offers: MutableList<Offer>, view: View) {
         var resultOffers = mutableListOf<Offer>()
         if (userLocation != null && config != null) {
             view.no_locals_text.visibility = View.GONE
@@ -132,6 +131,21 @@ class HomeFragment:Fragment() {
                             offers.add(document.toObject(Offer::class.java)!!)
                         }
                     }
+
+                    resultOffers = offers.filterByListBool(config!!.jurisdictions!!) {
+                        var result: Offer? = null
+                        for (bool in it) {
+                            for (offer in offers) {
+                                if (bool && offer.jurisdiction!![it.indexOf(bool)] == bool) {
+                                    result = offer
+                                }
+                            }
+                        }
+                        result
+                    }
+
+                    var adapter = OfferRecycleAdapter(resultOffers, this::onPostItemClick)
+
                     view.recycler_view_home.layoutManager = LinearLayoutManager(activity)
                     view.recycler_view_home.adapter = adapter
                 }
@@ -147,21 +161,6 @@ class HomeFragment:Fragment() {
             view.btn_local_add.isVisible = true
         }
 
-        if (!offers.isNullOrEmpty()) {
-            resultOffers = offers.filterByListBool(config!!.jurisdictions!!) {
-                var result = Offer()
-                for (bool in it) {
-                    for (offer in offers) {
-                        if (offer.jurisdiction!![it.indexOf(bool)] == bool) {
-                            result = offer
-                        }
-                    }
-                }
-                result
-            }
-        }
-
-        return resultOffers
     }
 }
 
