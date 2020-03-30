@@ -213,7 +213,7 @@
                 android:id="@+id/btnChat"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/txtVwDNomeApplicant"
                 app:layout_constraintStart_toEndOf="@+id/txtVwDNomeApplicant"
                 app:layout_constraintTop_toTopOf="@+id/txtVwDNomeApplicant"
