@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatRoomsActivity"/>
-        <activity android:name=".AplicantsTabsActivity"/>
-        <activity android:name=".ApplicantsProfileDetailsActivity"/>
-        <activity android:name=".CheckoutActivity"/>
+        <activity android:name=".ApplicantsProfileDetailsActivity"></activity>
+        <activity
+            android:name=".AplicantsTabsActivity"
+            android:label="@string/title_activity_aplicants_tabs"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CheckoutActivity" />
+        <activity android:name=".ChatRoomsActivity" />
         <activity android:name=".OfferDetailsActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".EditOfferActivity" />
@@ -34,7 +38,6 @@
             android:theme="@style/Theme.AppCompat.Light.Fullscreen" />
         <activity
             android:name=".SplashScreenActivity"
-            android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +45,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.gms.advhevogoober_final.api.enabled"
+            android:value="true" />
     </application>
 
 </manifest>
