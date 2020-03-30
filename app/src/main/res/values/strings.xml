@@ -91,6 +91,7 @@
     <string name="erro_ao_add_local">Ocorreu um erro na inserção do local.</string>
     <string name="erro_ao_carregar_perfil">Erro ao carregar perfil.</string>
     <string name="erro_ao_enviar_mensagem">Erro ao enviar a mensagem, o outro usuário não irá receber essa mensagem.</string>
+    <string name="editLocal">Editar local</string>
 
-<!--/-->
+    <!--/-->
 </resources>
