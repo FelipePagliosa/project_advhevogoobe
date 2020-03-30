@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Adhevogoober</string>
-    <string name="street">Adress</string>
+    <string name="street">Address</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
@@ -94,4 +94,19 @@
     <string name="tab_text_1">Aba 1</string>
     <string name="tab_text_2">Aba 2</string>
     <string name="preparando_o_app">Preparing the app…</string>
+    <string name="jurisdiction1">Jrsdc. 1</string>
+    <string name="jurisdiction2">Jrsdc. 2</string>
+    <string name="jurisdiction3">Jrsdc. 3</string>
+    <string name="jurisdiction4">Jrsdc. 4</string>
+    <string name="jurisdiction5">Jrsdc. 5</string>
+    <string name="jurisdiction6">Jrsdc. 6</string>
+    <string name="location">Local</string>
+    <string name="profile">Profile</string>
+    <string name="offer_s_date">Offer\'s Date</string>
+    <string name="offer_s_price" translatable="false">Offer\'s Price</string>
+    <string name="offer_s_location" translatable="false">Offer\'s Location</string>
+    <string name="offer_s_jurisdiction">Offer\'s Jurisdiction</string>
+    <string name="offer_s_offerer">Offer\'s Offerer</string>
+    <string name="editLocal">Edit local</string>
+    <string name="nav_header_desc">Cabeçalho da navegação</string>
 </resources>

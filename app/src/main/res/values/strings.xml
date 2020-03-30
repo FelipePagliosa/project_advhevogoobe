@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Fechar o navigation drawer</string>
     <string name="nav_header_title" translatable="false">Android Studio</string>
     <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
-    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Configurações</string>
     <string name="menu_home">Página Inicial</string>
     <string name="menu_myoffers">Minhas Ofertas</string>
@@ -24,19 +24,19 @@
     <string name="business_id" translatable="false">CNPJ (xx.xxx.xxx/xxxx-xx)</string>
     <string name="birthdate">Data de nascimento (dd/mm/yyyy)</string>
     <string name="config">Configurações</string>
-    <string name="jurisdiction1" translatable="false">Vara 1</string>
-    <string name="jurisdiction2" translatable="false">Vara 2</string>
-    <string name="jurisdiction3" translatable="false">Vara 3</string>
-    <string name="jurisdiction4" translatable="false">Vara 4</string>
-    <string name="jurisdiction5" translatable="false">Vara 5</string>
-    <string name="jurisdiction6" translatable="false">Vara 6</string>
+    <string name="jurisdiction1">Vara 1</string>
+    <string name="jurisdiction2">Vara 2</string>
+    <string name="jurisdiction3">Vara 3</string>
+    <string name="jurisdiction4">Vara 4</string>
+    <string name="jurisdiction5">Vara 5</string>
+    <string name="jurisdiction6">Vara 6</string>
     <string name="mapsRangeDesc">Alcance do mapa</string>
     <string name="jurisdictionDesc">Ordenar ofertas por vara</string>
     <string name="snackbar_explanation">Nosso aplicativo depende da permissão de localização para funcionar. Se não quiser aceitar por aqui, entre nas configurações do Android e aceite manualmente as permissões.</string>
     <string name="jurisdiction">Vara</string>
     <string name="date">Data</string>
     <string name="price">Preço</string>
-    <string name="location" translatable="false">Local</string>
+    <string name="location">Local</string>
     <string name="requirements">Requisitos</string>
     <string name="post">publicar</string>
     <string name="description">Descrição</string>
@@ -45,7 +45,7 @@
     <string name="state">Estado</string>
     <string name="postalCode">CEP</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="profile" translatable="false">Profile</string>
+    <string name="profile">Perfil</string>
     <string name="street">Endereço</string>
     <string name="addLocal">Adicionar Local</string>
     <string name="password">Senha</string>
@@ -74,11 +74,7 @@
     <string name="selecionar_foto_2">selecionar foto</string>
     <string name="selecione_sua_nova_foto">Selecione sua nova foto</string>
     <string name="selecionar_tirar_foto">SELECIONAR/TIRAR FOTO</string>
-    <string name="offer_s_date" translatable="false">Offer\'s Date</string>
-    <string name="offer_s_price" translatable="false">Offer\'s Price</string>
-    <string name="offer_s_location" translatable="false">Offer\'s Location</string>
-    <string name="offer_s_jurisdiction" translatable="false">Offer\'s Jurisdiction</string>
-    <string name="offer_s_offerer" translatable="false">Offer\'s Offerer</string>
+    <string name="offer_s_date">Data da Oferta</string>
     <string name="voc_ficou_sem_logar_por_muito_tempo_ponha_seus_dados_de_login_novamente">Você ficou sem logar por muito tempo, ponha seus dados de login novamente</string>
     <string name="reautenticar">Reautenticar</string>
     <string name="preencha_os_campos_corretamente">Preencha os campos corretamente!</string>
@@ -115,11 +111,15 @@
     <string name="payments_show_name">"Sucesso "</string>
     <string name="toast_succeeded_payment">Dados de pagamento recebidos com sucesso</string>
     <string name="menu_mysolicitations">Minhas solicitações</string>
-    <string name="candidate_button">C</string>
+    <string name="candidate_button">Candidatos</string>
     <string name="googlepay_button_content_description">Google Pay</string>
     <string name="request_button">Aplicar</string>
-    <string name="title_activity_aplicants_tabs">Aba de Aplicante</string>
+    <string name="title_activity_aplicants_tabs">Aba do Aplicante</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="offer_s_price">Preço da Oferta</string>
+    <string name="offer_s_location">Localização da Oferta</string>
+    <string name="offer_s_jurisdiction">Vara da Oferta</string>
+    <string name="offer_s_offerer">Ofertante da Oferta</string>
     <!--/-->
 </resources>
