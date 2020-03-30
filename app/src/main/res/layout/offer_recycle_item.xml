@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="2dp"
-    app:cardElevation="10dp"
-    app:cardPreventCornerOverlap="false">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="30dp"
+    app:cardPreventCornerOverlap="false"
+    android:layout_margin="20dp">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -57,30 +59,13 @@
             app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
         <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="35dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView9"
-            app:srcCompat="@drawable/ic_left_chevron" />
-
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="35dp"
-            android:layout_height="29dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView10"
-            app:srcCompat="@drawable/ic_right_chevron" />
-
-        <ImageView
             android:id="@+id/imageView12"
             android:layout_width="49dp"
             android:layout_height="37dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView10"
+            app:layout_constraintTop_toBottomOf="@+id/imageView9"
             app:srcCompat="@drawable/ic_pin" />
 
         <TextView
@@ -90,7 +75,7 @@
             android:layout_marginStart="8dp"
             android:text="@string/offer_s_location"
             android:textColor="@color/colorBackground"
-            android:textSize="16sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView12"
             app:layout_constraintStart_toEndOf="@+id/imageView12"
             app:layout_constraintTop_toTopOf="@+id/imageView12" />
@@ -100,27 +85,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/offer_s_jurisdiction"
             android:textAlignment="viewStart"
             android:textColor="@color/colorBackground"
             android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-            app:layout_constraintEnd_toStartOf="@+id/imageView11"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView11"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/offer_location" />
 
         <TextView
             android:id="@+id/offer_offerer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/offer_s_offerer"
             android:textColor="@color/colorBackground"
-            android:textSize="16sp"
+            android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+            app:layout_constraintTop_toBottomOf="@+id/offer_jurisdiction" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

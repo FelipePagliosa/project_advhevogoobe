@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -42,12 +43,13 @@ class UserUpdateEmailFragment:Fragment() {
         view.btnSaveUpdatedEmail.setOnClickListener{
             if(eTxtNewEmail.text.toString().isNotEmpty()){
                 user.updateEmail(eTxtNewEmail.text.toString()).addOnSuccessListener {
-                    Snackbar.make(view,"O seu email foi atualizado!!",Snackbar.LENGTH_LONG).show()
+                    Toast.makeText(activity,R.string.email_foi_atualizado,Toast.LENGTH_LONG).show()
                     var checkFirstTimeUser=(mPreferences.getBoolean(PROFILE_TYPE_KEY,true))
                     if(checkFirstTimeUser){
                         val manager = fragmentManager
                         val transaction = manager!!.beginTransaction()
                         val fragment = OfficeProfileFragment()
+                        transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                         transaction.replace(R.id.nav_host_fragment, fragment)
                         transaction.addToBackStack(null)
                         transaction.commit()
@@ -56,27 +58,29 @@ class UserUpdateEmailFragment:Fragment() {
                         val manager = fragmentManager
                         val transaction = manager!!.beginTransaction()
                         val fragment = LawyerProfileFragment()
+                        transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                         transaction.replace(R.id.nav_host_fragment, fragment)
                         transaction.addToBackStack(null)
                         transaction.commit()
                     }
                 }.addOnFailureListener{
                     if(it is FirebaseAuthRecentLoginRequiredException){
-                        Snackbar.make(view,"É necessário se relogar para realizar essa operação",Snackbar.LENGTH_LONG).show()
+                        Toast.makeText(activity,R.string.necessario_reautenticar,Toast.LENGTH_LONG).show()
                         val manager = fragmentManager
                         val transaction = manager!!.beginTransaction()
                         val fragment = UserReauthenticateFragment()
+                        transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                         transaction.replace(R.id.nav_host_fragment, fragment)
                         transaction.addToBackStack(null)
                         transaction.commit()
                     }
                     else if(it is FirebaseAuthInvalidCredentialsException){
-                        Snackbar.make(view,"Escreva um e-mail válido",Snackbar.LENGTH_LONG).show()
+                        Toast.makeText(activity,R.string.email_form_incorreto,Toast.LENGTH_LONG).show()
                     }
                 }
             }
             else{
-                Snackbar.make(view,"Preencha o campo e-mail corretamente",Snackbar.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.preencha_email_corretamente,Toast.LENGTH_LONG).show()
             }
         }
         return view

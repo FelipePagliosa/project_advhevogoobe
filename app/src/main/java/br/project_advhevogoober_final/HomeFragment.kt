@@ -90,6 +90,7 @@ class HomeFragment:Fragment() {
         view.btn_post_create.setOnClickListener{
             val transaction = fragmentManager?.beginTransaction()
             val fragment = CreateOfferFragment()
+            transaction?.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
             transaction?.replace(R.id.nav_host_fragment, fragment)
             transaction?.addToBackStack(null)
             transaction?.commit()
@@ -98,6 +99,7 @@ class HomeFragment:Fragment() {
         view.btn_local_add.setOnClickListener {
             val transaction = fragmentManager?.beginTransaction()
             val fragment = AddLocalFragment()
+            transaction?.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
             transaction?.replace(R.id.nav_host_fragment, fragment)
             transaction?.addToBackStack(null)
             transaction?.commit()
@@ -126,7 +128,7 @@ class HomeFragment:Fragment() {
             geoFirestoreOffers.getAtLocation(userLocation!!, (config!!.range!!) * 1000) { docs, ex ->
                 if (docs!!.isNotEmpty() && ex == null) {
                     for (document in docs) {
-                        var teste=(document.toObject(Offer::class.java))
+//                       var teste=(document.toObject(Offer::class.java))
                         if(document.toObject(Offer::class.java)!!.offererId != user!!.uid){
                             offers.add(document.toObject(Offer::class.java)!!)
                         }
@@ -160,7 +162,6 @@ class HomeFragment:Fragment() {
             view.no_locals_text.isVisible = true
             view.btn_local_add.isVisible = true
         }
-
     }
 }
 

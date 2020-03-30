@@ -65,19 +65,19 @@ class OfficeChoiceFragment:Fragment() {
                 office= OfficeProfile(view.office_name.text.toString(),view.office_phone.text.toString(),view.office_business_id.text.toString(),null,user.email)
                 db.collection("offices").document(user.uid).set(office).addOnSuccessListener {
                 }.addOnFailureListener{
-                    Toast.makeText(activity,it.toString(),Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity,R.string.erro_ao_criar_perfil,Toast.LENGTH_LONG).show()
                 }
                 var tarefa=storageReference.child("profileImages/"+user.uid).putBytes(profileImage!!)
                 tarefa.addOnSuccessListener {
                     var preferencesEditor:SharedPreferences.Editor=mPreferences.edit()
                     preferencesEditor.putBoolean(PROFILE_CHECK_KEY,false)
                     preferencesEditor.apply()
-//                    Snackbar.make(view,"Foto salva com sucesso!!", Snackbar.LENGTH_LONG).show()
                     var intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
+                    this.activity!!.finish()
                 }
             } else {
-                Toast.makeText(activity, "Preencha todos os campos corretamente e selecione uma foto!!", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, R.string.preencha_os_campos_corretamente_e_foto, Toast.LENGTH_LONG).show()
             }
         }
         view.btnSavePhotoOffice.setOnClickListener{
@@ -85,7 +85,7 @@ class OfficeChoiceFragment:Fragment() {
             pickIntent.type = "image/*"
             pickIntent.action = Intent.ACTION_GET_CONTENT
             val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val pickTitle = "Take or select a photo"
+            val pickTitle = getString(R.string.tire_ou_selecione_foto)
             val chooserIntent = Intent.createChooser(pickIntent, pickTitle)
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePhotoIntent))
             startActivityForResult(chooserIntent, 0)
@@ -103,8 +103,6 @@ class OfficeChoiceFragment:Fragment() {
                             val imageUri: Uri? = data.data
                             var bytearray=this.activity!!.contentResolver.openInputStream(imageUri!!)?.buffered().use { it?.readBytes() }
                             profileImage = bytearray
-//                            val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
-//                            view!!.imageView2.setImageBitmap(bitmap)
                         }
                         data?.extras!!.get("data")!=null -> {
                             val photo = data?.extras!!.get("data") as Bitmap
@@ -112,10 +110,9 @@ class OfficeChoiceFragment:Fragment() {
                             photo.compress(Bitmap.CompressFormat.PNG, 90, stream)
                             val image= stream.toByteArray()
                             profileImage = image
-                            //view!!.imageView2.setImageBitmap(photo)
                         }
                         else -> {
-                            Toast.makeText(activity,"Erro",Toast.LENGTH_LONG).show()
+                            Toast.makeText(activity,R.string.erro_ao_tirar_ou_selecionar_foto,Toast.LENGTH_LONG).show()
                         }
                     }
                 }

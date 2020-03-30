@@ -102,7 +102,7 @@ class EditOfferActivity : AppCompatActivity() {
                 var intent=Intent(this@EditOfferActivity, MainActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener{
-                Toast.makeText(this, "Falha ao criar oferta", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.erro_ao_salvar_oferta, Toast.LENGTH_LONG).show()
                 var intent=Intent(this@EditOfferActivity, MainActivity::class.java)
                 startActivity(intent)
             }

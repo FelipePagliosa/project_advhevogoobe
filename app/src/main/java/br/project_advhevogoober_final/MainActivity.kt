@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -13,12 +14,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import br.project_advhevogoober_final.R.id.toolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -34,12 +38,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var aaa = FirebaseAuth.getInstance().currentUser
+
+
         if (aaa == null) {
             intent = Intent(this, LoginRegisterActivity::class.java)
             var teste= intent
             startActivity(teste)
             finish()
         }
+
         mPreferences=getSharedPreferences(mSharedPrefFile, Context.MODE_PRIVATE)
         var checkFirstTimeUser=(mPreferences.getBoolean(PROFILE_CHECK_KEY,false))
         if (checkFirstTimeUser){
@@ -83,24 +90,47 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_home -> {
                 val transaction = manager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                 val fragment = HomeFragment()
-                transaction.replace(R.id.nav_host_fragment, fragment)
-                transaction.addToBackStack(null)
-                transaction.commit()
+                var f: Fragment? =manager.findFragmentById(R.id.nav_host_fragment)
+                if(f !is HomeFragment){
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
             }
             R.id.nav_myOffers ->{
                 val transaction = manager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                 val fragment = MyOffersFragment()
-                transaction.replace(R.id.nav_host_fragment, fragment)
-                transaction.addToBackStack(null)
-                transaction.commit()
+                var f: Fragment? =manager.findFragmentById(R.id.nav_host_fragment)
+                if(f !is MyOffersFragment){
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
             }
             R.id.nav_config -> {
                 val transaction = manager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                 val fragment = ConfigFragment()
-                transaction.replace(R.id.nav_host_fragment, fragment)
-                transaction.addToBackStack(null)
-                transaction.commit()
+                var f: Fragment? =manager.findFragmentById(R.id.nav_host_fragment)
+                if(f !is ConfigFragment){
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+            }
+            R.id.nav_mySolicitations -> {
+                val transaction = manager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
+                val fragment = MySolicitationsFragment()
+                var f: Fragment? =manager.findFragmentById(R.id.nav_host_fragment)
+                if(f !is MySolicitationsFragment){
+                    transaction.replace(R.id.nav_host_fragment, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
             }
             R.id.nav_profile -> {
                 db.collection("lawyers").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
@@ -109,13 +139,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         preferencesEditor.putBoolean(PROFILE_TYPE_KEY,false)
                         preferencesEditor.apply()
                         val transaction = manager.beginTransaction()
+                        transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                         val fragment = LawyerProfileFragment()
-                        transaction.replace(R.id.nav_host_fragment, fragment)
-                        transaction.addToBackStack(null)
-                        transaction.commit()
+                        var f: Fragment? =manager.findFragmentById(R.id.nav_host_fragment)
+                        if(f !is LawyerProfileFragment){
+                            transaction.replace(R.id.nav_host_fragment, fragment)
+                            transaction.addToBackStack(null)
+                            transaction.commit()
+                        }
                     }
                 }.addOnFailureListener{
-                    Toast.makeText(this,"Erro ao carregar perfil",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,R.string.erro_ao_carregar_perfil,Toast.LENGTH_LONG).show()
                 }
                 db.collection("offices").document(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
                     if (it.exists()){
@@ -123,13 +157,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         preferencesEditor.putBoolean(PROFILE_TYPE_KEY,true)
                         preferencesEditor.apply()
                         val transaction = manager.beginTransaction()
+                        transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                         val fragment = OfficeProfileFragment()
-                        transaction.replace(R.id.nav_host_fragment, fragment)
-                        transaction.addToBackStack(null)
-                        transaction.commit()
+                        var f: Fragment? =manager.findFragmentById(R.id.nav_host_fragment)
+                        if(f !is OfficeProfileFragment){
+                            transaction.replace(R.id.nav_host_fragment, fragment)
+                            transaction.addToBackStack(null)
+                            transaction.commit()
+                        }
                     }
                 }.addOnFailureListener{
-                    Toast.makeText(this,"Erro ao carregar perfil",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,R.string.erro_ao_carregar_perfil,Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -157,6 +195,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.action_check_chat ->{
                 intent = Intent(this, ChatRoomsActivity::class.java)
                 startActivity(intent)
+//                overridePendingTransition(R.anim.enter_right_to_left,R.anim.exit_right_to_left)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -166,7 +205,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val transaction = manager.beginTransaction()
         val fragment = HomeFragment()
         transaction.replace(R.id.nav_host_fragment, fragment)
-        transaction.addToBackStack(null)
+        transaction.setCustomAnimations(R.anim.nav_default_pop_enter_anim,R.anim.nav_default_pop_exit_anim)
         transaction.commit()
     }
 }

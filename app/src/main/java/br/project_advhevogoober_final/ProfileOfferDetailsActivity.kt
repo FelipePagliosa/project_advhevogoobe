@@ -35,9 +35,9 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
                 daodao.visibility=View.INVISIBLE
             }
         }
+        val id = intent.getStringExtra("id")
 
-        val id = intent.getSerializableExtra("id") as Offer
-        db.collection("lawyers").document(id.offererId).get().addOnSuccessListener {
+        db.collection("lawyers").document(id).get().addOnSuccessListener {
             if (it.exists()) {
                 var lawyerProfile = it.toObject(LawyerProfile::class.java)
 
@@ -49,9 +49,9 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
             }
 
         }.addOnFailureListener{
-            Toast.makeText(this,it.message.toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(this,R.string.erro_pegar_dados_firebase, Toast.LENGTH_LONG).show()
         }
-        db.collection("offices").document(id.offererId).get().addOnSuccessListener {
+        db.collection("offices").document(id).get().addOnSuccessListener {
             if (it.exists()) {
                 var officeProfile = it.toObject(OfficeProfile::class.java)
                 txtVwDNomeOffer.text = officeProfile!!.name
@@ -65,10 +65,10 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
 
             }
         }.addOnFailureListener {
-            Toast.makeText(this, it.message.toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.erro_pegar_dados_firebase, Toast.LENGTH_LONG).show()
         }
 
-        var tarefa=storageReference.child("profileImages/"+id.offererId).getBytes(1024*1024)
+        var tarefa=storageReference.child("profileImages/"+id).getBytes(1024*1024)
         tarefa.addOnSuccessListener {
             if (it!=null){
                 progressBarOffer.visibility= View.GONE
@@ -83,16 +83,16 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
                 imgVwPhotoOfferPrefile.setImageBitmap(imagem)
             }
             else{
-                Toast.makeText(this,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,R.string.erro_ao_carregar_imagem_perfil,Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener{
-            Toast.makeText(this,it.message,Toast.LENGTH_LONG).show()
+            Toast.makeText(this,R.string.erro_ao_carregar_imagem_perfil,Toast.LENGTH_LONG).show()
             progressBarOffer.visibility= View.GONE
         }
 
         btnChat.setOnClickListener {
             var intent = Intent(this, ChatActivity::class.java)
-            intent.putExtra("offererId", id.offererId)
+            intent.putExtra("offererId", id)
             startActivity(intent)
         }
     }

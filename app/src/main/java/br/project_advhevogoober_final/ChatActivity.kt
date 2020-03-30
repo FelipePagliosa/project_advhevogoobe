@@ -94,6 +94,7 @@ class ChatActivity : AppCompatActivity() {
                         db.collection("lawyers").document(offererId).set(lawyerProfile!!).addOnSuccessListener {
 //                            Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
                         }.addOnFailureListener{
+
                             Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
                         }
                     }
@@ -107,7 +108,7 @@ class ChatActivity : AppCompatActivity() {
                     db.collection("offices").document(offererId).set(officeProfile!!).addOnSuccessListener {
 //                        Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
                     }.addOnFailureListener{
-                        Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
+                        Toast.makeText(this,R.string.erro_ao_enviar_mensagem,Toast.LENGTH_LONG).show()
                     }
                 }
                 else{
@@ -116,17 +117,12 @@ class ChatActivity : AppCompatActivity() {
                         db.collection("offices").document(offererId).set(officeProfile!!).addOnSuccessListener {
 //                            Toast.makeText(this,"Id setado com sucesso",Toast.LENGTH_LONG).show()
                         }.addOnFailureListener{
-                            Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
+                            Toast.makeText(this,R.string.erro_ao_enviar_mensagem,Toast.LENGTH_LONG).show()
                         }
                     }
                 }
             }
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 
     class ChatFromItem(val text:String):Item<ViewHolder>(){

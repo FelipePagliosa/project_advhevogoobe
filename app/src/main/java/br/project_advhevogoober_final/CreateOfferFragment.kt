@@ -1,5 +1,6 @@
 package br.project_advhevogoober_final
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -95,7 +96,7 @@ class CreateOfferFragment : Fragment() {
                 collectionReference.document(userRef.id).set(offer).addOnSuccessListener {
                     service?.show(key, offer.street, offer.city, offer.state, offer.postalCode)?.enqueue(object : Callback<APIResultsObject> {
                         override fun onFailure(call: Call<APIResultsObject>, t: Throwable) {
-                            Toast.makeText(activity, "Não foi possível salvar a oferta!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(activity, R.string.erro_ao_salvar_oferta, Toast.LENGTH_LONG).show()
                             Log.i("Erro da request da API: ", t.toString())
                         }
 
@@ -106,13 +107,11 @@ class CreateOfferFragment : Fragment() {
                         }
                     })
                 }.addOnFailureListener{
-                    Toast.makeText(activity,"Oferta não foi salva", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity,R.string.erro_ao_salvar_oferta, Toast.LENGTH_LONG).show()
                 }
-                val transaction = fragmentManager?.beginTransaction()
-                val fragment = HomeFragment()
-                transaction?.replace(R.id.nav_host_fragment, fragment)
-                transaction?.addToBackStack(null)
-                transaction?.commit()
+                val intent= Intent(this.activity!!,CheckoutActivity::class.java)
+                intent.putExtra("offer",offer)
+                startActivity(intent)
             }
             else{
                 Toast.makeText(this.activity,getString(R.string.preencha_os_campos_corretamente),Toast.LENGTH_LONG).show()

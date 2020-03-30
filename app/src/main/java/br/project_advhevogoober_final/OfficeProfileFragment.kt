@@ -72,7 +72,7 @@ class OfficeProfileFragment:Fragment() {
                 txtVwDCNPJ.text=officeProfile!!.businessId
             }
             else{
-                Toast.makeText(activity,"Erro ao carregar seus dados",Toast.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.erro_pegar_dados_firebase,Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener{
             Toast.makeText(activity,it.message.toString(), Toast.LENGTH_LONG).show()
@@ -93,6 +93,7 @@ class OfficeProfileFragment:Fragment() {
                     val manager = fragmentManager
                     val transaction = manager!!.beginTransaction()
                     val fragment = UserUpdateEmailFragment()
+                    transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                     transaction.replace(R.id.nav_host_fragment, fragment)
                     transaction.addToBackStack(null)
                     transaction.commit()
@@ -101,13 +102,14 @@ class OfficeProfileFragment:Fragment() {
                     val manager = fragmentManager
                     val transaction = manager!!.beginTransaction()
                     val fragment = UserUpdatePhotoFragment()
+                    transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
                     transaction.replace(R.id.nav_host_fragment, fragment)
                     transaction.addToBackStack(null)
                     transaction.commit()
                 }
             }
             else{
-                Toast.makeText(activity,"Erro ao carregar a imagem de perfil",Toast.LENGTH_LONG).show()
+                Toast.makeText(activity,R.string.erro_ao_carregar_imagem_perfil,Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener{
             Toast.makeText(activity,it.message,Toast.LENGTH_LONG).show()
