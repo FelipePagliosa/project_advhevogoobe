@@ -45,6 +45,7 @@ class OfficeProfileFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBarOffice.visibility=View.VISIBLE
+        office_local_edit_button.visibility = View.INVISIBLE
 
         for (x in 0 until layoutOfficeProfile.childCount ){
             var daodao:View=layoutOfficeProfile.getChildAt(x)
@@ -70,6 +71,9 @@ class OfficeProfileFragment:Fragment() {
                 txtVwDTelefone.text=officeProfile!!.phone
                 txtVwDEmail.text=officeProfile.email
                 txtVwDCNPJ.text=officeProfile!!.businessId
+                if (officeProfile.l != null) {
+                    office_local_edit_button.visibility = View.VISIBLE
+                }
             }
             else{
                 Toast.makeText(activity,R.string.erro_pegar_dados_firebase,Toast.LENGTH_LONG).show()

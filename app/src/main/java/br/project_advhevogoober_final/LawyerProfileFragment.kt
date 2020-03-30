@@ -49,6 +49,8 @@ class LawyerProfileFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
         progressBarTest.visibility=View.VISIBLE
 
+        lawyer_local_edit_button.visibility = View.INVISIBLE
+
         for (x in 0 until layoutLawyerProfile.childCount ){
             var daodao:View=layoutLawyerProfile.getChildAt(x)
 
