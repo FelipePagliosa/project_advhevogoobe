@@ -4,9 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".Model.Global"
         android:allowBackup="true"
         android:icon="@drawable/logo_adhevogoober2"
         android:label="@string/app_name"
@@ -18,15 +18,13 @@
             android:name=".AplicantsTabsActivity"
             android:label="@string/title_activity_aplicants_tabs"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ApplicantListFragment" />
-        <activity android:name=".CheckOutActivity" />
+        <activity android:name=".CheckoutActivity" />
         <activity android:name=".ChatRoomsActivity" />
         <activity android:name=".OfferDetailsActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".EditOfferActivity" />
         <activity android:name=".ProfileOfferDetailsActivity" />
         <activity android:name=".FirstTimeUserActivity" />
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -47,6 +45,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.gms.advhevogoober_final.api.enabled"
+            android:value="true" />
     </application>
 
 </manifest>

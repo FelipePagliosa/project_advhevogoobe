@@ -105,7 +105,7 @@ class CreateOfferFragment : Fragment() {
 //                transaction?.replace(R.id.nav_host_fragment, fragment)
 //                transaction?.addToBackStack(null)
 //                transaction?.commit()
-                val intent = Intent(activity, CheckOutActivity::class.java)
+                val intent = Intent(activity, CheckoutActivity::class.java)
                 intent.putExtra("offer", offer)
                 startActivity(intent)
             }

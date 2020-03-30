@@ -60,6 +60,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.github.imperiumlabs:GeoFirestore-Android:v1.5.0'
+    implementation "com.google.android.gms:play-services-wallet:16.0.1"
     implementation 'com.xwray:groupie:2.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -73,4 +74,5 @@ dependencies {
     // Recyclerview
     def recyclerview_version = "1.0.0"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
 }

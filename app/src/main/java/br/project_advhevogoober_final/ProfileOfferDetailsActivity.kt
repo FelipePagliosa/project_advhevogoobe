@@ -95,9 +95,5 @@ class ProfileOfferDetailsActivity : AppCompatActivity() {
             intent.putExtra("offererId", id)
             startActivity(intent)
         }
-
-
-
-
     }
 }
