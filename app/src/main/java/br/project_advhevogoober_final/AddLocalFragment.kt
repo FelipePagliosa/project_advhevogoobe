@@ -77,6 +77,10 @@ class AddLocalFragment:Fragment() {
                             if (it.exists()) {
                                 try {
                                     geoFirestoreLawyers.setLocation(user.uid, geoPoint)
+                                    db.collection("lawyers").document(user.uid).update("street", view.local_street.text.toString())
+                                    db.collection("lawyers").document(user.uid).update("city", view.local_city.text.toString())
+                                    db.collection("lawyers").document(user.uid).update("state", view.local_state.text.toString())
+                                    db.collection("lawyers").document(user.uid).update("postalCode", view.local_postal_code.text.toString())
                                     val manager = fragmentManager
                                     val transaction = manager!!.beginTransaction()
                                     val fragment = HomeFragment()
@@ -95,6 +99,10 @@ class AddLocalFragment:Fragment() {
                             if (it.exists()){
                                 try {
                                     geoFirestoreOffices.setLocation(it.id, geoPoint)
+                                    db.collection("offices").document(user.uid).update("street", view.local_street.text.toString())
+                                    db.collection("offices").document(user.uid).update("city", view.local_city.text.toString())
+                                    db.collection("offices").document(user.uid).update("state", view.local_state.text.toString())
+                                    db.collection("offices").document(user.uid).update("postalCode", view.local_postal_code.text.toString())
                                     val manager = fragmentManager
                                     val transaction = manager!!.beginTransaction()
                                     val fragment = HomeFragment()
