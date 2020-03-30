@@ -8,6 +8,7 @@ import android.text.format.DateFormat
 import android.view.View
 import android.widget.Toast
 import br.project_advhevogoober_final.Model.Offer
+import br.project_advhevogoober_final.Model.Utils.JurisdictionNames
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_offer_details.*
@@ -24,12 +25,13 @@ class OfferDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_offer_details)
         var offer = intent.getSerializableExtra("offer") as Offer
         val dateFormat = DateFormat.getDateFormat(this)
+        val jurisdictionName = JurisdictionNames.generateJurisdictionName(offer.jurisdiction!!, this)
         details_offerer.text=offer.offerer
         details_price.text = offer.price.toString()
         details_requirements.text=offer.requirements
         details_date.text = dateFormat.format(offer.date)
         details_description.text = offer.description
-        details_jurisdiction.text=offer.jurisdiction
+        details_jurisdiction.text=jurisdictionName
         details_location.text = offer.street
 
         if (offer.offererId != user.uid) {
