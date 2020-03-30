@@ -84,20 +84,9 @@
     <string name="preencha_os_campos_corretamente">Preencha os campos corretamente!</string>
     <string name="completou_com_sucesso">Completou com sucesso!</string>
     <string name="erro_ao_add_local">Ocorreu um erro na inserção do local.</string>
-    <string name="erro_ao_carregar_perfil">Erro ao carregar perfil.</string>
-    <string name="erro_ao_enviar_mensagem">Erro ao enviar a mensagem, o outro usuário não irá receber essa mensagem.</string>
     <string name="store_name" translatable="false">Auto T-Shirt Shop</string>
     <string name="googlepay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this phone.</string>
     <string name="googlepay_status_checking" translatable="false">Checking if Google Pay is available...</string>
-    <string name="payments_show_name">Successfully received payment data for %s!</string>
-    <string name="toast_succeeded_payment">Pagamento bem-sucedido!</string>
-    <string name="request_button">Candidatar-se</string>
-    <string name="menu_mysolicitations">My Solicitations</string>
-    <string name="candidate_button">Condidatos</string>
-    <string name="title_activity_aplicants_tabs">AplicantsTabsActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <!--/-->
     <string name="erro_ao_carregar_perfil">Erro ao carregar perfil</string>
     <string name="erro_ao_criar_perfil">Erro ao criar perfil</string>
     <string name="erro_ao_enviar_mensagem">Erro ao enviar a mensagem, o outro usuário não irá receber essa mensagem</string>
@@ -120,5 +109,15 @@
     <string name="preencha_email_corretamente">Preencha o campo e-mail corretamente</string>
     <string name="erro_ao_att_imagem">Houve um erro ao atualizar a imagem</string>
     <string name="mensagens">Mensagens</string>
+    <string name="title_activity_aplicants_tabs">Applicants Tab</string>
+    <string name="request_button">Candidatar-se</string>
+    <string name="candidate_button">Candidatos</string>
+    <string name="menu_mysolicitations">Minhas solicitações</string>
+    <string name="toast_succeeded_payment">Pagamento bem-sucedido!</string>
+    <string name="googlepay_button_content_description">Google Pay</string>
+    <string name="buy_with_googlepay_button_content_description">Pagar com Google Pay</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="payments_show_name">Dados do pagamento recebido com sucesso para %s!</string>
     <!--/-->
 </resources>

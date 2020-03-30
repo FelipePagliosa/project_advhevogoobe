@@ -83,4 +83,14 @@
     <string name="erro_ao_carregar_imagem_perfil">Failed to load your profile photo</string>
     <string name="preencha_email_e_senha_corretamente">Fill in the email and password fields properly</string>
     <string name="necessario_reautenticar">It\'s necessary to reauthenticate your credentials to realize this operation</string>
+    <string name="buy_with_googlepay_button_content_description">Buy with Google Pay</string>
+    <string name="googlepay_button_content_description">Google Pay</string>
+    <string name="payments_show_name">Successfully received payment data for %s!</string>
+    <string name="toast_succeeded_payment">"Successfully received payment "</string>
+    <string name="menu_mysolicitations">My Solicitations</string>
+    <string name="candidate_button">Candidates</string>
+    <string name="request_button">Apply</string>
+    <string name="title_activity_aplicants_tabs">Aba de Aplicante</string>
+    <string name="tab_text_1">Aba 1</string>
+    <string name="tab_text_2">Aba 2</string>
 </resources>
