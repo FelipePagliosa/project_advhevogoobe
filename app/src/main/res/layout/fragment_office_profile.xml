@@ -162,5 +162,16 @@
         app:layout_constraintTop_toTopOf="@+id/txtVwDEmail"
         app:srcCompat="@drawable/ic_edit" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/office_local_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_dialog_map" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

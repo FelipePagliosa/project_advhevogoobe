@@ -270,6 +270,19 @@
                 app:layout_constraintStart_toEndOf="@+id/txtVwDEmail"
                 app:layout_constraintTop_toTopOf="@+id/txtVwDEmail"
                 app:srcCompat="@drawable/ic_edit" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/lawyer_local_edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/txtVwDOAB"
+                app:srcCompat="@android:drawable/ic_dialog_map" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

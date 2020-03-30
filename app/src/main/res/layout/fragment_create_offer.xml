@@ -228,11 +228,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/date"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/colorBackground"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="437dp" />
+                app:layout_constraintTop_toBottomOf="@+id/jurisdictions" />
 
             <TextView
                 android:id="@+id/textView24"
@@ -272,56 +273,54 @@
 
             <RadioGroup
                 android:id="@+id/jurisdictions"
-                android:layout_width="385dp"
-                android:layout_height="41dp"
-                android:layout_marginTop="46dp"
-                android:layout_marginBottom="34dp"
+                android:layout_width="382dp"
+                android:layout_height="51dp"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/editText_date"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText_postal_code">
+                app:layout_constraintStart_toStartOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/textView21">
 
                 <RadioButton
-                    android:id="@+id/jurisdiction6"
+                    android:id="@+id/jurisdiction1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/jurisdiction5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/jurisdiction4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="RadioButton" />
-
-                <RadioButton
-                    android:id="@+id/jurisdiction3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="RadioButton" />
+                    android:text="@string/jurisdiction1" />
 
                 <RadioButton
                     android:id="@+id/jurisdiction2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="RadioButton" />
+                    android:text="@string/jurisdiction2" />
 
                 <RadioButton
-                    android:id="@+id/jurisdiction1"
+                    android:id="@+id/jurisdiction3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="RadioButton" />
+                    android:layout_weight="1"
+                    android:text="@string/jurisdiction3" />
+
+                <RadioButton
+                    android:id="@+id/jurisdiction4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/jurisdiction4" />
+
+                <RadioButton
+                    android:id="@+id/jurisdiction5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/jurisdiction5" />
+
+                <RadioButton
+                    android:id="@+id/jurisdiction6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/jurisdiction6" />
+
             </RadioGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
