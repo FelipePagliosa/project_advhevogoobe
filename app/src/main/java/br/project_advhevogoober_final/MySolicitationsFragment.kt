@@ -60,11 +60,11 @@ class MySolicitationsFragment : Fragment() {
 
                         view.mySolicitationsApplicantRecycler.layoutManager = LinearLayoutManager(activity)
                         view.mySolicitationsApplicantRecycler.adapter = adapter
-                        view.mySolicitationsApplicantLoad.visibility=View.GONE
 
                     }
                 }
             }
+            view.mySolicitationsApplicantLoad.visibility=View.GONE
         }
         return view
     }
