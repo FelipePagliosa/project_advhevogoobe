@@ -77,7 +77,7 @@ class HomeFragment:Fragment() {
             if (it.exists()){
                 val documentObject = it.toObject(OfficeProfile::class.java)!!
                 val documentConfig: Config? = documentObject.config
-                config = documentConfig ?: Config(10.0, listOf(true, true, true, true, true, true))
+                config = documentConfig ?: Config(20.0, listOf(true, true, true, true, true, true))
                 userLocation = documentObject.l
                 onConfigAndLocationGet(offers, view)
                 loading.visibility = View.GONE
@@ -108,14 +108,12 @@ class HomeFragment:Fragment() {
         return view
     }
 
-    private fun MutableList<Offer>.filterByListBool(listBool: List<Boolean>, filterBool: (List<Boolean>) -> Offer?): MutableList<Offer> {
+    private fun MutableList<Offer>.filterByListBool(listBool: List<Boolean>, filterBool: (List<Boolean>) -> List<Offer>?): MutableList<Offer> {
         var result: MutableList<Offer> = mutableListOf()
-        for (element: Offer in this) {
-            val filteredElement: Offer? = filterBool(listBool)
+            val filteredElement: List<Offer>? = filterBool(listBool)
             if (filteredElement != null) {
-                result.add(filteredElement)
+                result.addAll(filteredElement)
             }
-        }
         return result
     }
 
@@ -135,11 +133,12 @@ class HomeFragment:Fragment() {
                     }
 
                     resultOffers = offers.filterByListBool(config!!.jurisdictions!!) {
-                        var result: Offer? = null
-                        for (bool in it) {
-                            for (offer in offers) {
-                                if (bool && offer.jurisdiction!![it.indexOf(bool)] == bool) {
-                                    result = offer
+                        var result: MutableList<Offer> = mutableListOf()
+
+                        for (offer in offers) {
+                            for (index in it.indices) {
+                                if (it[index] && offer.jurisdiction!![index] == it[index]) {
+                                    result.add(offer)
                                 }
                             }
                         }
