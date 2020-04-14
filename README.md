@@ -3,7 +3,7 @@
 **Aplicativo android para advogados e escritórios de advocacia, uma ferramenta que ﬂexiona o atendimento aos processos, 
 uma vez que escritórios ou advogados as vezes tem vários casos em um mesmo dia e falta advogados/tempo para atender esses casos. Esse flexionamento é feito através da terceirização de advogados para o processo necessitado de, as duas partes têm que aceitar os termos. 
 Foram utilizados como principais bancos de dados o Cloud Firestore e o Firebase Storage, e utilizamos o Firebase Authentication para
-realizar a autenticação do usuário. Algumas APIs são consumidas pelo nosso app através do RetroFit e também utilizamos algumas bibliotecas, para citar algumas, GooglePay, groupie e geoﬁre. O aplicativo foi desenvolvido utilizando a metodologia scrum.**
+realizar a autenticação do usuário. A API Geocoding é consumida pelo nosso app através do RetroFit e também utilizamos diversas bibliotecas, para citar algumas, GooglePay, groupie e geoﬁre. O aplicativo foi desenvolvido utilizando a metodologia scrum.**
 
  -Cadastro, login, logoff, e recuperação de senha do usuário;
 
@@ -32,7 +32,7 @@ realizar a autenticação do usuário. Algumas APIs são consumidas pelo nosso a
 
 
 **Android app for lawyers and offices, it's a tool that flexes the processe's attendances, since offices/lawyers sometimes have various
-different cases in the same day and not enough lawyers/time to attend all of them. This bending is made possible through outsourcing lawyers for a needing process, both parties have to accept the terms. Cloud Firestore and Firebase storage were used as the main databases and we used Firebase Authentication to perform the user's authentication. Various APIs are consumed by our app utilizing RetroFit and we also utilized a wide array of libraries, to name a few, GooglePay, Groupie and geofire. The app was developed under the scrum metodology** 
+different cases in the same day and not enough lawyers/time to attend all of them. This bending is made possible through outsourcing lawyers for a needing process, both parties have to accept the terms. Cloud Firestore and Firebase storage were used as the main databases and we used Firebase Authentication to perform the user's authentication. The Geocoding API is consumed by our app utilizing RetroFit and we also utilized a wide array of libraries, to name a few, GooglePay, Groupie and geofire. The app was developed under the scrum metodology.** 
 
  -Register, login, logoff and recover password;
 
