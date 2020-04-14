@@ -3,7 +3,7 @@
 **Aplicativo android para advogados e escritórios de advocacia, uma ferramenta que ﬂexiona o atendimento aos processos, 
 uma vez que escritórios ou advogados as vezes tem vários casos em um mesmo dia e falta advogados/tempo para atender esses casos. Esse flexionamento é feito através da terceirização de advogados para o processo necessitado de, as duas partes têm que aceitar os termos. 
 Foram utilizados como principais bancos de dados o Cloud Firestore e o Firebase Storage, e utilizamos o Firebase Authentication para
-realizar a autenticação do usuário. Algumas APIs são consumidas pelo nosso app através do RetroFit e também utilizamos algumas bibliotecas, para citar algumas, GooglePay, groupie e geoﬁre. O aplicativo foi desenvolvido utilizando a metodologia scrum.**H2
+realizar a autenticação do usuário. Algumas APIs são consumidas pelo nosso app através do RetroFit e também utilizamos algumas bibliotecas, para citar algumas, GooglePay, groupie e geoﬁre. O aplicativo foi desenvolvido utilizando a metodologia scrum.**
 
  -Cadastro, login, logoff, e recuperação de senha do usuário;
 
