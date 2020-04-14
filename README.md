@@ -32,7 +32,7 @@ realizar a autenticação do usuário. Algumas APIs são consumidas pelo nosso a
 
 
 **Android app for lawyers and offices, it's a tool that flexes the processe's attendances, since offices/lawyers sometimes have various
-different cases in the same day and not enough lawyers/time to attend all of them. This bending is made possible through outsourcing lawyers for a needing process, both parties have to accept the terms. Cloud Firestore and Firebase storage were used as the main databases and we used Firebase Authentication to perform the user's authentication. Various APIs are consumed by our app utilizing RetroFit and we also utilized a wide array of libraries, to name a few, GooglePay, Groupie and geofire. The app was developed under the scrum metodology ** 
+different cases in the same day and not enough lawyers/time to attend all of them. This bending is made possible through outsourcing lawyers for a needing process, both parties have to accept the terms. Cloud Firestore and Firebase storage were used as the main databases and we used Firebase Authentication to perform the user's authentication. Various APIs are consumed by our app utilizing RetroFit and we also utilized a wide array of libraries, to name a few, GooglePay, Groupie and geofire. The app was developed under the scrum metodology** 
 
 -Register, login, logoff and recover password;
 
